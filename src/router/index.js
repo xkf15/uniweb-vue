@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 
 import Room from '@/components/pages/user/Room'
 import RoomAdmin from '@/components/pages/user/room/Admin'
+
 import NewRoom from '@/components/pages/user/room/NewRoom'
 import BasicInfo from '@/components/pages/user/room/new/BasicInfo'
 import MemberInfo from '@/components/pages/user/room/new/MemberInfo'
@@ -11,6 +12,9 @@ import Confirm from '@/components/pages/user/room/new/Confirm'
 import Publish from '@/components/pages/user/room/new/Publish'
 
 import Activity from '@/components/pages/user/Activity'
+import Info from '@/components/pages/user/activity/Info'
+import Member from '@/components/pages/user/activity/Member'
+import Message from '@/components/pages/user/activity/Message'
 
 Vue.use(Router)
 
@@ -37,7 +41,15 @@ const router = new Router({
         }
       ]
     },
-    { path: '/user/activity', component: Activity }
+    {
+      path: '/user/activity',
+      component: Activity,
+      children: [
+        { path: 'info', component: Info },
+        { path: 'member', component: Member },
+        { path: 'message', component: Message }
+      ]
+    }
   ]
 })
 
