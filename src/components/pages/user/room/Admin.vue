@@ -47,7 +47,8 @@
   }
 </script>
 
-<style lang="stylus" pug>
+<style lang="stylus" scoped>
+$tag-color = blue
 #admin
   .status
     text-align right

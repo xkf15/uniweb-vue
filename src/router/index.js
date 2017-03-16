@@ -28,7 +28,8 @@ const router = new Router({
       path: '/user/room',
       component: Room,
       children: [
-        { path: '', component: RoomAdmin },
+        { path: '', redirect: 'admin' },
+        { path: 'admin', component: RoomAdmin },
         {
           path: 'new',
           component: NewRoom,

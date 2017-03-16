@@ -12,7 +12,20 @@ export default {
   },
   data () {
     return {
-      menu: ['房间信息', '消息管理', '成员管理'],
+      menu: [
+        {
+          title: '房间信息',
+          path: 'info'
+        },
+        {
+          title: '消息管理',
+          path: 'message'
+        },
+        {
+          title: '成员管理',
+          path: 'member'
+        }
+      ],
       menuTitle: '活动管理',
       menuTag: '最新消息'
     }

@@ -7,7 +7,8 @@
           input(type="checkbox", id="room")
           label.drop-title(for="room") {{ menuTitle }}
           .drop-content
-            .drop-item(v-for="(item, index) in menu") {{item}}
+            .drop-item(v-for="(item, index) in menu")
+              router-link(:to="item.path") {{item.title}}
       .content
         .decorator {{ tag }}
         router-view

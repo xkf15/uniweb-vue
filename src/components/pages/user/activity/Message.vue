@@ -5,7 +5,7 @@
   .room_msg_box
     .room_msg 房间消息
     el-select(v-model="value", placeholder="全部")
-      el-option(v-for="(item, index) in options", label="item", value="index")
+      el-option(v-for="(item, index) in options", :label="item", :value="index")
   .content
     .notification(v-for="(item, index) in messages")
       .left

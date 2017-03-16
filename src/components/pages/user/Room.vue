@@ -12,7 +12,16 @@ export default {
   },
   data () {
     return {
-      menu: ['房间管理', '发布新房间'],
+      menu: [
+        {
+          title: '房间管理',
+          path: 'admin'
+        },
+        {
+          title: '发布新房间',
+          path: 'new'
+        }
+      ],
       menuTitle: '房间'
     }
   }
