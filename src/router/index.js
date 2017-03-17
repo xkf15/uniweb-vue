@@ -24,6 +24,7 @@ const router = new Router({
   routes: [
     { path: '/', component: Hello },
     // { path: 'login', component: Login },
+    { path: '/user', redirect: '/user/room' },
     {
       path: '/user/room',
       component: Room,

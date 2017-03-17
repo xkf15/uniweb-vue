@@ -50,6 +50,17 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          if (!Number(this.ruleForm.people)) {
+            alert('参与人数必须是数字')
+            return false
+          }
+          let allData = this.ruleForm
+          for (let item in this.colleges) {
+            if (item.toggle) {
+              allData.colleges.push(item.title)
+            }
+          }
+          this.$store.dispatch('BasicInfo', allData)
           alert('submit!')
         } else {
           console.log('error submit!!')
@@ -78,16 +89,17 @@ export default {
         }
       ],
       ruleForm: {
-        name: '',
-        place: '',
-        startDate: '',
-        startTime: '',
-        endDate: '',
-        endTime: '',
-        people: '',
-        desc: '',
-        wechat: '',
-        condition: ''
+        name: '',       // 活动名称
+        place: '',      // 活动地点
+        startDate: '',  // 开始日期
+        startTime: '',  // 开始时间
+        endDate: '',    // 结束日期
+        endTime: '',    // 结束时间
+        people: '',     // 参与人数 (需转化为数字) (非必须)
+        desc: '',       // 详细内容
+        wechat: '',     // 微信推送链接 (非必须)
+        condition: '',  // 准入条件 (非必须)
+        colleges: []    // 准入学校
       },
       rules: {
         name: [
