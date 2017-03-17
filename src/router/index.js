@@ -26,6 +26,7 @@ const router = new Router({
   routes: [
     { path: '/', redirect: '/login' },
     { path: '/login', component: Login },
+    { path: '/user', redirect: '/user/room' },
     {
       path: '/user/room',
       component: Room,
@@ -49,6 +50,7 @@ const router = new Router({
       path: '/user/activity',
       component: Activity,
       children: [
+        { path: '', redirect: 'info' },
         { path: 'info', component: Info },
         { path: 'member', component: Member },
         { path: 'message', component: Message }
