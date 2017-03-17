@@ -3,13 +3,13 @@
   .title 收集成员信息
   .subtitle 我们会根据您的需求生成群问卷，让加入成员填写
   .input_box
-    el-form(:model="dynamicValidateForm", ref="dynamicValidateForm", label-width="15%", class="demo-dynamic")
+    el-form(:model="dynamicValidateForm", ref="dynamicValidateForm", label-width="10%", class="demo-dynamic")
       el-form-item(v-for="(domain, index) in dynamicValidateForm.domains", :label="'问题' + (index+1)", :key="domain.key", :prop="'domains.' + index + '.value'", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
-        el-checkbox(v-model="domain.checked") 必填
-        br
-        el-input.input_style(v-model="domain.value", placeholder="请输入问题", maxlength="100")
-        el-input.input_style(v-model="domain.point", placeholder="提示信息写在这里",)
-        i.el-icon-delete.icon_style(@click.prevent="removeDomain(domain)")
+        .display_flex
+          el-checkbox.checkbox_style(v-model="domain.checked") 必填
+          el-input.input_style1(v-model="domain.value", placeholder="请输入问题", maxlength="100", type="textarea", autosize)
+          el-input.input_style2(v-model="domain.point", placeholder="提示信息写在这里", type="textarea", autosize)
+          i.el-icon-delete.icon_style(@click.prevent="removeDomain(domain)")
       el-form-item.submit
         el-button(@click="addDomain") 新增问题
         br
@@ -51,6 +51,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert('submit!')
+          this.$router.push('confirm')
         } else {
           console.log('error submit!!')
           return false
@@ -88,15 +89,24 @@ export default {
     font-weight bold
   .subtitle
     padding 20px 10%
-  .input_style
-    width 75%
+  .input_style1
+    flex 1
+    padding 0 20px
+  .input_style2
+    flex 2
   .icon_style
-    font-size 20px
+    font-size 16px
     cursor pointer
+    padding 6px 10px 0
+  .checkbox_style
+    padding-left 10px
   .submit
     padding-bottom 20px
     .submit_button
       margin-top 20px
       width 30%
       text-align center
+  .display_flex
+    display flex
+    justify-content space-around
 </style>
