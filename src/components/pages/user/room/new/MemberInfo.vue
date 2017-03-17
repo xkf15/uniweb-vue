@@ -3,21 +3,30 @@
   .title 收集成员信息
   .subtitle 我们会根据您的需求生成群问卷，让加入成员填写
   .input_box
-    .input_item(v-for="(item, index) in input")
-      input(type="checkbox")
-      span {{ item.title }}
-      span |
-      input(type="text", :placeholder="item.danhang")
-      input(type="text", :placeholder="item.note")
-    .add-one + 增加一项
-    .confirm
-      a(href="#") 确认信息
+    el-form(:model="dynamicValidateForm", ref="dynamicValidateForm", label-width="15%", class="demo-dynamic")
+      el-form-item(v-for="(domain, index) in dynamicValidateForm.domains", :label="'问题' + (index+1)", :key="domain.key", :prop="'domains.' + index + '.value'", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
+        el-checkbox(v-model="domain.checked") 必填
+        br
+        el-input.input_style(v-model="domain.value", placeholder="请输入问题", maxlength="100")
+        el-input.input_style(v-model="domain.point", placeholder="提示信息写在这里",)
+        i.el-icon-delete.icon_style(@click.prevent="removeDomain(domain)")
+      el-form-item.submit
+        el-button(@click="addDomain") 新增问题
+        br
+        el-button.submit_button(type="primary" @click="submitForm('dynamicValidateForm')") 提交
 </template>
 
 <script>
 export default {
   data () {
     return {
+      dynamicValidateForm: {
+        domains: [{
+          value: '',
+          point: '',
+          checked: true
+        }]
+      },
       input: [
         {
           title: '必填',
@@ -36,6 +45,35 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
+    },
+    removeDomain (item) {
+      var index = this.dynamicValidateForm.domains.indexOf(item)
+      if (index !== -1) {
+        this.dynamicValidateForm.domains.splice(index, 1)
+      }
+    },
+    addDomain () {
+      this.dynamicValidateForm.domains.push({
+        value: '',
+        point: '',
+        checked: false,
+        key: Date.now()
+      })
+    }
   }
 }
 </script>
@@ -43,12 +81,22 @@ export default {
 <style lang="stylus" scoped>
 #memberInfo
   text-align left
+  background white
   .title
+    padding 20px 10% 0
     font-size 20px
     font-weight bold
-  .add-one, .confirm
-    text-align center
-  .confirm
-    background red
-    color white
+  .subtitle
+    padding 20px 10%
+  .input_style
+    width 75%
+  .icon_style
+    font-size 20px
+    cursor pointer
+  .submit
+    padding-bottom 20px
+    .submit_button
+      margin-top 20px
+      width 30%
+      text-align center
 </style>
