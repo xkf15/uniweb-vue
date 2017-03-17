@@ -1,5 +1,5 @@
 <template lang="pug">
-#confirm
+  #confirm
     .title 确认活动信息
       .subtitle 我们会根据您的需求生成群问卷，让加入成员填写。
     .room_wrap
@@ -46,7 +46,7 @@ export default {
     background white
     font-size 28px
     padding 10px 5%
-    .subtitle 
+    .subtitle
       font-size 18px
       opacity 0.3
   .members_info

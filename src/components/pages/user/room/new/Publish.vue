@@ -1,8 +1,8 @@
 <template lang="pug">
-  #confirm
+  #publish
     .content_publish
         img(src='../../../../../assets/logo.png')
-        .text_publish 
+        .text_publish
             span 你可以到
             a(href="") 房间管理
             span 界面查看现有活动，或直接
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="stylus">
- #confirm
+ #publish
   text-align center
 
 </style>
