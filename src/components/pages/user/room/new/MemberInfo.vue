@@ -37,6 +37,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.$store.dispatch('MemberInfo')
           this.$router.push('confirm')
         } else {
           console.log('error submit!!')

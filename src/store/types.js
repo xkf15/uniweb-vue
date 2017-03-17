@@ -1,0 +1,2 @@
+export const SET_BASIC_INFO = 'SET_BASIC_INFO'
+export const SET_MEMBER_INFO = 'SET_MEMBER_INFO'

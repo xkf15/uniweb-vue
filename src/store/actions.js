@@ -1,9 +1,9 @@
 import api from '../api'
-// import * as types from './types'
+import * as types from './types'
 import Vue from 'vue'
 
 export const BasicInfo = ({commit}, data) => {
-
+  commit(types.SET_BASIC_INFO, data)
 }
 
 export const GetMessages = ({commit}) => {
