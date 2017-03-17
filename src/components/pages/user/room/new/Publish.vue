@@ -4,9 +4,9 @@
         img(src='../../../../../assets/logo.png')
         .text_publish
             span 你可以到
-            a(href="") 房间管理
+            router-link(to="/user/room") 房间管理
             span 界面查看现有活动，或直接
-            a(href="") 进入房间
+            router-link(to="/user/activity") 进入房间
 </template>
 
 <script>
@@ -27,5 +27,4 @@ export default {
 <style lang="stylus" scoped>
  #publish
   text-align center
-
 </style>

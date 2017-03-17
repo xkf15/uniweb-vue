@@ -11,9 +11,10 @@
           el-input.input_style2(v-model="domain.point", placeholder="提示信息写在这里", type="textarea", autosize)
           i.el-icon-delete.icon_style(@click.prevent="removeDomain(domain)")
       el-form-item.submit
-        el-button(@click="addDomain") 新增问题
-        br
-        el-button.submit_button(type="primary" @click="submitForm('dynamicValidateForm')") 提交
+        el-button.new_button(type="text", @click="addDomain") + 新增问题
+        .buttons
+          el-button.submit_button(@click="prev") 上一步
+          el-button.submit_button(type="primary", @click="submitForm('dynamicValidateForm')") 提交
 </template>
 
 <script>
@@ -26,31 +27,16 @@ export default {
           point: '',
           checked: true
         }]
-      },
-      input: [
-        {
-          title: '必填',
-          danhang: '单行文本框',
-          note: '提示信息写在这里'
-        },
-        {
-          title: '必填',
-          danhang: '单行文本框',
-          note: '提示信息写在这里'
-        },
-        {
-          title: '必填',
-          danhang: '单行文本框',
-          note: '提示信息写在这里'
-        }
-      ]
+      }
     }
   },
   methods: {
+    prev () {
+      this.$router.push('basic')
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
           this.$router.push('confirm')
         } else {
           console.log('error submit!!')
@@ -102,7 +88,13 @@ export default {
     padding-left 10px
   .submit
     padding-bottom 20px
+    margin-top -10px
+    text-align center
+    .new_button
+      margin-bottom 10px
+      text-align left
     .submit_button
+      margin 0 20px
       margin-top 20px
       width 30%
       text-align center

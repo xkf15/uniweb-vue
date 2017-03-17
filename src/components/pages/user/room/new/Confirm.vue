@@ -15,11 +15,21 @@
           .room_time {{ item.time }}
       .members_info(v-for="(item, index) in info")
         div 选项：{{ item.content }}
-      el-button.button_style(type="primary") 下一步
+      .buttons
+        el-button.button_style(@click="prev") 上一步
+        el-button.button_style(type="primary", @click="next") 下一步
 </template>
 
 <script>
 export default {
+  methods: {
+    prev () {
+      this.$router.push('member')
+    },
+    next () {
+      this.$router.push('publish')
+    }
+  },
   data () {
     return {
       rooms: [
@@ -56,7 +66,7 @@ export default {
     padding 10px
     font-size 18px
   .room_wrap
-    padding 0 8%
+    padding 10px 8%
     background white
     .room_box
       margin-bottom 20px
@@ -96,6 +106,10 @@ export default {
             text-align right
           .tag
             margin-right 10px
-    .button_style
+    .buttons
       text-align center
+      margin 20px
+      .button_style
+        padding 10px 50px
+        margin 0 30px
 </style>
