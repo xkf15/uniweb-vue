@@ -6,9 +6,13 @@ import router from './router'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
+
 import Icon from 'vue-awesome/components/Icon.vue'
 
 Vue.use(ElementUI)
+Vue.use(iView)
 
 Vue.component('icon', Icon)
 

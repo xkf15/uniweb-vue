@@ -1,6 +1,6 @@
 <template lang="pug">
   #activities
-    layout(:menu="menu", :menu-title="menuTitle", :tag="menuTag")
+    layout(:menu="menu", :menu-title="menuTitle", :tag="menuTag", :breadcrumb="breadcrumb")
 </template>
 
 <script>
@@ -27,7 +27,13 @@ export default {
         }
       ],
       menuTitle: '活动管理',
-      menuTag: '最新消息'
+      menuTag: '最新消息',
+      breadcrumb: [
+        {
+          title: '房间',
+          path: '/user/room'
+        }
+      ]
     }
   }
 }
