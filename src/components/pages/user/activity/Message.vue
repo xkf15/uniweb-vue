@@ -1,7 +1,15 @@
 <template lang="pug">
 #message
   .new_msg
-    el-button(type="danger") 发布新消息>>
+    el-button(type="danger", @click="dialogFormVisible=true") 发布新消息>>
+  el-dialog(title="发布新消息", v-model="dialogFormVisible")
+    el-form(:model="newMsg")
+      el-form-item(label="名称")
+        el-input(v-model="newMsg.title", type="textarea")
+    .dialog-footer(slot="footer")
+      el-button(@click="dialogFormVisible=false") 取消
+      el-button(type="primary", @click="dialogFormVisible=false") 确定
+
   .room_msg_box
     .room_msg 房间消息
     el-select(v-model="value", placeholder="全部")
@@ -9,7 +17,7 @@
   .content
     .notification(v-for="(item, index) in messages")
       .left
-        .run_title.display_flex 群公告
+        .run_title.display_flex <i class="fa fa-bullhorn" aria-hidden="true" id="icon-notification"></i>群公告
         .run_text {{ item.status }}
       .middle
         div {{ item.content }}
@@ -25,6 +33,9 @@
 
 <script>
 export default {
+  created () {
+    this.$store.dispatch('GetMessages')
+  },
   data () {
     return {
       value: '',
@@ -36,7 +47,11 @@ export default {
           startTime: new Date(Date.now()),
           endTime: new Date(Date.now() + 3600000)
         }
-      ]
+      ],
+      dialogFormVisible: false,
+      newMsg: {
+        title: ''
+      }
     }
   }
 }

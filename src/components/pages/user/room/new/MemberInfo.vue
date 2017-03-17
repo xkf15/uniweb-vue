@@ -51,6 +51,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert('submit!')
+          this.$router.push('confirm')
         } else {
           console.log('error submit!!')
           return false

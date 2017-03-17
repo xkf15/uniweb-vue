@@ -36,6 +36,7 @@ const router = new Router({
           path: 'new',
           component: NewRoom,
           children: [
+            { path: '', redirect: 'basic' },
             { path: 'basic', component: BasicInfo },
             { path: 'member', component: MemberInfo },
             { path: 'confirm', component: Confirm },

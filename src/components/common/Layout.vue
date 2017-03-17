@@ -9,7 +9,7 @@
             .drop-title {{ menuTitle }}
           .drop-content
             .drop-item(v-for="(item, index) in menu")
-              router-link(:to="item.path", tag="div") {{item.title}}
+              router-link(:to="item.path") {{item.title}}
       .content
         .decorator
           el-breadcrumb(separator="/")
@@ -49,19 +49,32 @@ $transition-time = 0.3s
       padding 10px
     .drop-title
       padding 10px
-    .drop-title, .drop-item
-      &:hover, a:hover
+      cursor pointer
+      &:hover
+        color white
+        background #ccc
+    .drop-item a
+      display block
+      padding 10px
+      color black
+      &:hover
         background $menu-hover-color
         color white
-      width 100%
-      cursor pointer
+    // .drop-title, .drop-item
+    //   &:hover, a:hover
+    //     background $menu-hover-color
+    //     color white
+    //   a
+    //     width 100%
+    //   width 100%
+    //   cursor pointer
     .drop-content .drop-item
       transition $transition-time
       max-height 0
       overflow hidden
     input:checked ~ .drop-content .drop-item
       max-height 100px
-      padding 10px
+      // padding 10px
     // input:checked ~ label .drop-title::after
     //   content '>'
     //   padding-left 50px

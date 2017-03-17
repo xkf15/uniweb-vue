@@ -15,6 +15,7 @@
           .room_time {{ item.time }}
       .members_info(v-for="(item, index) in info")
         div 选项：{{ item.content }}
+      el-button.button_style(type="primary") 下一步
 </template>
 
 <script>
@@ -55,12 +56,13 @@ export default {
     padding 10px
     font-size 18px
   .room_wrap
-    padding 0 5%
+    padding 0 8%
     background white
     .room_box
       margin-bottom 20px
       padding 15px
-      background #D8D8D8
+      background #D0D0D0
+      border-radius 10px
       .room_attach
         display flex
         justify-content space-between
@@ -69,7 +71,7 @@ export default {
       .room_item
         display flex
         .tag
-          background $tag-color
+          background blue
           color white
           border-radius 5px
           padding 3px 10px
@@ -94,4 +96,6 @@ export default {
             text-align right
           .tag
             margin-right 10px
+    .button_style
+      text-align center
 </style>

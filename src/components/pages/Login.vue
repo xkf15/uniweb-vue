@@ -24,16 +24,20 @@ export default {
   },
   methods: {
     signup () {
-      this.$router.push('/signup')
+    //   this.$router.push('/signup')
     },
     forgot () {
-      this.$router.push('/forgot')
+    //   this.$router.push('/forgot')
     },
     loginToDo () {
-      this.$store.dispatch('UserLogin', {
-        name: this.account,
-        password: this.password
-      })
+      if (this.account === '' || this.password === '') {
+        this.$message.error('用户名和密码不能为空')
+      } else {
+        this.$store.dispatch('UserLogin', {
+          name: this.account,
+          password: this.password
+        })
+      }
     }
   }
 }

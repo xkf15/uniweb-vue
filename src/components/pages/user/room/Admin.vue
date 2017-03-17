@@ -6,7 +6,7 @@
     span 已结束
   .room_box(v-for="(item, index) in rooms")
     .room_item
-      .room_avatar
+      router-link.room_avatar(to='/user/activity')
         .tag {{ item.tag }}
       .room_content
         .content
@@ -26,6 +26,9 @@
 
 <script>
   export default {
+    created () {
+      this.$store.dispatch('GetRooms')
+    },
     data () {
       return {
         rooms: [
