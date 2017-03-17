@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+// import Hello from '@/components/Hello'
+
+import Login from '@/components/pages/Login'
 
 import Room from '@/components/pages/user/Room'
 import RoomAdmin from '@/components/pages/user/room/Admin'
@@ -22,8 +24,8 @@ const router = new Router({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', component: Hello },
-    // { path: 'login', component: Login },
+    { path: '/', redirect: '/login' },
+    { path: '/login', component: Login },
     {
       path: '/user/room',
       component: Room,
