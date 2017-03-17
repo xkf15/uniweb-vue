@@ -9,7 +9,7 @@
             .drop-title {{ menuTitle }}
           .drop-content
             .drop-item(v-for="(item, index) in menu")
-              router-link(:to="item.path") {{item.title}}
+              router-link(:to="item.path", :class="{active: activeIndex === index}") {{item.title}}
       .content
         .decorator
           el-breadcrumb(separator="/")
@@ -20,19 +20,27 @@
 
 <script>
 export default {
+  computed: {
+    activeIndex () {
+      for (let i = 0; i < this.menu.length; ++i) {
+        if (RegExp('^' + this.menu[i].path + '[\\w/]*').test(this.$route.path)) return i
+      }
+    }
+  },
   props: ['menu', 'menuTitle', 'tag', 'breadcrumb']
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
-$menu-hover-color = green // #76e395
+$menu-hover-color = #1d9f42
+$menu-active-color = #1ca243
 $transition-time = 0.3s
+
 .layout
   .cover
     background #ccc
     height 200px
-
   .wrap
     margin 20px 0
     padding 10px
@@ -57,6 +65,9 @@ $transition-time = 0.3s
       display block
       padding 10px
       color black
+      &.active
+        background $menu-active-color
+        color white
       &:hover
         background $menu-hover-color
         color white
