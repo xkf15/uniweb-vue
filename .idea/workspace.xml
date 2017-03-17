@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d54ca18e-6678-41ad-a1a1-d161e3005b34" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/api/mock/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/pages/user/room/new/BasicInfo.vue" afterPath="$PROJECT_DIR$/src/components/pages/user/room/new/BasicInfo.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/pages/user/room/new/MemberInfo.vue" afterPath="$PROJECT_DIR$/src/components/pages/user/room/new/MemberInfo.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.js" afterPath="$PROJECT_DIR$/src/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/actions.js" afterPath="$PROJECT_DIR$/src/store/actions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/modules/newroom.js" afterPath="$PROJECT_DIR$/src/store/modules/newroom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/types.js" afterPath="$PROJECT_DIR$/src/store/types.js" />
-    </list>
+    <list default="true" id="d54ca18e-6678-41ad-a1a1-d161e3005b34" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -548,7 +537,7 @@
       <option name="presentableId" value="Default" />
       <updated>1489638120668</updated>
       <workItem from="1489638124681" duration="14024000" />
-      <workItem from="1489767764650" duration="2471000" />
+      <workItem from="1489767764650" duration="2499000" />
     </task>
     <servers />
   </component>
@@ -558,7 +547,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16495000" />
+    <option name="totallyTimeSpent" value="16523000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
