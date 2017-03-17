@@ -1,7 +1,7 @@
 <template lang="pug">
 #new-room
-  .steps
-    .step(v-for="(item, index) in steps") {{ index }}-{{ item }}>>
+  el-steps.steps(:active="3", :align-center="true", :center="true")
+    el-step(v-for="(item, index) in steps", :title="item", discription="")
   router-view
 </template>
 
@@ -18,8 +18,11 @@
 <style lang="stylus" scoped>
 #new-room
   .steps
-    display flex
-    justify-content space-around
+    width 100%
+    margin-top 10px
+    padding 15px 7%
+    background white
+    text-align center
   .white-wrap
     background white
 </style>
