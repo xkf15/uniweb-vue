@@ -26,6 +26,9 @@
 
 <script>
   export default {
+    created () {
+      this.$store.dispatch('GetRooms')
+    },
     data () {
       return {
         rooms: [

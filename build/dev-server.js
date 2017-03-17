@@ -74,36 +74,36 @@ devMiddleware.waitUntilValid(function () {
 })
 
 
-browserSync({
-  port: 8888,
-  ui: {
-    port: 8889
-  },
-  server: {
-    baseDir: '../src',
-
-    middleware: [
-      historyApiFallback(),
-      devMiddleware,
-      hotMiddleware
-    ]
-  },
-
-  // no need to watch '*.js' here, webpack will take care of it for us,
-  // including full page reloads if HMR won't work
-  files: [
-    '../src/*.html'
-  ]
-})
-
-// module.exports = app.listen(port, function (err) {
-//   if (err) {
-//     console.log(err)
-//     return
-//   }
+// browserSync({
+//   port: 8888,
+//   ui: {
+//     port: 8889
+//   },
+//   server: {
+//     baseDir: '../src',
 //
-//   // when env is testing, don't need open it
-//   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
-//     opn(uri)
-//   }
+//     middleware: [
+//       historyApiFallback(),
+//       devMiddleware,
+//       hotMiddleware
+//     ]
+//   },
+//
+//   // no need to watch '*.js' here, webpack will take care of it for us,
+//   // including full page reloads if HMR won't work
+//   files: [
+//     '../src/*.html'
+//   ]
 // })
+
+module.exports = app.listen(port, function (err) {
+  if (err) {
+    console.log(err)
+    return
+  }
+
+  // when env is testing, don't need open it
+  if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
+    opn(uri)
+  }
+})

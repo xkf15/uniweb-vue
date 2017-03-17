@@ -33,6 +33,9 @@
 
 <script>
 export default {
+  created () {
+    this.$store.dispatch('GetMessages')
+  },
   data () {
     return {
       value: '',

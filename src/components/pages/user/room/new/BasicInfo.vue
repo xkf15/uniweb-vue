@@ -48,25 +48,26 @@
 export default {
   methods: {
     submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          if (!Number(this.ruleForm.people)) {
-            alert('参与人数必须是数字')
-            return false
-          }
-          let allData = this.ruleForm
-          for (let item in this.colleges) {
-            if (item.toggle) {
-              allData.colleges.push(item.title)
-            }
-          }
-          this.$store.dispatch('BasicInfo', allData)
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
+      this.$router.push('member')
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+      //     if (isNaN(Number(this.ruleForm.people))) {
+      //       alert('参与人数必须是数字')
+      //       return false
+      //     }
+      //     let allData = this.ruleForm
+      //     for (let item in this.colleges) {
+      //       if (item.toggle) {
+      //         allData.colleges.push(item.title)
+      //       }
+      //     }
+      //     // this.$store.dispatch('BasicInfo', allData)
+      //     this.$router.push('member')
+      //   } else {
+      //     console.log('error submit!!')
+      //     return false
+      //   }
+      // })
     }
   },
   data () {
