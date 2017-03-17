@@ -15,15 +15,15 @@ export default {
       menu: [
         {
           title: '房间信息',
-          path: 'info'
+          path: '/user/activity/info'
         },
         {
           title: '消息管理',
-          path: 'message'
+          path: '/user/activity/message'
         },
         {
           title: '成员管理',
-          path: 'member'
+          path: '/user/activity/member'
         }
       ],
       menuTitle: '活动管理',
