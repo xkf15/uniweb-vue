@@ -1,11 +1,20 @@
 import * as types from '../types'
 
-const getBasicInfo = () => JSON.parse(sessionStorage.getItem('basic_info'))
-const getMember = () => JSON.parse(sessionStorage.getItem('member_info'))
+const getBasicInfo = () => {
+  const basicInfo = sessionStorage.getItem('basic_info')
+  if (basicInfo) return JSON.parse(basicInfo)
+  else return null
+}
+const getMember = () => {
+  const memberInfo = sessionStorage.getItem('member_info')
+  console.log(memberInfo)
+  if (memberInfo) return JSON.parse(memberInfo)
+  else return null
+}
 
 const state = {
-  basicInfo: getBasicInfo() || null,
-  member: getMember() || null
+  basicInfo: getBasicInfo(),
+  member: getMember()
 }
 
 const mutations = {
