@@ -18,6 +18,6 @@ export default {
     return Vue.axios.get('')
   },
   getRooms: () => {
-    return Vue.axios.get('http://101.6.161.231:8000/uniadmin/')
+    return Vue.axios.get('http://101.6.161.95:8000/uniadmin/')
   }
 }

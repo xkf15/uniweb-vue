@@ -8,16 +8,19 @@
             .memberavatar_outer
               img.avatar_style(:src="item.avatar")
           .member_info
-            .basic_info
-              .member_name
-                strong {{item.name}}
-                i.fa.fa-mars.male(v-if="item.gender === 1", aria-hidden="true")
-                i.fa.fa-venus.female(v-else, aria-hidden="true")
-              .department {{item.department}}
-              .buttons
-                el-button.refuse_button(type="danger") 拒绝
-                el-button.agree_button(type="success")
-                  strong +通过！
+            .info_top
+              .basic_info
+                .member_name
+                  strong {{item.name}}
+                  i.fa.fa-mars.male(v-if="item.gender === 1", aria-hidden="true")
+                  i.fa.fa-venus.female(v-else, aria-hidden="true")
+                .department {{item.department}}
+              .extra_info
+                span 信誉值{{like}} 粉丝 参与活动
+            .buttons
+              el-button.refuse_button(type="danger") 拒绝
+              el-button.agree_button(type="success")
+                 strong +通过！
 
     el-tab-pane(label="成员管理", name="second")
       .title 全部成员
@@ -41,7 +44,8 @@ export default {
           name: '宋阿三',
           gender: 1,
           avatar: '../../../../assets/logo.png',
-          department: '青花大学段子系'
+          department: '青花大学段子系',
+          like: 3
         },
         {
           name: '宋阿三',
@@ -172,6 +176,8 @@ export default {
     font-size 18px
     display flex
     justify-content space-between
+  .info_top
+    flex 2
   .member_name
     flex 1
   .male
@@ -186,8 +192,12 @@ export default {
   .buttons
     flex 2
   .agree_button
+    margin 10px 10px
     width 40%
   .refuse_button
     width 40%
     opacity 0.7
+  .extra_info
+    text-align left
+    font-size 18px
 </style>

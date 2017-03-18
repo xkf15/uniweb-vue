@@ -47,6 +47,7 @@ export const GetMessages = ({commit}) => {
 export const GetRooms = ({commit}) => {
   api.getRooms().then(res => {
     console.log(res.data)
+    commit(types.GET_ROOMS, res.data)
   }, (err) => {
     console.log(err)
     Vue.prototype.$message.error('请求错误！')
