@@ -72,6 +72,10 @@ export default {
       this.$router.push('member')
     },
     next () {
+      this.$store.dispatch('NewRoom', {
+        basicInfo: this.basicInfo,
+        memberInfo: this.memberInfo
+      })
       this.$router.push('publish')
     }
   },

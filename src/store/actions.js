@@ -52,3 +52,33 @@ export const GetRooms = ({commit}) => {
     Vue.prototype.$message.error('请求错误！')
   })
 }
+
+export const NewRoom = ({commit}, data) => {
+  console.log(data.basicInfo)
+  api.newRoomBasicInfo(data.basicInfo).then(res => {
+    if (res.status === 200) { // 如果成功
+      commit(types.CLEAR_BASIC_INFO)
+      Vue.prototype.$message({ // 登录成功，显示提示语
+        type: 'success',
+        message: '成功发送房间信息！'
+      })
+    } else {
+      Vue.prototype.$message.error(res.data.info) // 登录失败，显示提示语
+    }
+  }, () => {
+    Vue.prototype.$message.error('请求错误！')
+  })
+  // api.newRoomMemberInfo(data.memberInfo).then(res => {
+  //   if (res.status === 200) { // 如果成功
+  //     commit(types.CLEAR_MEMBER_INFO)
+  //     Vue.prototype.$message({ // 登录成功，显示提示语
+  //       type: 'success',
+  //       message: '成功发送问卷信息！'
+  //     })
+  //   } else {
+  //     Vue.prototype.$message.error(res.data.info) // 登录失败，显示提示语
+  //   }
+  // }, () => {
+  //   Vue.prototype.$message.error('请求错误！')
+  // })
+}
