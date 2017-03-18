@@ -25,7 +25,8 @@ export default {
         domains: [{
           question: '',
           tips: '',
-          checked: true
+          checked: true,
+          key: Date.now()
         }]
       }
     }

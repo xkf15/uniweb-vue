@@ -14,16 +14,17 @@
         .el-upload__text 将文件拖到此处，或<em>点击上传</em>
         .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
     el-form-item(label="活动人数", prop="people")
-      el-input(v-model="ruleForm.people")
+      el-input(v-model.number="ruleForm.people")
     el-form-item(label="详细内容", prop="desc")
       el-input(type="textarea", v-model="ruleForm.desc")
-      .subtitle 若已有微信推送，请直接粘贴链接
-      el-input(type="text", v-model="ruleForm.wechat")
-      .subtitle 准入学校(可多选)
+    el-form-item
+      .subtitle 准入学校（可多选）
       .colleges
         span(v-for="(item, index) of colleges")
           input(:id="item.id", type="checkbox", v-model="item.toggle")
           label(:for="item.id") {{ item.title }}
+      .subtitle 若已有微信推送，请直接粘贴链接
+      el-input(type="text", v-model="ruleForm.wechat")
       .subtitle 准入条件（将在用户选择加入时提醒）
       el-input(type="text", v-model="ruleForm.condition")
     el-form-item
@@ -36,16 +37,20 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (isNaN(Number(this.ruleForm.people))) {
-            alert('参与人数必须是数字')
+          if (Number(this.ruleForm.people) < 2) {
+            alert('参与人数必须大于2')
             return false
           }
           let allData = this.ruleForm
           for (let item of this.colleges) {
             if (item.toggle) {
               console.log(item.title)
-              allData.colleges.push(item.id)
+              allData.colleges.push(item.u_id)
             }
+          }
+          if (!allData.colleges.length) {
+            alert('准入学校至少填写1所')
+            return false
           }
           this.$store.dispatch('BasicInfo', allData)
           this.$router.push('member')
@@ -94,11 +99,11 @@ export default {
           { min: 5, message: '活动标题不少于5个字符', trigger: 'blur' }
         ],
         place: [
-          { required: true, message: '请选择活动地点', trigger: 'blue' }
+          { required: true, message: '请选择活动地点', trigger: 'blur' }
         ],
-        // people: [
-        //   { type: 'number', message: '人数必须是数字', trigger: 'change' }
-        // ]
+        people: [
+          { required: true, type: 'number', message: '人数必须是数字', trigger: 'change' }
+        ],
         desc: [
           { required: true, message: '请填写活动形式', trigger: 'blur' }
         ],
