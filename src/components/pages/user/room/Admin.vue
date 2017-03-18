@@ -4,19 +4,22 @@
     span 进行中
     span |
     span 已结束
-  .room_box(v-for="(item, index) of rooms")
+  .room_box(v-for="(item, index) of roomList")
     .room_item
-      router-link.room_avatar(to='/user/activity')
-        .tag {{ item.tag }}
+      router-link.room_avatar(to='/user/activity', :style="{background: 'url(' + item.cover + ')'}")
+        .tag 桌游
+          //- .tag {{ item.tag }}
       .room_content
         .content
-          span.tag {{ item.official }}
+          //- span.tag {{ item.official }}
+          span.tag 官方
           span {{ item.title }}
         .msg-text
           .new_msg 有新结束的群消息！
           .new_member 有新的成员申请！
     .room_attach
-      .room_time {{ item.time }}
+      .room_time {{ item.date_time_start }}
+      .room_time {{ item.date_time_end }}
       .room_icons
         .msg_icon
           span
@@ -29,9 +32,16 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   export default {
     created () {
       this.$store.dispatch('GetRooms')
+    },
+    computed: {
+      ...mapState({
+        roomList: state => state.rooms.roomList
+      })
     },
     data () {
       return {
@@ -84,7 +94,7 @@ $tag-color = blue
         border 1px solid #ccc
         width 255px
         height 150px
-        background url(../../../../assets/logo.png) no-repeat center center
+        // background url(../../../../assets/logo.png) no-repeat center center
         .tag
           margin 15px
       .room_content

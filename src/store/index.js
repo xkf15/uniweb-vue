@@ -4,6 +4,7 @@ import * as actions from './actions'
 import * as getters from './getters'
 import newroom from './modules/newroom'
 import login from './modules/login'
+import rooms from './modules/rooms'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
   getters,
   modules: {
     newroom,
-    login
+    login,
+    rooms
   },
   strict: debug
 })

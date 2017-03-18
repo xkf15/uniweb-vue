@@ -21,6 +21,9 @@ const mutations = {
     sessionStorage.setItem('uni-token', null) // 将token清空
     state.token = null
   }
+  // [types.USER_SIGNUP] (state, token) {
+  //   setUser(state, token)
+  // }
 }
 
 export default {
