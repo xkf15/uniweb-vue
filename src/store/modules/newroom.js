@@ -1,20 +1,15 @@
 import * as types from '../types'
 
-const getBasicInfo = () => {
-  const basicInfo = sessionStorage.getItem('basic_info')
-  if (basicInfo) return JSON.parse(basicInfo)
-  else return null
-}
-const getMemberInfo = () => {
-  const memberInfo = sessionStorage.getItem('member_info')
-  console.log(memberInfo)
-  if (memberInfo) return JSON.parse(memberInfo)
+const getInfo = str => {
+  const info = sessionStorage.getItem(str)
+  console.log(str + info)
+  if (info) return JSON.parse(info)
   else return null
 }
 
 const state = {
-  basicInfo: getBasicInfo(),
-  memberInfo: getMemberInfo()
+  basicInfo: getInfo('basic_info'),
+  memberInfo: getInfo('member_info')
 }
 
 const mutations = {
@@ -24,16 +19,14 @@ const mutations = {
     state.basicInfo = data
   },
   [types.SET_MEMBER_INFO] (state, data) {
-    sessionStorage.setItem('member_info', data)
+    sessionStorage.setItem('member_info', JSON.stringify(data))
     state.memberInfo = data
   },
-  [types.CLEAR_MEMBER_INFO] (state) {
-    sessionStorage.setItem('member_info', null)
-    state.memberInfo = null
-  },
-  [types.CLEAR_BASIC_INFO] (state) {
+  [types.CLEAR_NEW_ROOM] (state) {
     sessionStorage.setItem('basic_info', null)
+    sessionStorage.setItem('member_info', null)
     state.basicInfo = null
+    state.memberInfo = null
   }
 }
 

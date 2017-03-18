@@ -6,22 +6,8 @@
       el-input(v-model="ruleForm.name", placeholder="活动标题（不少于5个字）")
     el-form-item(label="选择地点", prop="place")
       el-input(v-model="ruleForm.place", placeholder="例如：北京市海淀区中关村南大街")
-    el-form-item(label="开始时间", required)
-      el-col(:span="11")
-        el-form-item(prop="startDate")
-          el-date-picker(type="date", placeholder="选择日期", v-model="ruleForm.startDate", style="width: 100%;")
-      el-col.line(:span="2") -
-      el-col(:span="11")
-        el-form-item(prop="startTime")
-          el-time-picker(type="fixed-time", placeholder="选择时间", v-model="ruleForm.startTime", style="width: 100%;")
-    el-form-item(label="结束时间", required)
-      el-col(:span="11")
-        el-form-item(prop="endDate")
-          el-date-picker(type="date", placeholder="选择日期", v-model="ruleForm.endDate", style="width: 100%;")
-      el-col.line(:span="2") -
-      el-col(:span="11")
-        el-form-item(prop="endTime")
-          el-time-picker(type="fixed-time", placeholder="选择时间", v-model="ruleForm.endTime", style="width: 100%;")
+    el-form-item(label="活动时间", prop="timeRange")
+      el-date-picker(v-model="ruleForm.timeRange", type="datetimerange", placeholder="选择活动时间", align="right")
     el-form-item(label="上传图片", prop="upload")
       el-upload.upload(drag, action="//jsonplaceholder.typicode.com/posts/")
         i.el-icon-upload
@@ -55,9 +41,10 @@ export default {
             return false
           }
           let allData = this.ruleForm
-          for (let item in this.colleges) {
+          for (let item of this.colleges) {
             if (item.toggle) {
-              allData.colleges.push(item.title)
+              console.log(item.title)
+              allData.colleges.push(item.id)
             }
           }
           this.$store.dispatch('BasicInfo', allData)
@@ -74,16 +61,19 @@ export default {
       colleges: [
         {
           title: '清华大学',
+          u_id: 1,
           id: 'tsinghua',
           toggle: false
         },
         {
           title: '北方交大',
+          u_id: 2,
           id: 'bfjd',
           toggle: false
         },
         {
           title: '隔壁',
+          u_id: 3,
           id: 'gebi',
           toggle: false
         }
@@ -91,15 +81,12 @@ export default {
       ruleForm: {
         name: '',       // 活动名称 // title
         place: '',      // 活动地点 // location_string
-        startDate: '',  // 开始日期
-        startTime: '',  // 开始时间 // date_time_start
-        endDate: '',    // 结束日期
-        endTime: '',    // 结束时间 // date_time_end
         people: '',     // 参与人数 (需转化为数字) (非必须) // participants
         desc: '',       // 详细内容 // discription
         wechat: '',     // 微信推送链接 (非必须)
         condition: '',  // 准入条件 (非必须) // welcome
-        colleges: []    // 准入学校 // advertising
+        colleges: [],    // 准入学校 // advertising
+        timeRange: ''
       },
       rules: {
         name: [
@@ -109,23 +96,14 @@ export default {
         place: [
           { required: true, message: '请选择活动地点', trigger: 'blue' }
         ],
-        startDate: [
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-        ],
-        startTime: [
-          { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-        ],
-        endDate: [
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-        ],
-        endTime: [
-          { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-        ],
         // people: [
         //   { type: 'number', message: '人数必须是数字', trigger: 'change' }
         // ]
         desc: [
           { required: true, message: '请填写活动形式', trigger: 'blur' }
+        ],
+        timeRange: [
+          { required: true, message: '请填写活动时间' }
         ]
       }
     }
@@ -143,8 +121,7 @@ export default {
     text-align left
     margin-top 15px
   .ruleForm
-    .colleges
-      text-align left
+    text-align left
     .colleges input
       display none
 

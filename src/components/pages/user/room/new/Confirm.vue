@@ -20,10 +20,10 @@
                 span {{ basicInfo.place }}
               .room_start
                 span.title 开始时间：
-                span {{ basicInfo.startDate }} - {{ basicInfo.startTime }}
+                span {{ String(basicInfo.timeRange[0]) }}
               .room_end
                 span.title 结束时间：
-                span {{ basicInfo.endDate }} - {{ basicInfo.endTime }}
+                span {{ String(basicInfo.timeRange[1]) }}
               .room_people
                 span.title 活动人数：
                 span(v-if="basicInfo.people") {{ basicInfo.people }}
@@ -35,7 +35,7 @@
               .room_colleges
                 span.title 准入学校：
                 span(v-if="basicInfo.colleges.length")
-                  span.college(v-for="item of basicInfo.colleges") {{ item }}
+                  span.college(v-for="item of basicInfo.colleges") {{ item }}；
                 span(v-else) [未设置]
               .room_condition
                 span.title 准入条件：
@@ -72,28 +72,11 @@ export default {
       this.$router.push('member')
     },
     next () {
-      this.$store.dispatch('NewRoom', {
+      this.$store.dispatch('CreateRoom', {
         basicInfo: this.basicInfo,
         memberInfo: this.memberInfo
       })
       this.$router.push('publish')
-    }
-  },
-  data () {
-    return {
-      rooms: [
-        {
-          tag: '桌游',
-          official: '官方!',
-          title: 'Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅',
-          time: '于2016-1-17 21:30建立，还有2天12时结束'
-        }
-      ],
-      info: [
-        {
-          content: '获得证书或者相应奖品'
-        }
-      ]
     }
   }
 }

@@ -53,11 +53,11 @@ export const GetRooms = ({commit}) => {
   })
 }
 
-export const NewRoom = ({commit}, data) => {
-  console.log(data.basicInfo)
-  api.newRoomBasicInfo(data.basicInfo).then(res => {
+export const CreateRoom = ({commit}, data) => {
+  api.createRoom(data).then(res => {
+    console.log(res)
     if (res.status === 200) { // 如果成功
-      commit(types.CLEAR_BASIC_INFO)
+      commit(types.CLEAR_NEW_ROOM)
       Vue.prototype.$message({ // 登录成功，显示提示语
         type: 'success',
         message: '成功发送房间信息！'

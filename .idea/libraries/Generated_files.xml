@@ -6,29 +6,27 @@
         <item url="file://$PROJECT_DIR$/dist/build/dev-server.js" />
         <item url="file://$PROJECT_DIR$/dist/src/store/actions.js" />
         <item url="file://$PROJECT_DIR$/dist/src/store/index.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/store/getters.js" />
         <item url="file://$PROJECT_DIR$/dist/src/api/index.js" />
+        <item url="file://$PROJECT_DIR$/dist/test/unit/specs/Hello.spec.js" />
         <item url="file://$PROJECT_DIR$/dist/src/store/modules/login.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/main.js" />
-        <item url="file://$PROJECT_DIR$/dist/build/webpack.base.conf.js" />
+        <item url="file://$PROJECT_DIR$/dist/test/unit/specs/Layout.spec.js" />
         <item url="file://$PROJECT_DIR$/dist/src/store/modules/newroom.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/api/mock/index.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/router/index.js" />
+        <item url="file://$PROJECT_DIR$/dist/test/unit/coverage/lcov-report/prettify.js" />
+        <item url="file://$PROJECT_DIR$/dist/test/unit/coverage/lcov-report/sorter.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/dist/build/dev-server.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/api/index.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/store/modules/login.js" />
-      <root url="file://$PROJECT_DIR$/dist/build/webpack.base.conf.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/store/modules/newroom.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/api/mock/index.js" />
       <root url="file://$PROJECT_DIR$/dist/src/store/types.js" />
+      <root url="file://$PROJECT_DIR$/dist/build/dev-server.js" />
       <root url="file://$PROJECT_DIR$/dist/src/store/actions.js" />
       <root url="file://$PROJECT_DIR$/dist/src/store/index.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/store/getters.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/main.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/router/index.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/api/index.js" />
+      <root url="file://$PROJECT_DIR$/dist/test/unit/specs/Hello.spec.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/store/modules/login.js" />
+      <root url="file://$PROJECT_DIR$/dist/test/unit/specs/Layout.spec.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/store/modules/newroom.js" />
+      <root url="file://$PROJECT_DIR$/dist/test/unit/coverage/lcov-report/prettify.js" />
+      <root url="file://$PROJECT_DIR$/dist/test/unit/coverage/lcov-report/sorter.js" />
     </CLASSES>
     <SOURCES />
   </library>

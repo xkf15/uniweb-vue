@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Hello from '@/components/Hello'
 
 describe('Hello.vue', () => {
+  // it('should have correct message', () => {
+  //   expect(Hello.data().msg).toBe('Welcome to Your Vue.js App')
+  // })
   it('should render correct contents', () => {
     const Constructor = Vue.extend(Hello)
     const vm = new Constructor().$mount()

@@ -12,15 +12,11 @@ import 'iview/dist/styles/iview.css'
 
 import 'font-awesome/css/font-awesome.css'
 
-import Icon from 'vue-awesome/components/Icon.vue'
-
 /* eslint-disable no-unused-vars */
 import mock from './api/mock'
 
 Vue.use(ElementUI)
 Vue.use(iView)
-
-Vue.component('icon', Icon)
 
 Vue.config.productionTip = false
 
