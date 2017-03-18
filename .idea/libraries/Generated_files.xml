@@ -8,6 +8,7 @@
         <item url="file://$PROJECT_DIR$/dist/src/store/index.js" />
         <item url="file://$PROJECT_DIR$/dist/src/store/getters.js" />
         <item url="file://$PROJECT_DIR$/dist/src/api/index.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/store/modules/login.js" />
         <item url="file://$PROJECT_DIR$/dist/src/main.js" />
         <item url="file://$PROJECT_DIR$/dist/build/webpack.base.conf.js" />
         <item url="file://$PROJECT_DIR$/dist/src/store/modules/newroom.js" />
@@ -16,16 +17,17 @@
       </sourceFilesUrls>
     </properties>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/dist/src/store/types.js" />
       <root url="file://$PROJECT_DIR$/dist/build/dev-server.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/store/actions.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/store/index.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/store/getters.js" />
       <root url="file://$PROJECT_DIR$/dist/src/api/index.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/main.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/store/modules/login.js" />
       <root url="file://$PROJECT_DIR$/dist/build/webpack.base.conf.js" />
       <root url="file://$PROJECT_DIR$/dist/src/store/modules/newroom.js" />
       <root url="file://$PROJECT_DIR$/dist/src/api/mock/index.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/store/types.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/store/actions.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/store/index.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/store/getters.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/main.js" />
       <root url="file://$PROJECT_DIR$/dist/src/router/index.js" />
     </CLASSES>
     <SOURCES />
