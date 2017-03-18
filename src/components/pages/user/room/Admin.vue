@@ -19,8 +19,12 @@
       .room_time {{ item.time }}
       .room_icons
         .msg_icon
-          span 3
-          span 3
+          span
+            i.fa.fa-comment-o(aria-hidden="true")
+            span 3
+          span
+            i.fa.fa-user-o(aria-hidden="true")
+            span 3
         .member_icon
 </template>
 

@@ -3,12 +3,12 @@
   .title 收集成员信息
   .subtitle 我们会根据您的需求生成群问卷，让加入成员填写
   .input_box
-    el-form(:model="dynamicValidateForm", ref="dynamicValidateForm", label-width="10%", class="demo-dynamic")
-      el-form-item(v-for="(domain, index) in dynamicValidateForm.domains", :label="'问题' + (index+1)", :key="domain.key", :prop="'domains.' + index + '.value'", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
+    el-form.demo-dynamic(:model="dynamicValidateForm", ref="dynamicValidateForm", label-width="10%")
+      el-form-item(v-for="(domain, index) in dynamicValidateForm.domains", :label="'问题' + (index+1)", :key="domain.key", :prop="'domains.' + index + '.question'", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
         .display_flex
           el-checkbox.checkbox_style(v-model="domain.checked") 必填
-          el-input.input_style1(v-model="domain.value", placeholder="请输入问题", maxlength="100", type="textarea", autosize)
-          el-input.input_style2(v-model="domain.point", placeholder="提示信息写在这里", type="textarea", autosize)
+          el-input.input_style1(v-model="domain.question", placeholder="请输入问题", :maxlength="100", type="textarea", autosize)
+          el-input.input_style2(v-model="domain.tips", placeholder="提示信息写在这里", type="textarea", autosize)
           i.el-icon-delete.icon_style(@click.prevent="removeDomain(domain)")
       el-form-item.submit
         el-button.new_button(type="text", @click="addDomain") + 新增问题
@@ -23,8 +23,8 @@ export default {
     return {
       dynamicValidateForm: {
         domains: [{
-          value: '',
-          point: '',
+          question: '',
+          tips: '',
           checked: true
         }]
       }
@@ -37,7 +37,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$store.dispatch('MemberInfo')
+          this.$store.dispatch('MemberInfo', this.dynamicValidateForm.domains)
           this.$router.push('confirm')
         } else {
           console.log('error submit!!')
@@ -56,8 +56,8 @@ export default {
     },
     addDomain () {
       this.dynamicValidateForm.domains.push({
-        value: '',
-        point: '',
+        question: '',
+        tips: '',
         checked: false,
         key: Date.now()
       })
