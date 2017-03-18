@@ -14,14 +14,19 @@
               .drop-item 测试
           .username huangwx
           .line |
-          router-link(to="/") 退出
+          .logout(@click='logout') 退出
     .container
       router-view
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  methods: {
+    logout () {
+      this.$store.dispatch('UserLogout')
+    }
+  }
 }
 </script>
 
@@ -92,5 +97,6 @@ $line-gap = 10px
         border-radius $border-radius
   a
     color white
-
+  .logout
+    cursor pointer
 </style>
