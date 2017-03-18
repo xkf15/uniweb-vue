@@ -8,12 +8,12 @@
           label(for="room")
             .drop-title {{ menuTitle }}
           .drop-content
-            .drop-item(v-for="(item, index) in menu")
+            .drop-item(v-for="(item, index) of menu")
               router-link(:to="item.path", :class="{active: activeIndex === index}") {{item.title}}
       .content
         .decorator
           el-breadcrumb(separator="/")
-            el-breadcrumb-item(v-if="breadcrumb", v-for="(item, index) in breadcrumb", :to="{ path: item.path }") {{ item.title }}
+            el-breadcrumb-item(v-if="breadcrumb", v-for="(item, index) of breadcrumb", :to="{ path: item.path }", :key="item.id") {{ item.title }}
             el-breadcrumb-item {{ tag }}
         router-view
 </template>

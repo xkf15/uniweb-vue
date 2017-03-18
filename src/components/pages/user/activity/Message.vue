@@ -13,9 +13,9 @@
   .room_msg_box
     .room_msg 房间消息
     el-select(v-model="value", placeholder="全部")
-      el-option(v-for="(item, index) in options", :label="item", :value="index")
+      el-option(v-for="(item, index) of options", :label="item", :value="index", :key="item.id")
   .content
-    .notification(v-for="(item, index) in messages")
+    .notification(v-for="(item, index) of messages")
       .left
         .run_title.display_flex <i class="fa fa-bullhorn" aria-hidden="true" id="icon-notification"></i>群公告
         .run_text {{ item.status }}

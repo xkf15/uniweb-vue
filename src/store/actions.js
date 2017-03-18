@@ -6,6 +6,9 @@ export const BasicInfo = ({commit}, data) => {
   commit(types.SET_BASIC_INFO, data)
 }
 
+export const UserLogin = ({commit}, data) => {
+}
+
 export const GetMessages = ({commit}) => {
   api.getMessages().then(res => {
 

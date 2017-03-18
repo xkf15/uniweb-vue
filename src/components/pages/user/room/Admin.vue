@@ -4,7 +4,7 @@
     span 进行中
     span |
     span 已结束
-  .room_box(v-for="(item, index) in rooms")
+  .room_box(v-for="(item, index) of rooms")
     .room_item
       router-link.room_avatar(to='/user/activity')
         .tag {{ item.tag }}

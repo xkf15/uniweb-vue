@@ -1,7 +1,7 @@
 <template lang="pug">
 #new-room
   el-steps.steps(:active="stepIndex", :align-center="true", :center="true")
-    el-step(v-for="(item, index) in steps", :title="item", discription="")
+    el-step(v-for="(item, index) of steps", :title="item", discription="", :key="item.id")
   router-view
 </template>
 

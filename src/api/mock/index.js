@@ -3,4 +3,9 @@
  */
 
 // import Mock from 'mockjs'
-
+//
+// const addToMock = list => {
+//   for (let item of list) {
+//     Mock.mock(item.path, item.data)
+//   }
+// }

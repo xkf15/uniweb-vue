@@ -34,10 +34,10 @@ export default {
         this.$message.error('用户名和密码不能为空')
       } else {
         this.$router.push('/user')
-        // this.$store.dispatch('UserLogin', {
-        //   name: this.account,
-        //   password: this.password
-        // })
+        this.$store.dispatch('UserLogin', {
+          name: this.account,
+          password: this.password
+        })
       }
     }
   }

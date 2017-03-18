@@ -35,7 +35,7 @@
       el-input(type="text", v-model="ruleForm.wechat")
       .subtitle 准入学校(可多选)
       .colleges
-        span(v-for="(item, index) in colleges")
+        span(v-for="(item, index) of colleges")
           input(:id="item.id", type="checkbox", v-model="item.toggle")
           label(:for="item.id") {{ item.title }}
       .subtitle 准入条件（将在用户选择加入时提醒）

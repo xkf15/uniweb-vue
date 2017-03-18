@@ -3,7 +3,7 @@
     .title 确认活动信息
       .subtitle 我们会根据您的需求生成群问卷，让加入成员填写。
     .room_wrap
-      .room_box(v-for="(item, index) in rooms")
+      .room_box(v-for="(item, index) of rooms")
         .room_item
           .room_avatar
             .tag {{ item.tag }}
@@ -13,7 +13,7 @@
               span {{ item.title }}
         .room_attach
           .room_time {{ item.time }}
-      .members_info(v-for="(item, index) in info")
+      .members_info(v-for="(item, index) of info")
         div 选项：{{ item.content }}
       .buttons
         el-button.button_style(@click="prev") 上一步
