@@ -9,19 +9,24 @@
               img.avatar_style(:src="item.avatar")
           .member_info
             .info_top
-              .basic_info
-                .member_name
-                  strong {{item.name}}
-                  i.fa.fa-mars.male(v-if="item.gender === 1", aria-hidden="true")
-                  i.fa.fa-venus.female(v-else, aria-hidden="true")
-                .department {{item.department}}
-              .extra_info
-                span 信誉值{{like}} 粉丝 参与活动
-            .buttons
-              el-button.refuse_button(type="danger") 拒绝
-              el-button.agree_button(type="success")
-                 strong +通过！
-
+              .info_top_left
+                .basic_info
+                  .member_name
+                    strong {{item.name}}
+                    i.fa.fa-mars.male(v-if="item.gender === 1", aria-hidden="true")
+                    i.fa.fa-venus.female(v-else, aria-hidden="true")
+                  .department {{item.department}}
+                .extra_info
+                  span.extra_info_detail 信誉值 {{item.like}}
+                  span.extra_info_detail 粉丝
+                  span.extra_info_detail 参与活动
+              .buttons
+                el-button.refuse_button(type="danger") 拒绝
+                el-button.agree_button(type="success")
+                  strong +通过！
+            .signup_info
+              strong 申请理由：
+              .reasons {{item.reason}}
     el-tab-pane(label="成员管理", name="second")
       .title 全部成员
         span ({{allmembers.length}})
@@ -45,7 +50,8 @@ export default {
           gender: 1,
           avatar: '../../../../assets/logo.png',
           department: '青花大学段子系',
-          like: 3
+          like: 3,
+          reason: '我很屌'
         },
         {
           name: '宋阿三',
@@ -152,6 +158,7 @@ export default {
     display flex
     width 100%
     background white
+    padding 10px 0 20px 0
     margin 15px 0 20px 0
   .memberavatar
     flex 1
@@ -170,6 +177,7 @@ export default {
     flex 3
     margin-left 5px
     display flex
+    flex-direction column
   .basic_info
     flex 1
     text-align left
@@ -177,7 +185,10 @@ export default {
     display flex
     justify-content space-between
   .info_top
-    flex 2
+    flex 3
+    display flex
+  .info_top_left
+    flex 3
   .member_name
     flex 1
   .male
@@ -199,5 +210,16 @@ export default {
     opacity 0.7
   .extra_info
     text-align left
+    font-size 15px
+    display flex
+    .extra_info_detail
+      flex 1
+  .signup_info
+    display flex
+    text-align left
     font-size 18px
+    margin-top 30px
+    .reasons
+      font-size 15px
+      margin-bottom 10px
 </style>

@@ -2,7 +2,7 @@
   #app
     nav#navbar
       .nav-logo
-        a(href="#") UNIWORLD
+        a(href="") UNIWORLD
       .nav-menu
         .user-menu
           .user

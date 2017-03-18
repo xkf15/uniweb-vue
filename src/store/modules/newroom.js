@@ -26,6 +26,14 @@ const mutations = {
   [types.SET_MEMBER_INFO] (state, data) {
     sessionStorage.setItem('member_info', data)
     state.memberInfo = data
+  },
+  [types.CLEAR_MEMBER_INFO] (state) {
+    sessionStorage.setItem('member_info', null)
+    state.memberInfo = null
+  },
+  [types.CLEAR_BASIC_INFO] (state) {
+    sessionStorage.setItem('basic_info', null)
+    state.basicInfo = null
   }
 }
 

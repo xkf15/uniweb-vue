@@ -5,3 +5,5 @@ export const USER_SIGNIN = 'USER_SIGNIN'
 export const USER_SIGNOUT = 'USER_SIGNOUT'
 
 export const GET_ROOMS = 'GET_ROOMS'
+export const CLEAR_BASIC_INFO = 'CLEAR_BASIC_INFO'
+export const CLEAR_MEMBER_INFO = 'CLEAR_MEMBER_INFO'

@@ -8,8 +8,11 @@ export default {
   localLogin: data => {
     return Vue.axios.post('http://101.6.161.95:8000/login/', data)
   },
-  newRoom: data => {
-    return Vue.axios.post('', data)
+  newRoomBasicInfo: data => {
+    return Vue.axios.post('http://101.6.161.95:8000/uniadmin/create', data)
+  },
+  newRoomMemberInfo: data => {
+    return Vue.axios.post('http://101.6.161.95:8000/uniadmin/create', data)
   },
   getMessages: () => {
     return Vue.axios.get('')
