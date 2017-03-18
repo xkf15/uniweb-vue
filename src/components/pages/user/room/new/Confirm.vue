@@ -1,27 +1,72 @@
 <template lang="pug">
   #confirm
-    .title 确认活动信息
+    .bigTitle 确认活动信息
       .subtitle 我们会根据您的需求生成群问卷，让加入成员填写。
     .room_wrap
-      .room_box(v-for="(item, index) of rooms")
+      .room_box
         .room_item
           .room_avatar
-            .tag {{ item.tag }}
+            .tag 桌游
           .room_content
-            .content
-              span.tag {{ item.official }}
-              span {{ item.title }}
-        .room_attach
-          .room_time {{ item.time }}
-      .members_info(v-for="(item, index) of info")
-        div 选项：{{ item.content }}
+            .room_name
+              span.tag 官方
+              span {{ basicInfo.name }}
+            .room_details
+              .room_desc
+                span.title 活动内容：
+                span {{ basicInfo.desc }}
+              .room_place
+                span.title 活动地点：
+                span {{ basicInfo.place }}
+              .room_start
+                span.title 开始时间：
+                span {{ basicInfo.startDate }} - {{ basicInfo.startTime }}
+              .room_end
+                span.title 结束时间：
+                span {{ basicInfo.endDate }} - {{ basicInfo.endTime }}
+              .room_people
+                span.title 活动人数：
+                span(v-if="basicInfo.people") {{ basicInfo.people }}
+                span(v-else) [未设置]
+              .room_wechat
+                span.title 微信推送链接：
+                span(v-if="basicInfo.wechat") {{ basicInfo.wechat }}
+                span(v-else) [未设置]
+              .room_colleges
+                span.title 准入学校：
+                span(v-if="basicInfo.colleges.length")
+                  span.college(v-for="item of basicInfo.colleges") {{ item }}
+                span(v-else) [未设置]
+              .room_condition
+                span.title 准入条件：
+                span(v-if="basicInfo.condition") {{ basicInfo.condition }}
+                span(v-else) [未设置]
+      .members_info
+        .member_info(v-for="(item, index) of memberInfo")
+          span.item
+            span.title 问题{{ index + 1 }}：
+            span {{ item.question }}；
+          span.item
+            span.title 提示信息：
+            span {{ item.tips }}；
+          span.item
+            span.title 是否必须回答：
+            span {{ item.checked ? '是' : '否' }}
       .buttons
         el-button.button_style(@click="prev") 上一步
         el-button.button_style(type="primary", @click="next") 下一步
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
+  computed: {
+    ...mapState({
+      basicInfo: state => state.newroom.basicInfo,
+      memberInfo: state => state.newroom.memberInfo
+    })
+  },
   methods: {
     prev () {
       this.$router.push('member')
@@ -53,7 +98,7 @@ export default {
 <style lang="stylus" scoped>
 #confirm
   text-align left
-  .title
+  .bigTitle
     background white
     font-size 28px
     padding 10px 5%
@@ -65,6 +110,12 @@ export default {
     opacity 1
     padding 10px
     font-size 18px
+    .member_info
+      margin 10px 0
+      .item
+        margin-right 10px
+      .title
+        font-weight bold
   .room_wrap
     padding 10px 8%
     background white
@@ -100,8 +151,12 @@ export default {
           display flex
           flex-direction column
           margin 0 20px
-          .content
+          .room_name, .room_details
             text-align left
+          .room_details
+            padding 10px
+            .title
+              font-weight bold
           .msg-text
             text-align right
           .tag

@@ -5,7 +5,7 @@ const getBasicInfo = () => {
   if (basicInfo) return JSON.parse(basicInfo)
   else return null
 }
-const getMember = () => {
+const getMemberInfo = () => {
   const memberInfo = sessionStorage.getItem('member_info')
   console.log(memberInfo)
   if (memberInfo) return JSON.parse(memberInfo)
@@ -14,7 +14,7 @@ const getMember = () => {
 
 const state = {
   basicInfo: getBasicInfo(),
-  member: getMember()
+  memberInfo: getMemberInfo()
 }
 
 const mutations = {
@@ -25,7 +25,7 @@ const mutations = {
   },
   [types.SET_MEMBER_INFO] (state, data) {
     sessionStorage.setItem('member_info', data)
-    state.member = data
+    state.memberInfo = data
   }
 }
 

@@ -89,17 +89,17 @@ export default {
         }
       ],
       ruleForm: {
-        name: '',       // 活动名称
-        place: '',      // 活动地点
+        name: '',       // 活动名称 // title
+        place: '',      // 活动地点 // location_string
         startDate: '',  // 开始日期
-        startTime: '',  // 开始时间
+        startTime: '',  // 开始时间 // date_time_start
         endDate: '',    // 结束日期
-        endTime: '',    // 结束时间
-        people: '',     // 参与人数 (需转化为数字) (非必须)
-        desc: '',       // 详细内容
+        endTime: '',    // 结束时间 // date_time_end
+        people: '',     // 参与人数 (需转化为数字) (非必须) // participants
+        desc: '',       // 详细内容 // discription
         wechat: '',     // 微信推送链接 (非必须)
-        condition: '',  // 准入条件 (非必须)
-        colleges: []    // 准入学校
+        condition: '',  // 准入条件 (非必须) // welcome
+        colleges: []    // 准入学校 // advertising
       },
       rules: {
         name: [

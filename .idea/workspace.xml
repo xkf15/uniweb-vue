@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d54ca18e-6678-41ad-a1a1-d161e3005b34" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/pages/user/room/new/Confirm.vue" afterPath="$PROJECT_DIR$/src/components/pages/user/room/new/Confirm.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/modules/newroom.js" afterPath="$PROJECT_DIR$/src/store/modules/newroom.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -24,24 +25,23 @@
         <splitter split-orientation="vertical" split-proportion="0.5">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+              <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/src/router/index.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="1005">
-                      <caret line="66" column="37" lean-forward="false" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
+                    <state relative-caret-position="90">
+                      <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
                       <folding>
-                        <element signature="e#97#141#0" expanded="true" />
                         <marker date="1489817251000" expanded="true" signature="1868:3781" ph="..." />
                       </folding>
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="MemberInfo.vue" pinned="false" current-in-tab="true">
+              <file leaf-file-name="MemberInfo.vue" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/src/components/pages/user/room/new/MemberInfo.vue">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="525">
-                      <caret line="49" column="5" lean-forward="false" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+                    <state relative-caret-position="165">
+                      <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
                       <folding />
                     </state>
                   </provider>
@@ -54,8 +54,8 @@
               <file leaf-file-name="BasicInfo.vue" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/src/components/pages/user/room/new/BasicInfo.vue">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="180">
-                      <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+                    <state relative-caret-position="45">
+                      <caret line="3" column="33" lean-forward="false" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
                       <folding />
                     </state>
                   </provider>
@@ -73,7 +73,7 @@
                 <entry file="file://$PROJECT_DIR$/src/store/actions.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="150">
-                      <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+                      <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
                       <folding>
                         <element signature="e#0#24#0" expanded="true" />
                       </folding>
@@ -88,8 +88,8 @@
               <file leaf-file-name="newroom.js" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/src/store/modules/newroom.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="150">
-                      <caret line="10" column="45" lean-forward="false" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+                    <state relative-caret-position="240">
+                      <caret line="16" column="26" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
                       <folding />
                     </state>
                   </provider>
@@ -140,8 +140,8 @@
         <option value="$PROJECT_DIR$/src/store/index.js" />
         <option value="$PROJECT_DIR$/src/store/actions.js" />
         <option value="$PROJECT_DIR$/src/router/index.js" />
-        <option value="$PROJECT_DIR$/src/components/pages/user/room/new/MemberInfo.vue" />
         <option value="$PROJECT_DIR$/src/store/modules/newroom.js" />
+        <option value="$PROJECT_DIR$/src/components/pages/user/room/new/MemberInfo.vue" />
       </list>
     </option>
   </component>
@@ -590,7 +590,7 @@
       <updated>1489638120668</updated>
       <workItem from="1489638124681" duration="14024000" />
       <workItem from="1489767764650" duration="2499000" />
-      <workItem from="1489802380337" duration="12907000" />
+      <workItem from="1489802380337" duration="14804000" />
     </task>
     <servers />
   </component>
@@ -600,7 +600,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29430000" />
+    <option name="totallyTimeSpent" value="31327000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="772" extended-state="6" />
@@ -614,7 +614,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32892805" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35504368" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24305004" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="MaxCompute Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="MaxCompute Job Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -920,18 +920,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/store/modules/newroom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="45" lean-forward="false" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+        <state relative-caret-position="240">
+          <caret line="16" column="26" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/user/room/new/MemberInfo.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="66" column="37" lean-forward="false" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
+        <state relative-caret-position="90">
+          <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
           <folding>
-            <element signature="e#97#141#0" expanded="true" />
             <marker date="1489817251000" expanded="true" signature="1868:3781" ph="..." />
           </folding>
         </state>
@@ -939,16 +946,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/user/room/new/BasicInfo.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/user/room/new/MemberInfo.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="49" column="5" lean-forward="false" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+        <state relative-caret-position="45">
+          <caret line="3" column="33" lean-forward="false" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
           <folding />
         </state>
       </provider>
@@ -956,7 +955,7 @@
     <entry file="file://$PROJECT_DIR$/src/store/actions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
