@@ -18,7 +18,7 @@ const mutations = {
     }
   },
   [types.CREATE_MESSAGE] (state, data) {
-    // state.messages.push('')
+    state.messages.push(data)
   }
 }
 

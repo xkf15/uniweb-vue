@@ -3,12 +3,14 @@
   .new_msg
     el-button(type="danger", @click="dialogFormVisible=true") 发布新消息>>
   el-dialog(title="发布新消息", v-model="dialogFormVisible")
-    el-form(:model="newMsg")
-      el-form-item(label="名称")
-        el-input(v-model="newMsg.title", type="textarea")
+    el-form(:model="newMsg", ref="newMsg")
+      el-form-item(label="名称", :prop="newMsg.question", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
+        el-input(v-model="newMsg.question", placeholder="请输入问题", :maxlength="100", type="textarea", autosize)
+      el-input(v-model="newMsg.tips", placeholder="提示信息写在这里", type="textarea", autosize)
+      el-checkbox(v-model="newMsg.checked") 必填
     .dialog-footer(slot="footer")
       el-button(@click="dialogFormVisible=false") 取消
-      el-button(type="primary", @click="dialogFormVisible=false") 确定
+      el-button(type="primary", @click="create_message") 确定
   .room_msg_box
     .room_msg 房间消息
     el-select(v-model="value", placeholder="全部")
@@ -51,7 +53,6 @@ export default {
       // ],
       dialogFormVisible: false,
       newMsg: {
-        title: '',
         checked: false,
         question: '',
         tips: ''
@@ -63,7 +64,17 @@ export default {
       this.$store.dispatch('DeleteMessage', {roomId: this.room_id, announcementId: messageId})
     },
     create_message () {
-      this.$store.dispatch('CreateMessage')
+      var data = {
+        data: {
+          title: this.newMsg.question,
+          description: this.newMsg.tips,
+          // is_announcement: true,
+          choices: [1, 2, 3]
+        },
+        roomId: this.room_id
+      }
+      console.log(data.data.title)
+      this.$store.dispatch('CreateMessage', data)
     }
   },
   computed: {
