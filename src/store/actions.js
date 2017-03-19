@@ -48,7 +48,9 @@ export const GetMessages = ({commit}, data) => {
 
 export const CreateMessage = ({commit}, data) => {
   api.createMessage(data).then(res => {
+    data.data.id = res.data
     commit(types.CREATE_MESSAGE, data.data)
+    Vue.prototype.$message('添加消息成功！')
   }, (err) => {
     console.log(err)
     Vue.prototype.$message.error('请求错误！')
@@ -59,6 +61,10 @@ export const DeleteMessage = ({commit}, data) => {
   api.deleteMessage(data).then(res => {
     if (res.status === 200) {
       commit(types.DELETE_MESSAGE, data)
+      Vue.prototype.$message({
+        type: 'success',
+        message: '删除成功!'
+      })
     }
   }, (err) => {
     console.log(err)

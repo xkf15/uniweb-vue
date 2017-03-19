@@ -61,20 +61,32 @@ export default {
   },
   methods: {
     delete_message (messageId) {
-      this.$store.dispatch('DeleteMessage', {roomId: this.room_id, announcementId: messageId})
+      this.$confirm('此操作将永久删除该消息, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch('DeleteMessage', {roomId: this.room_id, announcementId: messageId})
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
     create_message () {
-      var data = {
+      const data = {
         data: {
           title: this.newMsg.question,
           description: this.newMsg.tips,
-          // is_announcement: true,
+          is_announcement: true,
           choices: [1, 2, 3]
         },
         roomId: this.room_id
       }
       console.log(data.data.title)
       this.$store.dispatch('CreateMessage', data)
+      this.dialogFormVisible = false
     }
   },
   computed: {
