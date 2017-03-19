@@ -87,15 +87,10 @@ export default {
         date_time_end: this.basicInfo.timeRange[1].split('.')[0],
         max_participants: this.basicInfo.people,
         description: this.basicInfo.desc,
-        // options: [
-        //   this.basicInfo.wechat,
-        //   this.basicInfo.condition
-        // ],
-        // options: 'Hello World',
-        options: JSON.stringify([
-          'asdfsakdfskfj":!#$%@^#*$**#(@)*<>?∆˚åßøœ∑ølsakfjlf19(˚ß∆å¬;f',
-          'askdfljq;kle;qwfjk;*$**#(@)wjsfadlkjfkashdjkfl'
-        ]),
+        options: [
+          this.basicInfo.wechat,
+          this.basicInfo.condition
+        ],
         advertising: this.basicInfo.colleges,
         questionnaires: questionaires
       }

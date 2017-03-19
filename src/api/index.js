@@ -20,10 +20,16 @@ export default {
   deleteMessage: data => {
     return Vue.axios.delete('http://101.6.161.105:8000/uniadmin/room/' + data.roomId + '/notice/' + data.announcementId + '/delete')
   },
-  getRoomInfo: () => {
-    return Vue.axios.get('')
+  getRoomInfo: roomId => {
+    return Vue.axios.get('http://101.6.161.105:8000/uniadmin/room/' + roomId + '/detail')
+  },
+  getMembers: roomId => {
+    return Vue.axios.get('http://101.6.161.105:8000/uniadmin/room/' + roomId + '/users')
   },
   getRooms: () => {
-    return Vue.axios.get('http://101.6.161.105:8000/uniadmin')
+    return Vue.axios.get('http://101.6.161.105:8000/uniadmin/')
+  },
+  getApplications: roomId => {
+    return Vue.axios.get('http://101.6.161.105:8000/uniadmin/room/' + roomId + '/application')
   }
 }
