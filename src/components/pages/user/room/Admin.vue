@@ -1,34 +1,35 @@
 <template lang="pug">
 #admin
-  .status
-    span 进行中
-    span |
-    span 已结束
-  .room_box(v-for="(item, index) of roomList")
-    .room_item
-      router-link.room_avatar(to='/user/activity', :style="{background: 'url(' + item.cover + ')'}")
-        .tag 桌游
-          //- .tag {{ item.tag }}
-      .room_content
-        .content
-          //- span.tag {{ item.official }}
-          span.tag 官方
-          span {{ item.title }}
-        .msg-text
-          .new_msg 有新结束的群消息！
-          .new_member 有新的成员申请！
-    .room_attach
-      .room_time {{ item.date_time_start }}
-      .room_time {{ item.date_time_end }}
-      .room_icons
-        .msg_icon
-          span
-            i.fa.fa-comment-o(aria-hidden="true")
-            span 3
-          span
-            i.fa.fa-user-o(aria-hidden="true")
-            span 3
-        .member_icon
+  .loading(v-loading.body="!loading", element-loading-text="拼命加载中")
+    .status
+      span 进行中
+      span |
+      span 已结束
+    .room_box(v-for="(item, index) of roomList")
+      .room_item
+        router-link.room_avatar(to="/user/activity?id=" + 1, :style="{background: 'url(' + item.cover + ')'}")
+          .tag 桌游
+            //- .tag {{ item.tag }}
+        .room_content
+          .content
+            //- span.tag {{ item.official }}
+            span.tag 官方
+            span {{ item.title }}
+          .msg-text
+            .new_msg 有新结束的群消息！
+            .new_member 有新的成员申请！
+      .room_attach
+        .room_time {{ item.date_time_start }}
+        .room_time {{ item.date_time_end }}
+        .room_icons
+          .msg_icon
+            span
+              i.fa.fa-comment-o(aria-hidden="true")
+              span 3
+            span
+              i.fa.fa-user-o(aria-hidden="true")
+              span 3
+          .member_icon
 </template>
 
 <script>
@@ -40,7 +41,8 @@
     },
     computed: {
       ...mapState({
-        roomList: state => state.rooms.roomList
+        roomList: state => state.rooms.roomList,
+        loading: state => state.rooms.loading
       })
     },
     data () {
@@ -67,6 +69,10 @@
 <style lang="stylus" scoped>
 $tag-color = blue
 #admin
+  .loading
+    min-height 100px
+  .hidden
+    display none
   .status
     text-align right
     span

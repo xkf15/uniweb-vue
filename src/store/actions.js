@@ -45,12 +45,15 @@ export const GetMessages = ({commit}) => {
 }
 
 export const GetRooms = ({commit}) => {
+  commit(types.CHANGE_LOADING)
   api.getRooms().then(res => {
     console.log(res.data)
     commit(types.GET_ROOMS, res.data)
+    commit(types.CHANGE_LOADING)
   }, (err) => {
     console.log(err)
     Vue.prototype.$message.error('请求错误！')
+    commit(types.CHANGE_LOADING)
   })
 }
 
