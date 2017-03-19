@@ -48,7 +48,7 @@ export const GetMessages = ({commit}, data) => {
 
 export const CreateMessage = ({commit}, data) => {
   api.createMessage(data).then(res => {
-    commit(types.CREATE_MESSAGE, data)
+    commit(types.CREATE_MESSAGE, data.data)
   }, (err) => {
     console.log(err)
     Vue.prototype.$message.error('请求错误！')

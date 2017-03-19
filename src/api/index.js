@@ -15,7 +15,7 @@ export default {
     return Vue.axios.get('/uniadmin/room/' + data + '/notice')
   },
   createMessage: data => {
-    return Vue.axios.post('', data)
+    return Vue.axios.post('http://101.6.161.105:8000/uniadmin/room/' + data.roomId + '/notice/create', data.data)
   },
   deleteMessage: data => {
     return Vue.axios.delete('/uniadmin/room/' + data.roomId + '/notice/' + data.announcementId + '/delete')

@@ -20,7 +20,7 @@ const mutations = {
     }
   },
   [types.CREATE_MESSAGE] (state, data) {
-    // state.messages.push('')
+    state.messages.push(data)
   },
   [types.GET_ROOM_INFO] (state, data) {
     state.info = data
