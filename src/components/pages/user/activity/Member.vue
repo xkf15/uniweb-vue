@@ -3,7 +3,7 @@
   el-tabs.tabs_style(v-model="activeName2", type="card", @tab-click="handleClick")
     el-tab-pane(label="成员申请", name="first")
       .signup_wrap
-        .member_signup(v-for="(item, index) in signupmembers")
+        .member_signup(v-for="(item, index) in applications")
           .memberavatar
             .memberavatar_outer
               img.avatar_style(:src="item.avatar")
@@ -26,19 +26,31 @@
                   strong +通过！
             .signup_info
               strong 申请理由：
-              .reasons {{item.reason}}
+              .reasons {{item.text}}
     el-tab-pane(label="成员管理", name="second")
       .title 全部成员
-        span ({{allmembers.length}})
+        span ({{members.length}})
       .members
-        .member_style(v-for="(item, index) in allmembers", v-if="(index<currentPage_second*maxmembernum && index>=(currentPage_second-1)*maxmembernum)")
+        .member_style(v-for="(item, index) in members", v-if="(index < currentPage_second * maxmembernum && index >= (currentPage_second - 1) * maxmembernum)")
           .img_outer
             img.img_style(:src="item.avatar")
           .username {{item.name}}
       el-pagination(layout="prev, pager, next, jumper", @current-change="handleCurrentChange", :page-count="Math.ceil(allmembers.length/maxmembernum)")
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
+  computed: {
+    ...mapState({
+      members: state => state.roomInfo.members,
+      applications: state => state.roomInfo.applications
+    })
+  },
+  created () {
+    this.$store.dispatch('GetMembers', this.$route.params.id)
+    this.$store.dispatch('GetApplications', this.$route.params.id)
+  },
   data () {
     return {
       activeName2: 'second',

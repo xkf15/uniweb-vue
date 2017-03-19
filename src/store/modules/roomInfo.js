@@ -2,7 +2,9 @@ import * as types from '../types'
 
 const state = {
   messages: [],
-  members: []
+  members: [],
+  info: [],
+  applications: []
 }
 
 const mutations = {
@@ -19,6 +21,15 @@ const mutations = {
   },
   [types.CREATE_MESSAGE] (state, data) {
     state.messages.push(data)
+  },
+  [types.GET_ROOM_INFO] (state, data) {
+    state.info = data
+  },
+  [types.GET_MEMBERS] (state, data) {
+    state.members = data
+  },
+  [types.GET_APPLICATIONS] (state, data) {
+    state.applications = data
   }
 }
 

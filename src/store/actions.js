@@ -20,7 +20,6 @@ export const UserLogin = ({ commit }, data) => {
         type: 'success',
         message: '登录成功！'
       })
-
       router.push('./user/room')
     } else {
       Vue.prototype.$message.error(res.data.info) // 登录失败，显示提示语
@@ -80,33 +79,54 @@ export const GetRooms = ({commit}) => {
   })
 }
 
+export const GetRoomInfo = ({commit}, roomId) => {
+  api.getRoomInfo(roomId).then(res => {
+    if (res.status === 200) {
+      commit(types.GET_ROOM_INFO, res.data)
+    } else {
+      Vue.prototype.$message.error('状态码错误')
+    }
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const GetMembers = ({commit}, roomId) => {
+  api.getMembers(roomId).then(res => {
+    if (res.status === 200) {
+      commit(types.GET_MEMBERS, res.data)
+    } else {
+      Vue.prototype.$message.error('状态码错误')
+    }
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const GetApplications = ({commit}, roomId) => {
+  api.getApplications(roomId).then(res => {
+    if (res.status === 200) {
+      commit(types.GET_APPLICATIONS, res.data)
+    } else {
+      Vue.prototype.$message.error('状态码错误')
+    }
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
 export const CreateRoom = ({commit}, data) => {
   api.createRoom(data).then(res => {
     if (res.status === 201) { // 如果成功
       commit(types.CLEAR_NEW_ROOM)
       Vue.prototype.$message('创建房间成功')
-      console.log(res.data)
-      // Vue.prototype.$message({ // 登录成功，显示提示语
-      //   type: 'success',
-      //   message: '成功发送房间信息！'
-      // })
     } else {
       Vue.prototype.$message.error('Status code is not matched')
     }
   }, () => {
     Vue.prototype.$message.error('请求错误！')
   })
-  // api.newRoomMemberInfo(data.memberInfo).then(res => {
-  //   if (res.status === 200) { // 如果成功
-  //     commit(types.CLEAR_MEMBER_INFO)
-  //     Vue.prototype.$message({ // 登录成功，显示提示语
-  //       type: 'success',
-  //       message: '成功发送问卷信息！'
-  //     })
-  //   } else {
-  //     Vue.prototype.$message.error(res.data.info) // 登录失败，显示提示语
-  //   }
-  // }, () => {
-  //   Vue.prototype.$message.error('请求错误！')
-  // })
 }

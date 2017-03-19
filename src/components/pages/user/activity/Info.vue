@@ -5,25 +5,25 @@
     .room_wrap
       .room_box
         .room_item
-          .room_avatar
+          .room_avatar(:style="{background: 'url(' + roomInfo.cover + ')'}")
             .tag 桌游
           .room_content
             .room_name
               span.tag 官方
-              span {{ roomInfo.name }}
+              span {{ roomInfo.title }}
             .room_details
               .room_desc
                 span.title 活动内容：
-                span {{ roomInfo.desc }}
+                span {{ roomInfo.description }}
               .room_place
                 span.title 活动地点：
-                span {{ roomInfo.place }}
+                span {{ roomInfo.location_string }}
               .room_start
                 span.title 开始时间：
-                span {{ roomInfo.timeRange }}
+                span {{ roomInfo.date_time_start }}
               .room_end
                 span.title 结束时间：
-                span {{ roomInfo.timeRange }}
+                span {{ roomInfo.date_time_end }}
               //- .room_people
               //-   span.title 活动人数：
               //-   span(v-if="roomInfo.people") {{ roomInfo.people }}
@@ -44,14 +44,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  data () {
-    return {
-      roomInfo: []
-    }
+  computed: {
+    ...mapState({
+      roomInfo: state => state.roomInfo.info
+    })
   },
   created () {
-    // this.$store.dispatch('GetRoomInfo')
+    this.$store.dispatch('GetRoomInfo', this.$route.params.id)
+    console.log(this.info)
   }
 }
 </script>
