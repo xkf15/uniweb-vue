@@ -1,5 +1,7 @@
 <template lang="pug">
 #admin
+  .loading
+    img(:class="{'hidden': loading}")
   .status
     span 进行中
     span |
@@ -66,6 +68,7 @@
 
 <style lang="stylus" scoped>
 $tag-color = blue
+
 #admin
   .status
     text-align right
