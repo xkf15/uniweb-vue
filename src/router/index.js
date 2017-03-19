@@ -46,8 +46,8 @@ const router = new Router({
         }
       ]
     },
-    {
-      path: '/user/activity/',
+    { path: '/user/activity', redirect: '/user' },
+    { path: '/user/activity/:id',
       component: Activity,
       children: [
         { path: '', redirect: 'info' },

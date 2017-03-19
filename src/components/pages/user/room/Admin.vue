@@ -7,12 +7,10 @@
       span 已结束
     .room_box(v-for="(item, index) of roomList")
       .room_item
-        router-link.room_avatar(to="/user/activity?id=" + 1, :style="{background: 'url(' + item.cover + ')'}")
+        router-link.room_avatar(:to="'/user/activity/' + item.id", :style="{background: 'url(http://101.6.161.105:8000/static/uniadmin/default_avatar.jpg)'}")
           .tag 桌游
-            //- .tag {{ item.tag }}
         .room_content
           .content
-            //- span.tag {{ item.official }}
             span.tag 官方
             span {{ item.title }}
           .msg-text
@@ -68,6 +66,7 @@
 
 <style lang="stylus" scoped>
 $tag-color = blue
+
 #admin
   .loading
     min-height 100px
@@ -100,7 +99,7 @@ $tag-color = blue
         border 1px solid #ccc
         width 255px
         height 150px
-        // background url(../../../../assets/logo.png) no-repeat center center
+        background no-repeat center center
         .tag
           margin 15px
       .room_content

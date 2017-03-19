@@ -20,6 +20,7 @@ export const UserLogin = ({ commit }, data) => {
         type: 'success',
         message: '登录成功！'
       })
+
       router.push('./user/room')
     } else {
       Vue.prototype.$message.error(res.data.info) // 登录失败，显示提示语
@@ -35,9 +36,31 @@ export const UserLogout = ({commit}) => {
   commit(types.USER_SIGNOUT)
   router.push('/')
 }
-export const GetMessages = ({commit}) => {
-  api.getMessages().then(res => {
 
+export const GetMessages = ({commit}, data) => {
+  api.getMessages(data).then(res => {
+    console.log(res.data)
+    commit(types.GET_MESSAGES, res.data)
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const CreateMessage = ({commit}, data) => {
+  api.createMessage(data).then(res => {
+    commit(types.CREATE_MESSAGE, data)
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const DeleteMessage = ({commit}, data) => {
+  api.deleteMessage(data).then(res => {
+    if (res.status === 200) {
+      commit(types.DELETE_MESSAGE, data)
+    }
   }, (err) => {
     console.log(err)
     Vue.prototype.$message.error('请求错误！')
@@ -59,15 +82,16 @@ export const GetRooms = ({commit}) => {
 
 export const CreateRoom = ({commit}, data) => {
   api.createRoom(data).then(res => {
-    console.log(res)
-    if (res.status === 200) { // 如果成功
+    if (res.status === 201) { // 如果成功
       commit(types.CLEAR_NEW_ROOM)
-      Vue.prototype.$message({ // 登录成功，显示提示语
-        type: 'success',
-        message: '成功发送房间信息！'
-      })
+      Vue.prototype.$message('创建房间成功')
+      console.log(res.data)
+      // Vue.prototype.$message({ // 登录成功，显示提示语
+      //   type: 'success',
+      //   message: '成功发送房间信息！'
+      // })
     } else {
-      Vue.prototype.$message.error(res.data.info) // 登录失败，显示提示语
+      Vue.prototype.$message.error('Status code is not matched')
     }
   }, () => {
     Vue.prototype.$message.error('请求错误！')

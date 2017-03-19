@@ -72,10 +72,36 @@ export default {
       this.$router.push('member')
     },
     next () {
-      this.$store.dispatch('CreateRoom', {
-        basicInfo: this.basicInfo,
-        memberInfo: this.memberInfo
-      })
+      let questionaires = []
+      for (let item of this.memberInfo) {
+        questionaires.push({
+          title: item.tips,
+          description: item.question
+        })
+      }
+
+      const all = {
+        title: this.basicInfo.name,
+        location_string: this.basicInfo.place,
+        date_time_start: this.basicInfo.timeRange[0].split('.')[0],
+        date_time_end: this.basicInfo.timeRange[1].split('.')[0],
+        max_participants: this.basicInfo.people,
+        description: this.basicInfo.desc,
+        // options: [
+        //   this.basicInfo.wechat,
+        //   this.basicInfo.condition
+        // ],
+        // options: 'Hello World',
+        options: JSON.stringify([
+          'asdfsakdfskfj":!#$%@^#*$**#(@)*<>?∆˚åßøœ∑ølsakfjlf19(˚ß∆å¬;f',
+          'askdfljq;kle;qwfjk;*$**#(@)wjsfadlkjfkashdjkfl'
+        ]),
+        advertising: this.basicInfo.colleges,
+        questionnaires: questionaires
+      }
+
+      console.log(all)
+      this.$store.dispatch('CreateRoom', all)
       this.$router.push('publish')
     }
   }

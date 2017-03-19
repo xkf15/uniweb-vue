@@ -8,3 +8,7 @@ export const CLEAR_NEW_ROOM = 'CLEAR_NEW_ROOM'
 
 export const GET_ROOMS = 'GET_ROOMS'
 export const CHANGE_LOADING = 'CHANGE_LOADING'
+
+export const GET_MESSAGES = 'GET_MESSAGES'
+export const DELETE_MESSAGE = 'DELETE_MESSAGE'
+export const CREATE_MESSAGE = 'CREATE_MESSAGE'

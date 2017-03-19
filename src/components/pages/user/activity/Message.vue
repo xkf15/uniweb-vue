@@ -9,7 +9,6 @@
     .dialog-footer(slot="footer")
       el-button(@click="dialogFormVisible=false") 取消
       el-button(type="primary", @click="dialogFormVisible=false") 确定
-
   .room_msg_box
     .room_msg 房间消息
     el-select(v-model="value", placeholder="全部")
@@ -18,41 +17,59 @@
     .notification(v-for="(item, index) of messages")
       .left
         .run_title.display_flex <i class="fa fa-bullhorn" aria-hidden="true" id="icon-notification"></i>群公告
-        .run_text {{ item.status }}
+        .run_text {{ item.choices }}
       .middle
-        div {{ item.content }}
-        .time_domain 开始于{{ item.startTime }}，结束于{{ item.endTime }}，剩余 {{ item.endTime - item.startTime}}
+        div {{ item.title }}
+        .time_domain 开始于{{ item.description }}，结束于{{ item.description }}
       .right
         div
           el-button(type="text") 截止
           span |
-          el-button(type="text") 删除
+          el-button(type="text", @click="delete_message (item.id)") 删除
           .people_num 人数10/30
           el-button.check_data(type="primary") 查看数据
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   created () {
-    this.$store.dispatch('GetMessages')
+    this.$store.dispatch('GetMessages', this.room_id)
   },
   data () {
     return {
+      room_id: this.$route.params.id,
       value: '',
       options: ['全部', '最近10条'],
-      messages: [
-        {
-          status: '进行中！',
-          content: '谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？',
-          startTime: new Date(Date.now()),
-          endTime: new Date(Date.now() + 3600000)
-        }
-      ],
+      // messages: [
+      //   {
+      //     status: '进行中！',
+      //     content: '谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？',
+      //     startTime: new Date(Date.now()),
+      //     endTime: new Date(Date.now() + 3600000)
+      //   }
+      // ],
       dialogFormVisible: false,
       newMsg: {
-        title: ''
+        title: '',
+        checked: false,
+        question: '',
+        tips: ''
       }
     }
+  },
+  methods: {
+    delete_message (messageId) {
+      this.$store.dispatch('DeleteMessage', {roomId: this.room_id, announcementId: messageId})
+    },
+    create_message () {
+      this.$store.dispatch('CreateMessage')
+    }
+  },
+  computed: {
+    ...mapState({
+      messages: state => state.roomInfo.messages
+    })
   }
 }
 </script>
