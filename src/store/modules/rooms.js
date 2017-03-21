@@ -2,15 +2,25 @@ import * as types from '../types'
 
 const state = {
   roomList: [],
-  loading: true
+  loading: false,
+  searchRoomList: []
 }
 
 const mutations = {
   [types.GET_ROOMS] (state, data) {
     state.roomList = data
   },
-  [types.CHANGE_LOADING] (state) {
-    state.loading = !state.loading
+  [types.SET_LOADING_FALSE] (state) {
+    state.loading = false
+  },
+  [types.SET_LOADING_TRUE] (state) {
+    state.loading = true
+  },
+  [types.SEARCH_ROOMS_BY_NAME] (state, data) {
+    state.searchRoomList = []
+  },
+  [types.SEARCH_ROOMS_BY_LABELS] (state, data) {
+    state.searchRoomList = []
   }
 }
 

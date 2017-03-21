@@ -5,7 +5,8 @@ const isLoggedIn = () => {
 }
 
 const state = {
-  token: isLoggedIn() || null
+  token: isLoggedIn() || null,
+  userInfo: []
 }
 
 const setUser = (state, token) => {
@@ -20,6 +21,9 @@ const mutations = {
   [types.USER_SIGNOUT] (state) {
     sessionStorage.setItem('uni-token', null) // 将token清空
     state.token = null
+  },
+  [types.CHANGE_USER_INFO] (state, data) {
+    state.userInfo = []
   }
   // [types.USER_SIGNUP] (state, token) {
   //   setUser(state, token)

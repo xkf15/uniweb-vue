@@ -1,13 +1,13 @@
 <template lang="pug">
 #admin
-  .loading(v-loading.body="!loading", element-loading-text="拼命加载中")
+  .loading(v-loading.body="loading", element-loading-text="拼命加载中")
     .status
       span 进行中
       span |
       span 已结束
     .room_box(v-for="(item, index) of roomList")
       .room_item
-        router-link.room_avatar(:to="'/user/activity/' + item.id", :style="{background: 'url(http://101.6.161.105:8000/static/uniadmin/default_avatar.jpg)'}")
+        router-link.room_avatar(:to="'/user/activity/' + item.id", :style="{background: 'url(http://101.6.161.106:8000/static/uniadmin/default_avatar.jpg)'}")
           .tag 桌游
         .room_content
           .content
@@ -16,18 +16,18 @@
           .msg-text
             .new_msg 有新结束的群消息！
             .new_member 有新的成员申请！
-      .room_attach
-        .room_time {{ item.date_time_start }}
-        .room_time {{ item.date_time_end }}
-        .room_icons
-          .msg_icon
-            span
-              i.fa.fa-comment-o(aria-hidden="true")
-              span 3
-            span
-              i.fa.fa-user-o(aria-hidden="true")
-              span 3
-          .member_icon
+      //- .room_attach
+      //-   .room_time {{ item.date_time_start }}
+      //-   .room_time {{ item.date_time_end }}
+      //-   .room_icons
+      //-     .msg_icon
+      //-       span
+      //-         i.fa.fa-comment-o(aria-hidden="true")
+      //-         span 3
+      //-       span
+      //-         i.fa.fa-user-o(aria-hidden="true")
+      //-         span 3
+      //-     .member_icon
 </template>
 
 <script>
@@ -65,7 +65,7 @@
 </script>
 
 <style lang="stylus" scoped>
-$tag-color = blue
+$tag-color = #ff586d
 
 #admin
   .loading
@@ -78,7 +78,7 @@ $tag-color = blue
       padding 0 5px
   .room_box
     margin-bottom 20px
-    padding 15px
+    padding 0 40px
     background white
     .room_attach
       display flex
@@ -86,22 +86,23 @@ $tag-color = blue
       .msg_icon span
         margin 0 10px
     .room_item
+      margin-bottom 40px
       display flex
       .tag
         background $tag-color
         color white
         border-radius 5px
-        padding 3px 10px
+        padding 5px 10px
       .room_avatar
         display flex
         flex-direction column-reverse
         align-items flex-start
         border 1px solid #ccc
-        width 255px
-        height 150px
+        width 385px
+        height 160px
         background no-repeat center center
         .tag
-          margin 15px
+          margin -5px
       .room_content
         width 100%
         display flex

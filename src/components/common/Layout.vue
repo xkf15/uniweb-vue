@@ -8,19 +8,21 @@
           .user
             input(type="checkbox", id="avatar")
             label(for="avatar")
-              img(src="../../assets/logo.png")
+              img(:src="avatar")
             .drop-menu
               .drop-item 设置
               .drop-item 测试
-          .username huangwx
-          .line |
-          .logout(@click='logout') 退出
+          .home.item
+            router-link(to="/user/room") 首页
+          .message.item 消息
+          .line.item |
+          .logout.item(@click='logout') 退出
           .add
             router-link(to="/user/room/new") +
     .white
       .cover
         .avatar.flex_box
-          img(src="../../assets/avatar.png")
+          img(:src="avatar")
         .intro.flex_box
           .title.item
            span {{ title }}
@@ -48,8 +50,11 @@
       .content
         .decorator
           el-breadcrumb(separator="/")
-            el-breadcrumb-item(v-if="breadcrumb", v-for="(item, index) of breadcrumb", :to="{ path: item.path }", :key="item.id") {{ item.title }}
-            el-breadcrumb-item {{ tag }}
+            el-breadcrumb-item(v-if="breadcrumb", v-for="(item, index) of breadcrumb", :to="{ path: item.path }", :key="item.id")
+              span.br {{ item.title }}
+            el-breadcrumb-item
+              span.last {{ tag }}
+          hr
         router-view
 </template>
 
@@ -57,6 +62,11 @@
 export default {
   created () {
     this.$store.dispatch('GetUserInfo')
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('UserLogout')
+    }
   },
   data () {
     return {
@@ -66,7 +76,8 @@ export default {
       friends: 233,
       activities: 233,
       zan: 233,
-      student_id: 2015233233
+      student_id: 2015233233,
+      avatar: require('../../assets/avatar.png')
     }
   },
   computed: {
@@ -86,14 +97,17 @@ $menu-hover-color = #1d9f42
 $menu-active-color = #1ca243
 $transition-time = 0.3s
 $gap = 120px
+$background-color = #f2f0f4
 
 $nav-height = 50px
 $border-radius = 50px
 $asset-size = 0.8 * $nav-height
 $line-gap = 10px
 $navbar-color = #FF586D
+$margin-bottom = 30px
 
 .layout
+  background-color $background-color
   #navbar
     background $navbar-color
     height $nav-height
@@ -116,14 +130,26 @@ $navbar-color = #FF586D
       border-radius 15px
       a
         padding 0 13px
+        margin-bottom -5px
         color $navbar-color
       &:hover
         margin-top -18px
 
+    .item
+      margin 0 5px
+      transition 0.3s
+      font-size 15px
+
+      padding 20px 0
+    .item:not(.line):hover
+      background #ffcddf
     .line
       margin 0 $line-gap
-      font-size 30px
-
+      font-size 26px
+    .home a
+      padding 20px 10px
+    .logout, .message
+      padding 20px 10px
     .nav-logo
       font-size 30px
       margin 0 100px
@@ -189,9 +215,10 @@ $navbar-color = #FF586D
     .subtitle, .college
       color #a3a3a3
   .wrap
-    margin 20px $gap
+    margin 20px $gap 0 $gap
     display flex
   .sidebar
+    margin-bottom $margin-bottom
     background white
     flex 1
   .content
@@ -238,11 +265,24 @@ $navbar-color = #FF586D
 
 $tag-color = blue
 .content
-  margin 0 10px
+  margin-left 20px
+  margin-bottom $margin-bottom
+  background white
   .decorator
+    background url(../../assets/jumb.png) no-repeat bottom right
+    background-size 180px
     text-align left
-    background white
-    padding 15px 20px
+    padding 15px 20px 0 20px
+    .br, .last
+      font-size 15px
+    .br:hover
+      transition 0.3s
+      color #ff586d
+    .br
+      color #6c64bd
+    hr
+      margin 13px 0
+      border 1px solid #e2dfdf
 
 
 </style>
