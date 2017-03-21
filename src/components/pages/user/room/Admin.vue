@@ -39,7 +39,7 @@
     },
     computed: {
       ...mapState({
-        roomList: state => state.rooms.roomList,
+        roomList: state => state.rooms.roomList[0],
         loading: state => state.rooms.loading
       })
     },

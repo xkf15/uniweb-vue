@@ -2,6 +2,7 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -63,5 +64,14 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new BrowserSyncPlugin({
+      host: 'localhost',
+      port: 3000,
+      proxy: 'http://localhost:8080'
+    }, {
+      reload: false
+    })
+  ]
 }

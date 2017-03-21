@@ -8,6 +8,9 @@ export default {
   localLogin: data => {
     return Vue.axios.post('/login/', data)
   },
+  getUserInfo: () => {
+    // return Vue.axios.get('/uniadmin/user')
+  },
   createRoom: data => {
     return Vue.axios.post('/uniadmin/create', data)
   },

@@ -15,6 +15,7 @@ export const MemberInfo = ({commit}, data) => {
 export const UserLogin = ({ commit }, data) => {
   api.localLogin(data).then(res => {
     if (res.status === 200) { // 如果成功
+      console.log(res.data)
       commit(types.USER_SIGNIN, res.data.token)
       Vue.prototype.$message({ // 登录成功，显示提示语
         type: 'success',
@@ -135,4 +136,8 @@ export const CreateRoom = ({commit}, data) => {
   }, () => {
     Vue.prototype.$message.error('请求错误！')
   })
+}
+
+export const GetUserInfo = ({commit}) => {
+
 }
