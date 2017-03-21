@@ -73,15 +73,15 @@ export const DeleteMessage = ({commit}, data) => {
 }
 
 export const GetRooms = ({commit}) => {
-  commit(types.CHANGE_LOADING)
+  commit(types.SET_LOADING_TRUE)
   api.getRooms().then(res => {
     console.log(res.data)
     commit(types.GET_ROOMS, res.data)
-    commit(types.CHANGE_LOADING)
+    commit(types.SET_LOADING_FALSE)
   }, (err) => {
     console.log(err)
     Vue.prototype.$message.error('请求错误！')
-    commit(types.CHANGE_LOADING)
+    commit(types.SET_LOADING_FALSE)
   })
 }
 
@@ -133,6 +133,84 @@ export const CreateRoom = ({commit}, data) => {
       Vue.prototype.$message.error('Status code is not matched')
     }
   }, () => {
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const SearchRoomsByName = ({commit}, data) => {
+  api.searchRoomsByName(data).then(res => {
+    if (res.status) { // 如果成功，暂时不完全
+      commit(types.SEARCH_ROOMS_BY_NAME, res.data)
+    } else {
+      Vue.prototype.$message.error('请求错误！')
+    }
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const SearchRoomsByLabel = ({commit}, data) => {
+  api.searchRoomsByLabel(data).then(res => {
+    if (res.status) {
+      commit(types.SEARCH_ROOMS_BY_LABELS, res.data)
+    } else {
+      Vue.prototype.$message.error('请求错误！')
+    }
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const ChangeUserInfo = ({commit}, data) => {
+  api.changeUserInfo(data).then(res => {
+    if (res.status) { // 如果成功，暂时目前没写完
+      commit(types.CHANGE_USER_INFO, res.data)
+    } else {
+      Vue.prototype.$message.error('请求错误！')
+    }
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const DeleteMember = ({commit}, data) => {
+  api.deleteMember(data).then(res => {
+    if (res.status) {
+      commit(types.DELETE_MEMBER, data)
+    } else {
+      Vue.prototype.$message.error('请求错误！')
+    }
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const GetMemberInfo = ({commit}, data) => { // 得到某个用户信息
+  api.getMemberInfo(data).then(res => {
+    if (res.status) {
+      commit(types.GET_MEMBER_INFO, data)
+    } else {
+      Vue.prototype.$message.error('请求错误！')
+    }
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const AcceptApplication = ({commit}, data) => {
+  api.acceptApplication(data).then(res => {
+    if (res.status) {
+      commit(types.DELETE_MEMBER, data)
+    } else {
+      Vue.prototype.$message.error('请求错误！')
+    }
+  }, (err) => {
+    console.log(err)
     Vue.prototype.$message.error('请求错误！')
   })
 }

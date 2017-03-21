@@ -50,7 +50,7 @@ $line-gap = 10px
   margin 20px 50px
 
 #navbar
-  background #ccc
+  background #FF586D
   height $nav-height
   display flex
   justify-content space-between

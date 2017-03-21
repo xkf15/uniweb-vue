@@ -28,6 +28,8 @@ const mutations = {
   [types.GET_MEMBERS] (state, data) {
     state.members = data
   },
+  [types.DELETE_MEMBER] (state, data) {
+  },
   [types.GET_APPLICATIONS] (state, data) {
     state.applications = data
   }

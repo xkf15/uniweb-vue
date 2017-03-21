@@ -1,13 +1,13 @@
 <template lang="pug">
 #admin
-  .loading(v-loading.body="!loading", element-loading-text="拼命加载中")
+  .loading(v-loading.body="loading", element-loading-text="拼命加载中")
     .status
       span 进行中
       span |
       span 已结束
     .room_box(v-for="(item, index) of roomList")
       .room_item
-        router-link.room_avatar(:to="'/user/activity/' + item.id", :style="{background: 'url(http://101.6.161.105:8000/static/uniadmin/default_avatar.jpg)'}")
+        router-link.room_avatar(:to="'/user/activity/' + item.id", :style="{background: 'url(http://101.6.161.106:8000/static/uniadmin/default_avatar.jpg)'}")
           .tag 桌游
         .room_content
           .content
@@ -39,7 +39,7 @@
     },
     computed: {
       ...mapState({
-        roomList: state => state.rooms.roomList,
+        roomList: state => state.rooms.roomList[0],
         loading: state => state.rooms.loading
       })
     },

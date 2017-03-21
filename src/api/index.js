@@ -26,10 +26,28 @@ export default {
   getMembers: roomId => {
     return Vue.axios.get('/uniadmin/room/' + roomId + '/users')
   },
+  deleteMember: data => {
+    return Vue.axios.delete('', data)
+  },
+  getMemberInfo: data => {
+    return Vue.axios.get('', data)
+  },
   getRooms: () => {
     return Vue.axios.get('/uniadmin/')
   },
   getApplications: roomId => {
     return Vue.axios.get('/uniadmin/room/' + roomId + '/application')
+  },
+  acceptApplication: data => {
+    return Vue.axios.post('', data)
+  },
+  searchRoomsByName: data => {
+    return Vue.axios.post('', data)
+  },
+  searchRoomsByLabel: data => {
+    return Vue.axios.post('', data)
+  },
+  changeUserInfo: data => {
+    return Vue.axios.post('', data)
   }
 }
