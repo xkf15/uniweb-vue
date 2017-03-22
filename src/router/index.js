@@ -75,8 +75,7 @@ var router = new _vueRouter2.default({
       component: _NewRoom2.default,
       children: [{ path: '', redirect: 'basic' }, { path: 'basic', component: _BasicInfo2.default }, { path: 'member', component: _MemberInfo2.default }, { path: 'confirm', component: _Confirm2.default }, { path: 'publish', component: _Publish2.default }]
     }]
-  }, {
-    path: '/user/activity',
+  }, { path: '/user/activity', redirect: '/user' }, { path: '/user/activity/:id',
     component: _Activity2.default,
     children: [{ path: '', redirect: 'info' }, { path: 'info', component: _Info2.default }, { path: 'member', component: _Member2.default }, { path: 'message', component: _Message2.default }]
   }]

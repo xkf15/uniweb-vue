@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CreateRoom = exports.GetRooms = exports.GetMessages = exports.UserLogout = exports.UserLogin = exports.MemberInfo = exports.BasicInfo = undefined;
+exports.CreateRoom = exports.GetApplications = exports.GetMembers = exports.GetRoomInfo = exports.GetRooms = exports.DeleteMessage = exports.CreateMessage = exports.GetMessages = exports.UserLogout = exports.UserLogin = exports.MemberInfo = exports.BasicInfo = undefined;
 
 var _api = require('../api');
 
@@ -65,39 +65,118 @@ var UserLogout = exports.UserLogout = function UserLogout(_ref4) {
   commit(types.USER_SIGNOUT);
   _router2.default.push('/');
 };
-var GetMessages = exports.GetMessages = function GetMessages(_ref5) {
+
+var GetMessages = exports.GetMessages = function GetMessages(_ref5, data) {
   var commit = _ref5.commit;
 
-  _api2.default.getMessages().then(function (res) {}, function (err) {
-    console.log(err);
-    _vue2.default.prototype.$message.error('请求错误！');
-  });
-};
-
-var GetRooms = exports.GetRooms = function GetRooms(_ref6) {
-  var commit = _ref6.commit;
-
-  _api2.default.getRooms().then(function (res) {
+  _api2.default.getMessages(data).then(function (res) {
     console.log(res.data);
+    commit(types.GET_MESSAGES, res.data);
   }, function (err) {
     console.log(err);
     _vue2.default.prototype.$message.error('请求错误！');
   });
 };
 
-var CreateRoom = exports.CreateRoom = function CreateRoom(_ref7, data) {
+var CreateMessage = exports.CreateMessage = function CreateMessage(_ref6, data) {
+  var commit = _ref6.commit;
+
+  _api2.default.createMessage(data).then(function (res) {
+    data.data.id = res.data;
+    commit(types.CREATE_MESSAGE, data.data);
+    _vue2.default.prototype.$message('添加消息成功！');
+  }, function (err) {
+    console.log(err);
+    _vue2.default.prototype.$message.error('请求错误！');
+  });
+};
+
+var DeleteMessage = exports.DeleteMessage = function DeleteMessage(_ref7, data) {
   var commit = _ref7.commit;
 
-  _api2.default.createRoom(data).then(function (res) {
-    console.log(res);
+  _api2.default.deleteMessage(data).then(function (res) {
     if (res.status === 200) {
-      commit(types.CLEAR_NEW_ROOM);
+      commit(types.DELETE_MESSAGE, data);
       _vue2.default.prototype.$message({
         type: 'success',
-        message: '成功发送房间信息！'
+        message: '删除成功!'
       });
+    }
+  }, function (err) {
+    console.log(err);
+    _vue2.default.prototype.$message.error('请求错误！');
+  });
+};
+
+var GetRooms = exports.GetRooms = function GetRooms(_ref8) {
+  var commit = _ref8.commit;
+
+  commit(types.CHANGE_LOADING);
+  _api2.default.getRooms().then(function (res) {
+    console.log(res.data);
+    commit(types.GET_ROOMS, res.data);
+    commit(types.CHANGE_LOADING);
+  }, function (err) {
+    console.log(err);
+    _vue2.default.prototype.$message.error('请求错误！');
+    commit(types.CHANGE_LOADING);
+  });
+};
+
+var GetRoomInfo = exports.GetRoomInfo = function GetRoomInfo(_ref9, roomId) {
+  var commit = _ref9.commit;
+
+  _api2.default.getRoomInfo(roomId).then(function (res) {
+    if (res.status === 200) {
+      commit(types.GET_ROOM_INFO, res.data);
     } else {
-      _vue2.default.prototype.$message.error(res.data.info);
+      _vue2.default.prototype.$message.error('状态码错误');
+    }
+  }, function (err) {
+    console.log(err);
+    _vue2.default.prototype.$message.error('请求错误！');
+  });
+};
+
+var GetMembers = exports.GetMembers = function GetMembers(_ref10, roomId) {
+  var commit = _ref10.commit;
+
+  _api2.default.getMembers(roomId).then(function (res) {
+    if (res.status === 200) {
+      commit(types.GET_MEMBERS, res.data);
+    } else {
+      _vue2.default.prototype.$message.error('状态码错误');
+    }
+  }, function (err) {
+    console.log(err);
+    _vue2.default.prototype.$message.error('请求错误！');
+  });
+};
+
+var GetApplications = exports.GetApplications = function GetApplications(_ref11, roomId) {
+  var commit = _ref11.commit;
+
+  _api2.default.getApplications(roomId).then(function (res) {
+    if (res.status === 200) {
+      commit(types.GET_APPLICATIONS, res.data);
+    } else {
+      _vue2.default.prototype.$message.error('状态码错误');
+    }
+  }, function (err) {
+    console.log(err);
+    _vue2.default.prototype.$message.error('请求错误！');
+  });
+};
+
+var CreateRoom = exports.CreateRoom = function CreateRoom(_ref12, data) {
+  var commit = _ref12.commit;
+
+  _api2.default.createRoom(data).then(function (res) {
+    if (res.status === 201) {
+      commit(types.CLEAR_NEW_ROOM);
+      _vue2.default.prototype.$message('创建房间成功');
+    } else {
+      _vue2.default.prototype.$message.error('Status code is not matched');
     }
   }, function () {
     _vue2.default.prototype.$message.error('请求错误！');

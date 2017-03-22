@@ -71,17 +71,14 @@ devMiddleware.waitUntilValid(function () {
   console.log('> Listening at ' + uri + '\n');
 });
 
-browserSync({
-  port: 8888,
-  ui: {
-    port: 8889
-  },
-  server: {
-    baseDir: '../src',
+module.exports = app.listen(port, function (err) {
+  if (err) {
+    console.log(err);
+    return;
+  }
 
-    middleware: [historyApiFallback(), devMiddleware, hotMiddleware]
-  },
-
-  files: ['../src/*.html']
+  if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
+    opn(uri);
+  }
 });
 //# sourceMappingURL=dev-server.js.map

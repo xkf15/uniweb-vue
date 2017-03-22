@@ -22,19 +22,31 @@ _vue2.default.use(_vueAxios2.default, _axios2.default);
 
 exports.default = {
   localLogin: function localLogin(data) {
-    return _vue2.default.axios.post('http://101.6.161.95:8000/login/', data);
+    return _vue2.default.axios.post('/login/', data);
   },
   createRoom: function createRoom(data) {
-    return _vue2.default.axios.post('http://101.6.161.95:8000/uniadmin/create', data);
+    return _vue2.default.axios.post('/uniadmin/create', data);
   },
-  getMessages: function getMessages() {
-    return _vue2.default.axios.get('');
+  getMessages: function getMessages(data) {
+    return _vue2.default.axios.get('/uniadmin/room/' + data + '/notice');
   },
-  getRoomInfo: function getRoomInfo() {
-    return _vue2.default.axios.get('');
+  createMessage: function createMessage(data) {
+    return _vue2.default.axios.post('/uniadmin/room/' + data.roomId + '/notice/create', data.data);
+  },
+  deleteMessage: function deleteMessage(data) {
+    return _vue2.default.axios.delete('/uniadmin/room/' + data.roomId + '/notice/' + data.announcementId + '/delete');
+  },
+  getRoomInfo: function getRoomInfo(roomId) {
+    return _vue2.default.axios.get('/uniadmin/room/' + roomId + '/detail');
+  },
+  getMembers: function getMembers(roomId) {
+    return _vue2.default.axios.get('/uniadmin/room/' + roomId + '/users');
   },
   getRooms: function getRooms() {
-    return _vue2.default.axios.get('http://101.6.161.231:8000/uniadmin/');
+    return _vue2.default.axios.get('/uniadmin/');
+  },
+  getApplications: function getApplications(roomId) {
+    return _vue2.default.axios.get('/uniadmin/room/' + roomId + '/application');
   }
 };
 //# sourceMappingURL=index.js.map

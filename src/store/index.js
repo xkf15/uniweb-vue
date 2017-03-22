@@ -28,6 +28,14 @@ var _login = require('./modules/login');
 
 var _login2 = _interopRequireDefault(_login);
 
+var _rooms = require('./modules/rooms');
+
+var _rooms2 = _interopRequireDefault(_rooms);
+
+var _roomInfo = require('./modules/roomInfo');
+
+var _roomInfo2 = _interopRequireDefault(_roomInfo);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -41,7 +49,9 @@ exports.default = new _vuex2.default.Store({
   getters: getters,
   modules: {
     newroom: _newroom2.default,
-    login: _login2.default
+    login: _login2.default,
+    rooms: _rooms2.default,
+    roomInfo: _roomInfo2.default
   },
   strict: debug
 });

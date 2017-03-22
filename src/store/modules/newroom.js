@@ -22,20 +22,15 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var getBasicInfo = function getBasicInfo() {
-  var basicInfo = sessionStorage.getItem('basic_info');
-  console.log(basicInfo);
-  if (basicInfo) return JSON.parse(basicInfo);else return null;
-};
-var getMemberInfo = function getMemberInfo() {
-  var memberInfo = sessionStorage.getItem('member_info');
-  console.log(memberInfo);
-  if (memberInfo) return JSON.parse(memberInfo);else return null;
+var getInfo = function getInfo(str) {
+  var info = sessionStorage.getItem(str);
+  console.log(str + info);
+  if (info) return JSON.parse(info);else return null;
 };
 
 var state = {
-  basicInfo: getBasicInfo(),
-  memberInfo: getMemberInfo()
+  basicInfo: getInfo('basic_info'),
+  memberInfo: getInfo('member_info')
 };
 
 var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, types.SET_BASIC_INFO, function (state, data) {
@@ -43,7 +38,7 @@ var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, type
   sessionStorage.setItem('basic_info', (0, _stringify2.default)(data));
   state.basicInfo = data;
 }), (0, _defineProperty3.default)(_mutations, types.SET_MEMBER_INFO, function (state, data) {
-  sessionStorage.setItem('member_info', data);
+  sessionStorage.setItem('member_info', (0, _stringify2.default)(data));
   state.memberInfo = data;
 }), (0, _defineProperty3.default)(_mutations, types.CLEAR_NEW_ROOM, function (state) {
   sessionStorage.setItem('basic_info', null);
