@@ -2,31 +2,45 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/dist/src/store/modules/newroom.js" />
         <item url="file://$PROJECT_DIR$/dist/src/store/types.js" />
-        <item url="file://$PROJECT_DIR$/dist/build/dev-server.js" />
+        <item url="file://$PROJECT_DIR$/dist/config/index.js" />
         <item url="file://$PROJECT_DIR$/dist/src/store/actions.js" />
         <item url="file://$PROJECT_DIR$/dist/src/store/index.js" />
+        <item url="file://$PROJECT_DIR$/dist/build/webpack.base.conf.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/store/modules/rooms.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/store/modules/roomInfo.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/js/Meteor.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/js/Stars.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/js/main.js" />
+        <item url="file://$PROJECT_DIR$/dist/dist/static/js/manifest.0c7e9c4d233b6cb855fe.js" />
+        <item url="file://$PROJECT_DIR$/dist/build/dev-server.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/js/Moon.js" />
         <item url="file://$PROJECT_DIR$/dist/src/api/index.js" />
-        <item url="file://$PROJECT_DIR$/dist/test/unit/specs/Hello.spec.js" />
+        <item url="file://$PROJECT_DIR$/dist/dist/static/js/vendor.162bfa579f5fce663ec9.js" />
+        <item url="file://$PROJECT_DIR$/dist/dist/static/js/app.4c7dbc4065fb65a85181.js" />
         <item url="file://$PROJECT_DIR$/dist/src/store/modules/login.js" />
-        <item url="file://$PROJECT_DIR$/dist/test/unit/specs/Layout.spec.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/store/modules/newroom.js" />
-        <item url="file://$PROJECT_DIR$/dist/test/unit/coverage/lcov-report/prettify.js" />
-        <item url="file://$PROJECT_DIR$/dist/test/unit/coverage/lcov-report/sorter.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/dist/src/store/modules/newroom.js" />
       <root url="file://$PROJECT_DIR$/dist/src/store/types.js" />
-      <root url="file://$PROJECT_DIR$/dist/build/dev-server.js" />
+      <root url="file://$PROJECT_DIR$/dist/config/index.js" />
       <root url="file://$PROJECT_DIR$/dist/src/store/actions.js" />
       <root url="file://$PROJECT_DIR$/dist/src/store/index.js" />
+      <root url="file://$PROJECT_DIR$/dist/build/webpack.base.conf.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/store/modules/rooms.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/store/modules/roomInfo.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/js/Meteor.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/js/Stars.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/js/main.js" />
+      <root url="file://$PROJECT_DIR$/dist/dist/static/js/manifest.0c7e9c4d233b6cb855fe.js" />
+      <root url="file://$PROJECT_DIR$/dist/build/dev-server.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/js/Moon.js" />
       <root url="file://$PROJECT_DIR$/dist/src/api/index.js" />
-      <root url="file://$PROJECT_DIR$/dist/test/unit/specs/Hello.spec.js" />
+      <root url="file://$PROJECT_DIR$/dist/dist/static/js/vendor.162bfa579f5fce663ec9.js" />
+      <root url="file://$PROJECT_DIR$/dist/dist/static/js/app.4c7dbc4065fb65a85181.js" />
       <root url="file://$PROJECT_DIR$/dist/src/store/modules/login.js" />
-      <root url="file://$PROJECT_DIR$/dist/test/unit/specs/Layout.spec.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/store/modules/newroom.js" />
-      <root url="file://$PROJECT_DIR$/dist/test/unit/coverage/lcov-report/prettify.js" />
-      <root url="file://$PROJECT_DIR$/dist/test/unit/coverage/lcov-report/sorter.js" />
     </CLASSES>
     <SOURCES />
   </library>

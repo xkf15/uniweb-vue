@@ -59,19 +59,19 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  const token = sessionStorage.getItem('uni-token')
-  if (to.path === '/' || to.path === '/login') { // 如果是跳转到登录页的
-    if (token !== 'null' && token !== null) {
-      next('/user/room') // 如果有token就转向todolist不返回登录页
-    }
-    next() // 否则跳转回登录页
-  } else {
-    if (token !== 'null' && token !== null) {
-      Vue.axios.create().defaults.headers.common['Authorization'] = 'Token ' + token // 注意Token后有个空格
-      next() // 如果有token就正常转向
-    } else next('/') // 否则跳转回登录页
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   const token = sessionStorage.getItem('uni-token')
+//   if (to.path === '/' || to.path === '/login') { // 如果是跳转到登录页的
+//     if (token !== 'null' && token !== null) {
+//       next('/user/room') // 如果有token就转向todolist不返回登录页
+//     }
+//     next() // 否则跳转回登录页
+//   } else {
+//     if (token !== 'null' && token !== null) {
+//       Vue.axios.create().defaults.headers.common['Authorization'] = 'Token ' + token // 注意Token后有个空格
+//       next() // 如果有token就正常转向
+//     } else next('/') // 否则跳转回登录页
+//   }
+// })
 
 export default router

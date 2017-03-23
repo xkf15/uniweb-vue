@@ -53,6 +53,16 @@ export default {
 <style lang="stylus" scoped>
 $navbar-color = #FF586D
 $nav-height = 50px
+
+flexbox(num)
+  per = num * 100 + '%'
+  -webkit-box-flex num      /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex num         /* OLD - Firefox 19- */
+  width per               /* For old syntax, otherwise collapses. */
+  -webkit-flex num          /* Chrome */
+  -ms-flex num              /* IE 10 */
+  flex num
+
 #login
   nav
     z-index 10
@@ -73,9 +83,7 @@ $nav-height = 50px
     justify-content center
     align-items center
     .content
-      -webkit-flex 0.3		  /* Chrome */
-    	-ms-flex 0.3			  /* IE 10 */
-    	flex 0.3
+      flexbox(0.3)
   #forgot
     text-align right
   #reg
@@ -107,5 +115,5 @@ $nav-height = 50px
     left 0
 @media screen and (max-width: 768px)
   #login .container .content
-    flex 0.7
+    flexbox(0.7)
 </style>

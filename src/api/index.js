@@ -6,7 +6,7 @@ Vue.use(VueAxios, axios)
 
 export default {
   localLogin: data => {
-    return Vue.axios.post('/login/', data)
+    return Vue.axios.post('/auth/', data)
   },
   getUserInfo: () => {
     // return Vue.axios.get('/uniadmin/user')
