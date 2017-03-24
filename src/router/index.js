@@ -18,7 +18,8 @@ import Activity from '@/components/pages/user/Activity'
 import Info from '@/components/pages/user/activity/Info'
 import Member from '@/components/pages/user/activity/Member'
 import Message from '@/components/pages/user/activity/Message'
-import NewMessage from '@/components/pages/user/activity/NewMessage'
+import Notice from '@/components/pages/user/activity/newMessage/Notice'
+import Questionnaire from '@/components/pages/user/activity/newMessage/Questionnaire'
 
 Vue.use(Router)
 
@@ -57,7 +58,9 @@ const router = new Router({
         { path: 'info', component: Info },
         { path: 'member', component: Member },
         { path: 'message', component: Message },
-        { path: 'newMessage', component: NewMessage }
+        { path: 'newMessage', redirect: 'message' },
+        { path: 'newMessage/notice', component: Notice },
+        { path: 'newMessage/questionnaire', component: Questionnaire }
       ]
     }
   ]

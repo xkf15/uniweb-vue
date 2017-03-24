@@ -1,17 +1,16 @@
 <template lang="pug">
 #message
   .new_msg
-    el-button(type="danger", @click="toNewMessage()") 发布新消息>>
-    //- router-link(to="./newMessage", tag="el-button", type="danger") 发布新消息>>
+    el-button(type="danger", @click="dialogFormVisible=true") 发布新消息>>
   el-dialog(title="发布新消息", v-model="dialogFormVisible")
-    el-form(:model="newMsg", ref="newMsg")
-      el-form-item(label="名称", :prop="newMsg.question", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
-        el-input(v-model="newMsg.question", placeholder="请输入问题", :maxlength="100", type="textarea", autosize)
-      el-input(v-model="newMsg.tips", placeholder="提示信息写在这里", type="textarea", autosize)
-      el-checkbox(v-model="newMsg.checked") 必填
-    .dialog-footer(slot="footer")
-      el-button(@click="dialogFormVisible=false") 取消
-      el-button(type="primary", @click="create_message") 确定
+    //- el-form(:model="newMsg", ref="newMsg")
+    //-   el-form-item(label="名称", :prop="newMsg.question", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
+    //-     el-input(v-model="newMsg.question", placeholder="请输入问题", :maxlength="100", type="textarea", autosize)
+    //-   el-input(v-model="newMsg.tips", placeholder="提示信息写在这里", type="textarea", autosize)
+    //-   el-checkbox(v-model="newMsg.checked") 必填
+    //- .dialog-footer(slot="footer")
+    el-button(type="primary", @click="toNewMessage('notice')") 群公告
+    el-button(type="primary", @click="toNewMessage('questionnaire')") 群问卷
   .room_msg_box
     .room_msg 房间消息
     el-select(v-model="value", placeholder="全部")
@@ -61,8 +60,8 @@ export default {
     }
   },
   methods: {
-    toNewMessage () {
-      this.$router.push('./newMessage')
+    toNewMessage (type) {
+      this.$router.push('./newMessage/' + type)
     },
     delete_message (messageId) {
       this.$confirm('此操作将永久删除该消息, 是否继续?', '提示', {
