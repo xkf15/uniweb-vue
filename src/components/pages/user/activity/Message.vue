@@ -1,7 +1,8 @@
 <template lang="pug">
 #message
   .new_msg
-    el-button(type="danger", @click="dialogFormVisible=true") 发布新消息>>
+    el-button(type="danger", @click="toNewMessage()") 发布新消息>>
+    //- router-link(to="./newMessage", tag="el-button", type="danger") 发布新消息>>
   el-dialog(title="发布新消息", v-model="dialogFormVisible")
     el-form(:model="newMsg", ref="newMsg")
       el-form-item(label="名称", :prop="newMsg.question", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
@@ -60,6 +61,9 @@ export default {
     }
   },
   methods: {
+    toNewMessage () {
+      this.$router.push('./newMessage')
+    },
     delete_message (messageId) {
       this.$confirm('此操作将永久删除该消息, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -103,6 +107,11 @@ export default {
   .new_msg
     margin 10px 0
     text-align right
+    .rl_new_msg
+      color white
+      background red
+      padding 3px 15px
+      border-radius 5px
   .room_msg_box
     background white
     border 1px solid #ccc
