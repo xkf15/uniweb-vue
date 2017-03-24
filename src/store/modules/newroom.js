@@ -16,7 +16,7 @@ const mutations = {
   [types.SET_BASIC_INFO] (state, data) {
     console.log(JSON.stringify(data))
     sessionStorage.setItem('basic_info', JSON.stringify(data))
-    state.basicInfo = data
+    state.basicInfo = JSON.parse(JSON.stringify(data))
   },
   [types.SET_MEMBER_INFO] (state, data) {
     sessionStorage.setItem('member_info', JSON.stringify(data))
