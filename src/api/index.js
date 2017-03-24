@@ -5,6 +5,9 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
 export default {
+  getExcel: id => {
+    return Vue.axios.get('/uniadmin/room/' + id + '/user_xls')
+  },
   localLogin: data => {
     return Vue.axios.post('/auth/', data)
   },
