@@ -8,6 +8,9 @@ export default {
   localLogin: data => {
     return Vue.axios.post('/auth/', data)
   },
+  localSignup: data => {
+    return Vue.axios.post('/auth/signup', data)
+  },
   getUserInfo: () => {
     return Vue.axios.get('/uniadmin/host')
   },

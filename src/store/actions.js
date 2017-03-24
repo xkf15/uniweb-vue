@@ -12,6 +12,25 @@ export const MemberInfo = ({commit}, data) => {
   commit(types.SET_MEMBER_INFO, data)
 }
 
+export const UserSignup = ({ commit }, data) => {
+  api.localSignup(data).then(res => {
+    if (res.data.success) { // 如果成功
+      commit(types.USER_SIGNIN, res.data.token)
+      Vue.prototype.$message({ // 登录成功，显示提示语
+        type: 'success',
+        message: '成功注册！'
+      })
+      router.push('/user/room')
+    } else {
+      Vue.prototype.$message.error(res.data.info) // 登录失败，显示提示语
+      commit(types.USER_SIGNOUT)
+    }
+  }, () => {
+    Vue.prototype.$message.error('请求错误！')
+    commit(types.USER_SIGNOUT)
+  })
+}
+
 export const UserLogin = ({ commit }, data) => {
   api.localLogin(data).then(res => {
     if (res.status === 200) { // 如果成功
