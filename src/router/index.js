@@ -3,6 +3,7 @@ import Router from 'vue-router'
 // import Hello from '@/components/Hello'
 
 import Login from '@/components/pages/Login'
+import Signup from '@/components/pages/Signup'
 
 import Room from '@/components/pages/user/Room'
 import RoomAdmin from '@/components/pages/user/room/Admin'
@@ -26,6 +27,7 @@ const router = new Router({
   routes: [
     { path: '/', redirect: '/login' },
     { path: '/login', component: Login },
+    { path: '/signup', component: Signup },
     { path: '/user', redirect: '/user/room' },
     {
       path: '/user/room',
@@ -61,7 +63,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const token = sessionStorage.getItem('uni-token')
-  if (to.path === '/' || to.path === '/login') { // 如果是跳转到登录页的
+  if (to.path === '/' || to.path === '/login' || to.path === '/signup') { // 如果是跳转到登录页的
     if (token !== 'null' && token !== null) {
       next('/user/room') // 如果有token就转向todolist不返回登录页
     }
