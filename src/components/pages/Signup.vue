@@ -1,13 +1,12 @@
 <template lang="pug">
-#login
+#signup
   home-layout
     el-input(v-model="account", placeholder="账号", type="text")
-    el-input(v-model="password", placeholder="密码", type="password", @keyup.enter.native="loginToDo")
-    el-col#signup(:xs="12", :sm="12")
-      el-button(type="text", @click="signup") 注册
-    el-col#forgot(:xs="12", :sm="12")
-      el-button(type="text", @click="forgot") 忘记密码
-    el-button.login(type="primary", @click="loginToDo") 登录
+    el-input(v-model="password", placeholder="密码", type="password")
+    el-input(v-model="password_r", placeholder="请再次输入密码", type="password", @keyup.enter.native="signup")
+    el-col#login(:xs="24", :sm="24")
+      el-button(type="text", @click="login") 已有账号登录
+    el-button.signup(type="primary", @click="signup") 注册
 </template>
 
 <script>
@@ -17,46 +16,47 @@ export default {
   components: {
     HomeLayout
   },
+  mounted () {
+    require('@/js/main.js')
+  },
   data () {
     return {
       account: '',
-      password: ''
+      password: '',
+      password_r: ''
     }
   },
   methods: {
     signup () {
-      this.$router.push('/signup')
-    },
-    forgot () {
-    //   this.$router.push('/forgot')
-    },
-    loginToDo () {
       if (this.account === '' || this.password === '') {
-        this.$message.error('用户名和密码不能为空')
+        this.$message.error('请输入用户名和密码')
+      } else if (this.password !== this.password_r) {
+        this.$message.error('输入密码不一致')
       } else {
-        this.$store.dispatch('UserLogin', {
+        this.$store.dispatch('UserSignup', {
           username: this.account,
           password: this.password
         })
       }
+    },
+    login () {
+      this.$router.push('/login')
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-#login
-  #forgot
+#signup
+  #login
     text-align right
-  #signup
-    text-align left
   .el-input
     margin 12px 0
   .el-button
     margin-top 12px
     // color #ff586d
     color white
-  .login
+  .signup
     width 100%
     transition 0.3s
     background #ff586d

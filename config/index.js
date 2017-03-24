@@ -29,14 +29,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/uniadmin': {
-        target: 'http://101.6.161.111:8000',
+        target: 'http://101.6.161.70:8000',
         changeOrigin: true,
         pathRewrite: {
           '^/uniadmin': '/uniadmin'
         }
       },
       '/auth': {
-        target: 'http://101.6.161.111:8000',
+        target: 'http://101.6.161.70:8000',
         changeOrigin: true,
         pathRewrite: {
           '^/auth': '/auth'
