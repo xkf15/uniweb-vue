@@ -23,7 +23,10 @@ const mutations = {
     state.token = null
   },
   [types.CHANGE_USER_INFO] (state, data) {
-    state.userInfo = []
+    // state.userInfo = []
+  },
+  [types.GET_USER_INFO] (state, data) {
+    state.userInfo = data
   }
   // [types.USER_SIGNUP] (state, token) {
   //   setUser(state, token)

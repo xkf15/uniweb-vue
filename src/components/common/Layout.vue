@@ -59,6 +59,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   created () {
     this.$store.dispatch('GetUserInfo')
@@ -85,7 +87,10 @@ export default {
       for (let i = 0; i < this.menu.length; ++i) {
         if (RegExp('^' + this.menu[i].path + '[\\w/]*').test(this.$route.path)) return i
       }
-    }
+    },
+    ...mapState({
+      userInfo: state => state.login.userInfo
+    })
   },
   props: ['menu', 'menuTitle', 'tag', 'breadcrumb']
 }

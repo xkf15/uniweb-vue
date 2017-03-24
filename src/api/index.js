@@ -6,10 +6,10 @@ Vue.use(VueAxios, axios)
 
 export default {
   localLogin: data => {
-    return Vue.axios.post('/login/', data)
+    return Vue.axios.post('/auth/', data)
   },
   getUserInfo: () => {
-    // return Vue.axios.get('/uniadmin/user')
+    return Vue.axios.get('/uniadmin/host')
   },
   createRoom: data => {
     return Vue.axios.post('/uniadmin/create', data)

@@ -139,7 +139,18 @@ export const CreateRoom = ({commit}, data) => {
   })
 }
 
-export const GetUserInfo = ({commit}) => {
+export const GetUserInfo = ({commit}) => { // 得到我的信息
+  api.getUserInfo().then(res => {
+    if (res.status) {
+      console.log(res)
+      commit(types.GET_USER_INFO, res.data)
+    } else {
+      Vue.prototype.$message.error('状态码错误')
+    }
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
 }
 
 export const SearchRoomsByName = ({commit}, data) => {
@@ -147,7 +158,7 @@ export const SearchRoomsByName = ({commit}, data) => {
     if (res.status) { // 如果成功，暂时不完全
       commit(types.SEARCH_ROOMS_BY_NAME, res.data)
     } else {
-      Vue.prototype.$message.error('请求错误！')
+      Vue.prototype.$message.error('状态码错误')
     }
   }, (err) => {
     console.log(err)
@@ -160,7 +171,7 @@ export const SearchRoomsByLabel = ({commit}, data) => {
     if (res.status) {
       commit(types.SEARCH_ROOMS_BY_LABELS, res.data)
     } else {
-      Vue.prototype.$message.error('请求错误！')
+      Vue.prototype.$message.error('状态码错误')
     }
   }, (err) => {
     console.log(err)
@@ -173,7 +184,7 @@ export const ChangeUserInfo = ({commit}, data) => {
     if (res.status) { // 如果成功，暂时目前没写完
       commit(types.CHANGE_USER_INFO, res.data)
     } else {
-      Vue.prototype.$message.error('请求错误！')
+      Vue.prototype.$message.error('状态码错误')
     }
   }, (err) => {
     console.log(err)
@@ -186,7 +197,7 @@ export const DeleteMember = ({commit}, data) => {
     if (res.status) {
       commit(types.DELETE_MEMBER, data)
     } else {
-      Vue.prototype.$message.error('请求错误！')
+      Vue.prototype.$message.error('状态码错误')
     }
   }, (err) => {
     console.log(err)
@@ -194,12 +205,12 @@ export const DeleteMember = ({commit}, data) => {
   })
 }
 
-export const GetMemberInfo = ({commit}, data) => { // 得到某个用户信息
+export const GetMemberInfo = ({commit}, data) => { // 得到房间内某个用户信息
   api.getMemberInfo(data).then(res => {
     if (res.status) {
       commit(types.GET_MEMBER_INFO, data)
     } else {
-      Vue.prototype.$message.error('请求错误！')
+      Vue.prototype.$message.error('状态码错误')
     }
   }, (err) => {
     console.log(err)
@@ -212,7 +223,7 @@ export const AcceptApplication = ({commit}, data) => {
     if (res.status) {
       commit(types.DELETE_MEMBER, data)
     } else {
-      Vue.prototype.$message.error('请求错误！')
+      Vue.prototype.$message.error('状态码错误')
     }
   }, (err) => {
     console.log(err)
