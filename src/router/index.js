@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import Hello from '@/components/Hello'
 
+import HomeLayout from '@/components/common/HomeLayout'
 import Login from '@/components/pages/Login'
 import Signup from '@/components/pages/Signup'
 
@@ -25,9 +26,15 @@ const router = new Router({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', redirect: '/login' },
-    { path: '/login', component: Login },
-    { path: '/signup', component: Signup },
+    {
+      path: '/',
+      component: HomeLayout,
+      children: [
+        { path: '', redirect: 'login' },
+        { path: 'login', component: Login },
+        { path: 'signup', component: Signup }
+      ]
+    },
     { path: '/user', redirect: '/user/room' },
     {
       path: '/user/room',

@@ -31,7 +31,7 @@ const meteorGenerator = ()=> {
 const frame = ()=> {
     //每隔10帧星星闪烁一次，节省计算资源
     count++
-    count % 10 == 0 && stars.blink()
+    count % 10 === 0 && stars.blink()
 
     moon.draw()
     stars.draw()
@@ -49,3 +49,4 @@ const frame = ()=> {
 
 meteorGenerator()
 frame()
+
