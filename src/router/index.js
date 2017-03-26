@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import Hello from '@/components/Hello'
 
+import HomeLayout from '@/components/common/HomeLayout'
 import Login from '@/components/pages/Login'
 import Signup from '@/components/pages/Signup'
 
@@ -19,6 +20,7 @@ import Info from '@/components/pages/user/activity/Info'
 import Member from '@/components/pages/user/activity/Member'
 import Message from '@/components/pages/user/activity/Message'
 import Result from '@/components/pages/user/activity/Result'
+import Settings from '@/components/pages/user/activity/Settings'
 import Notice from '@/components/pages/user/activity/newMessage/Notice'
 import Questionnaire from '@/components/pages/user/activity/newMessage/Questionnaire'
 
@@ -28,9 +30,15 @@ const router = new Router({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', redirect: '/login' },
-    { path: '/login', component: Login },
-    { path: '/signup', component: Signup },
+    {
+      path: '/',
+      component: HomeLayout,
+      children: [
+        { path: '', redirect: 'login' },
+        { path: 'login', component: Login },
+        { path: 'signup', component: Signup }
+      ]
+    },
     { path: '/user', redirect: '/user/room' },
     {
       path: '/user/room',
@@ -59,7 +67,11 @@ const router = new Router({
         { path: 'info', component: Info },
         { path: 'member', component: Member },
         { path: 'message', component: Message },
+<<<<<<< HEAD
         { path: 'result', component: Result },
+=======
+        { path: 'settings', component: Settings },
+>>>>>>> 8d71e697a7348fce366a3a36f2a4a95e405f3691
         { path: 'newMessage', redirect: 'message' },
         { path: 'newMessage/notice', component: Notice },
         { path: 'newMessage/questionnaire', component: Questionnaire }

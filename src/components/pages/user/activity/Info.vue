@@ -1,142 +1,107 @@
 <template lang="pug">
-  #roomInfo
-    .bigTitle 活动信息
-      .subtitle 这里包含了详细的活动信息
-      //- .excel(style="margin: 30px;")
-        el-button(type="danger", @click="excel") 测试Excel
-      form.excel(:action="'/uniadmin/room/' + roomInfo.id + '/user_xls'", method="get" style="margin: 30px;")
-        button(type="submit") Submit
-    .room_wrap
-      .room_box
-        .room_item
-          .room_avatar(:style="{background: 'url(' + roomInfo.cover + ')'}")
-            .tag 桌游
-          .room_content
-            .room_name
-              span.tag 官方
-              span {{ roomInfo.title }}
-            .room_details
-              .room_desc
-                span.title 活动内容：
-                span {{ roomInfo.description }}
-              .room_place
-                span.title 活动地点：
-                span {{ roomInfo.location_string }}
-              .room_start
-                span.title 开始时间：
-                span {{ roomInfo.date_time_start }}
-              .room_end
-                span.title 结束时间：
-                span {{ roomInfo.date_time_end }}
-              //- .room_people
-              //-   span.title 活动人数：
-              //-   span(v-if="roomInfo.people") {{ roomInfo.people }}
-              //-   span(v-else) [未设置]
-              //- .room_wechat
-              //-   span.title 微信推送链接：
-              //-   span(v-if="roomInfo.wechat") {{ roomInfo.wechat }}
-              //-   span(v-else) [未设置]
-              //- .room_colleges
-              //-   span.title 准入学校：
-              //-   span(v-if="roomInfo.colleges.length")
-              //-     span.college(v-for="item of roomInfo.colleges") {{ item }}；
-              //-   span(v-else) [未设置]
-              //- .room_condition
-              //-   span.title 准入条件：
-              //-   span(v-if="roomInfo.condition") {{ roomInfo.condition }}
-              //-   span(v-else) [未设置]
+#info
+  .container
+    el-row.box(v-for="(item, index) of titles", :key="index")
+      el-col(:span="leftSpan").box-item.title {{ item }}
+      el-col(:span="contentSpan").box-item.content {{ info[index] }}
+      //- el-col(:span="24-leftSpan-contentSpan").box-item.modify
+        el-button(type="text", @click="modify(index)") 修改
+    el-row.box
+      el-col(:span="leftSpan").box-item.title 房间海报
+      el-col(:span="24-leftSpan").box-item.content
+        el-upload.upload(drag, action="//jsonplaceholder.typicode.com/posts/")
+          i.el-icon-upload
+          .el-upload__text 将文件拖到此处，或<em>点击上传</em>
+          .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
+    el-row.box.no-border
+      el-col(:span="leftSpan").box-item.title 准入学校
+      el-col(:span="contentSpan").box-item.content.colleges
+        span(v-for="(item, index) of roomInfo.advertising")
+          span.college-item {{ item.name_ch }}
+      //- el-col(:span="24-leftSpan-contentSpan").box-item.modify
+        el-button(type="text", @click="modify(titles.length)") 修改
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
+  created () {
+    this.$store.dispatch('GetRoomInfo', this.$route.params.id)
+  },
+  data () {
+    return {
+      leftSpan: 4,
+      contentSpan: 16,
+      titles: [
+        '房间名称',
+        '活动地点',
+        '活动时间',
+        '活动人数',
+        '详细内容'
+      ],
+      colleges: [
+        {
+          title: '清华大学',
+          u_id: 1,
+          id: 'tsinghua',
+          toggle: false
+        },
+        {
+          title: '北方交大',
+          u_id: 2,
+          id: 'bfjd',
+          toggle: false
+        },
+        {
+          title: '隔壁',
+          u_id: 3,
+          id: 'gebi',
+          toggle: false
+        }
+      ]
+    }
+  },
   computed: {
     ...mapState({
       roomInfo: state => state.roomInfo.info
-    })
-  },
-  created () {
-    this.$store.dispatch('GetRoomInfo', this.$route.params.id)
-    console.log(this.info)
+    }),
+    ...mapGetters([
+      'roomDateFormat'
+    ]),
+    info () {
+      return [
+        this.roomInfo.title,
+        this.roomInfo.location_string,
+        this.roomDateFormat.date_time_start + ' — ' + this.roomDateFormat.date_time_end,
+        this.roomInfo.max_participants,
+        this.roomInfo.description
+      ]
+    }
   },
   methods: {
-    excel () {
-      this.$store.dispatch('Excel', this.roomInfo.id)
+    modify (index) {
     }
   }
 }
 </script>
 
-<style lang="stylus">
-#roomInfo
-  text-align left
-  .bigTitle
-    background white
-    font-size 28px
-    padding 10px 5%
-    .subtitle
-      font-size 18px
-      opacity 0.3
-  .members_info
-    background white
-    opacity 1
-    padding 10px
-    font-size 18px
-    .member_info
-      margin 10px 0
-      .item
-        margin-right 10px
-      .title
-        font-weight bold
-  .room_wrap
-    padding 10px 8%
-    background white
-    .room_box
-      margin-bottom 20px
-      padding 15px
-      background #D0D0D0
-      border-radius 10px
-      .room_attach
-        display flex
-        justify-content space-between
-        .msg_icon span
-          margin 0 10px
-      .room_item
-        display flex
-        .tag
-          background blue
-          color white
-          border-radius 5px
-          padding 3px 10px
-        .room_avatar
-          display flex
-          flex-direction column-reverse
-          align-items flex-start
-          border 1px solid #ccc
-          width 255px
-          height 150px
-          .tag
-            margin 15px
-        .room_content
-          width 80%
-          display flex
-          flex-direction column
-          margin 0 20px
-          .room_name, .room_details
-            text-align left
-          .room_details
-            padding 10px
-            .title
-              font-weight bold
-          .msg-text
-            text-align right
-          .tag
-            margin-right 10px
-    .buttons
-      text-align center
-      margin 20px
-      .button_style
-        padding 10px 50px
-        margin 0 30px
+<style lang="stylus" scoped>
+#info
+  .container
+    margin 20px
+    border 1px solid #ddd
+    border-radius 10px
+    .box
+      margin 10px
+      border-bottom 1px solid #ddd
+      .title, .content
+        padding 10px 0
+        font-size 14px
+      .content
+        text-align left
+        .college-item
+          padding-right 20px
+    .no-border
+      border-bottom none
 </style>

@@ -25,6 +25,19 @@ export const BasicInfo = ({commit}, data) => {
   router.push('member')
 }
 
+export const ModifyRoomInfo = ({commit}, data) => {
+  api.modifyRoomInfo(data).then(res => {
+    if (res.status === 200) {
+      commit(types.MODIFY_ROOM_INFO, data)
+      router.push('info')
+    } else {
+      Vue.prototype.$message.error('状态吗错误！')
+    }
+  }, () => {
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
 export const MemberInfo = ({commit}, data) => {
   commit(types.SET_MEMBER_INFO, data)
 }
@@ -171,7 +184,11 @@ export const CreateRoom = ({commit}, data) => {
       commit(types.CLEAR_NEW_ROOM)
       Vue.prototype.$message('创建房间成功')
     } else {
-      Vue.prototype.$message.error('Status code is not matched')
+      if (res.data.success) {
+        Vue.prototype.$message('创建房间成功')
+      } else {
+        Vue.prototype.$message.error('Status code is not matched')
+      }
     }
   }, () => {
     Vue.prototype.$message.error('请求错误！')

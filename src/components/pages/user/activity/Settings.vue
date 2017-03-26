@@ -1,0 +1,180 @@
+<template lang="pug">
+#settings
+  el-form.ruleForm(:model="ruleForm", :rules="rules", ref="ruleForm", label-width="100px")
+    el-form-item(label="填写名称", prop="name")
+      el-input(v-model="ruleForm.name", placeholder="活动标题（不少于5个字）")
+    el-form-item(label="选择地点", prop="place")
+      el-input(v-model="ruleForm.place", placeholder="例如：北京市海淀区中关村南大街")
+    el-form-item(label="活动时间", prop="timeRange")
+      //- el-date-picker(v-model="ruleForm.timeRange", type="datetimerange", placeholder="选择活动时间")
+      Date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
+    el-form-item(label="上传图片", prop="upload")
+      el-upload.upload(drag, action="//jsonplaceholder.typicode.com/posts/")
+        i.el-icon-upload
+        .el-upload__text 将文件拖到此处，或<em>点击上传</em>
+        .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
+    el-form-item(label="活动人数", prop="people")
+      el-input(v-model.number="ruleForm.people")
+    el-form-item(label="详细内容", prop="desc")
+      el-input(type="textarea", v-model="ruleForm.desc")
+    el-form-item
+      .subtitle 准入学校（可多选）
+      .colleges
+        span(v-for="(item, index) of colleges")
+          input(:id="item.id", type="checkbox", v-model="item.toggle")
+          label(:for="item.id") {{ item.title }}
+      .subtitle 若已有微信推送，请直接粘贴链接
+      el-input(type="text", v-model="ruleForm.wechat")
+      .subtitle 准入条件（将在用户选择加入时提醒）
+      el-input(type="text", v-model="ruleForm.condition")
+    el-form-item
+      el-button.submitButton(type="danger", size="large", @click="submitForm('ruleForm')") 修改房间信息
+</template>
+
+<script>
+import { mapState, mapGetters } from 'vuex'
+
+export default {
+  created () {
+    this.$store.dispatch('GetRoomInfo', this.$route.params.id)
+  },
+  computed: {
+    ...mapState({
+      roomInfo: state => state.roomInfo.info
+    }),
+    ...mapGetters([
+      'roomDateFormat'
+    ]),
+    colleges () {
+      let cols = [
+        {
+          title: '清华大学',
+          u_id: 1,
+          id: 'tsinghua',
+          toggle: false
+        },
+        {
+          title: '北方交大',
+          u_id: 2,
+          id: 'bfjd',
+          toggle: false
+        },
+        {
+          title: '隔壁',
+          u_id: 3,
+          id: 'gebi',
+          toggle: false
+        }
+      ]
+      for (let item of this.roomInfo.advertising) {
+        cols[item.id - 1].toggle = true
+      }
+      return cols
+    },
+    ruleForm () {
+      return {
+        name: this.roomInfo.title,       // 活动名称 // title
+        place: this.roomInfo.location_string,      // 活动地点 // location_string
+        people: this.roomInfo.max_participants,     // 参与人数 (需转化为数字) (非必须) // participants
+        desc: this.roomInfo.description,       // 详细内容 // discription
+        wechat: this.roomInfo.options[0],     // 微信推送链接 (非必须)
+        condition: this.roomInfo.options[1],  // 准入条件 (非必须) // welcome
+        colleges: [],    // 准入学校 // advertising
+        timeRange: [this.roomInfo.date_time_start, this.roomInfo.date_time_end]
+      }
+    }
+  },
+  methods: {
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (Number(this.ruleForm.people) < 2) {
+            alert('参与人数必须大于2')
+            return false
+          }
+          let allData = this.ruleForm
+          for (let item of this.colleges) {
+            if (item.toggle) {
+              console.log(item.title)
+              allData.colleges.push(item.u_id)
+            }
+          }
+          if (!allData.colleges.length) {
+            alert('准入学校至少填写1所')
+            return false
+          }
+          allData = JSON.parse(JSON.stringify(allData))
+          allData = {
+            id: this.$route.params.id,
+            title: allData.name,
+            location_string: allData.place,
+            date_time_start: allData.timeRange[0].split('.')[0],
+            date_time_end: allData.timeRange[1].split('.')[0],
+            max_participants: allData.people,
+            description: allData.desc,
+            options: allData.options,
+            advertising: allData.colleges,
+            questionnaires: allData.questionnaires
+          }
+          this.$store.dispatch('ModifyRoomInfo', allData)
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    }
+  },
+  data () {
+    return {
+      rules: {
+        name: [
+          { required: true, message: '请输入活动名称', trigger: 'blur' },
+          { min: 5, message: '活动标题不少于5个字符', trigger: 'blur' }
+        ],
+        place: [
+          { required: true, message: '请选择活动地点', trigger: 'blur' }
+        ],
+        people: [
+          { required: true, type: 'number', message: '人数必须是数字', trigger: 'change' }
+        ],
+        desc: [
+          { required: true, message: '请填写活动形式', trigger: 'blur' }
+        ],
+        timeRange: [
+          { required: true, message: '请填写活动时间' }
+        ]
+      }
+    }
+  }
+}
+</script>
+
+<style lang="stylus" scoped>
+#settings
+  margin 20px
+  border 1px solid #ddd
+  border-radius 10px
+  padding 40px 40px 20px 20px
+  .submitButton
+    padding 10px 100px
+  .upload
+    text-align left
+  .subtitle
+    text-align left
+    margin-top 15px
+  .ruleForm
+    text-align left
+    .colleges input
+      display none
+
+    .colleges label
+      cursor pointer
+      background #eee
+      border 1px solid #ccc
+      padding 5px 20px
+      margin-right 20px
+
+    .colleges input:checked ~ label
+      background red
+      color white
+</style>

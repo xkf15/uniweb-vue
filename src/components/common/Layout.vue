@@ -2,7 +2,8 @@
   .layout
     nav#navbar
       .nav-logo
-        a(href="") UNIWORLD
+        a(href="")
+          img(src="../../assets/logo_text.png")
       .nav-menu
         .user-menu
           .user
@@ -227,7 +228,8 @@ $margin-bottom = 30px
     background white
     flex 1
   .content
-    flex 3
+    flex 4.5
+    padding-right 20px
   .drop-menu
     background #ddd
     input

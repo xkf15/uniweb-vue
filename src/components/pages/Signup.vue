@@ -1,21 +1,15 @@
 <template lang="pug">
 #signup
-  home-layout
-    el-input(v-model="account", placeholder="账号", type="text")
-    el-input(v-model="password", placeholder="密码", type="password")
-    el-input(v-model="password_r", placeholder="请再次输入密码", type="password", @keyup.enter.native="signup")
-    el-col#login(:xs="24", :sm="24")
-      el-button(type="text", @click="login") 已有账号登录
-    el-button.signup(type="primary", @click="signup") 注册
+  el-input(v-model="account", placeholder="账号", type="text")
+  el-input(v-model="password", placeholder="密码", type="password")
+  el-input(v-model="password_r", placeholder="请再次输入密码", type="password", @keyup.enter.native="signup")
+  el-col#login(:xs="24", :sm="24")
+    el-button(type="text", @click="login") 已有账号登录
+  el-button.signup(type="primary", @click="signup") 注册
 </template>
 
 <script>
-import HomeLayout from '@/components/common/HomeLayout'
-
 export default {
-  components: {
-    HomeLayout
-  },
   mounted () {
     require('@/js/main.js')
   },

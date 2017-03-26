@@ -1,14 +1,15 @@
 <template lang="pug">
 .homeLayout
   nav
-    .nav-logo UNIWORLD
+    .nav-logo
+      img(src="../../assets/logo_text.png")
   canvas#canvas.canvas
   .container
     el-row.content
       span.title
         img(src="../../assets/logo_white.png")
       el-row
-        slot
+        router-view
 </template>
 
 <script>
