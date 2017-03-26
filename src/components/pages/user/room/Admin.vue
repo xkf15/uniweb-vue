@@ -7,7 +7,7 @@
       span 已结束
     .room_box(v-for="(item, index) of roomList")
       .room_item
-        router-link.room_avatar(:to="'/user/activity/' + item.id", :style="{background: 'url(http://101.6.161.111:8000/static/uniadmin/default_avatar.jpg)'}")
+        router-link.room_avatar(:to="'/user/activity/' + item.id", :style="{background: 'url(' + item.cover + ')'}")
           .tag 桌游
         .room_content
           .title

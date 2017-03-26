@@ -6,7 +6,8 @@
     el-form-item(label="选择地点", prop="place")
       el-input(v-model="ruleForm.place", placeholder="例如：北京市海淀区中关村南大街")
     el-form-item(label="活动时间", prop="timeRange")
-      el-date-picker(v-model="ruleForm.timeRange", type="datetimerange", placeholder="选择活动时间", align="right")
+      //- el-date-picker(v-model="ruleForm.timeRange", type="datetimerange", placeholder="选择活动时间")
+      Date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
     el-form-item(label="上传图片", prop="upload")
       el-upload.upload(drag, action="//jsonplaceholder.typicode.com/posts/")
         i.el-icon-upload
@@ -65,8 +66,8 @@ export default {
           toggle: false
         }
       ]
-      for (let id of this.roomInfo.advertising) {
-        cols[id - 1].toggle = true
+      for (let item of this.roomInfo.advertising) {
+        cols[item.id - 1].toggle = true
       }
       return cols
     },
@@ -102,7 +103,8 @@ export default {
             alert('准入学校至少填写1所')
             return false
           }
-          this.$store.dispatch('ModifyRoomInfo', {
+          allData = JSON.parse(JSON.stringify(allData))
+          allData = {
             id: this.$route.params.id,
             title: allData.name,
             location_string: allData.place,
@@ -113,7 +115,8 @@ export default {
             options: allData.options,
             advertising: allData.colleges,
             questionnaires: allData.questionnaires
-          })
+          }
+          this.$store.dispatch('ModifyRoomInfo', allData)
         } else {
           console.log('error submit!!')
           return false
@@ -148,6 +151,10 @@ export default {
 
 <style lang="stylus" scoped>
 #settings
+  margin 20px
+  border 1px solid #ddd
+  border-radius 10px
+  padding 40px 40px 20px 20px
   .submitButton
     padding 10px 100px
   .upload

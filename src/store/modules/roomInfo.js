@@ -26,10 +26,9 @@ const mutations = {
     state.messages.push(data)
   },
   [types.GET_ROOM_INFO] (state, data) {
+    console.log(data)
     state.info = data
-    state.info.advertising = JSON.parse(data.advertising)
     state.info.options = JSON.parse(data.options)
-    state.info.questionnaires = JSON.parse(data.questionnaires)
   },
   [types.GET_MEMBERS] (state, data) {
     state.members = data

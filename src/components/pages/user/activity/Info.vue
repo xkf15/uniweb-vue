@@ -4,7 +4,7 @@
     el-row.box(v-for="(item, index) of titles", :key="index")
       el-col(:span="leftSpan").box-item.title {{ item }}
       el-col(:span="contentSpan").box-item.content {{ info[index] }}
-      el-col(:span="24-leftSpan-contentSpan").box-item.modify
+      //- el-col(:span="24-leftSpan-contentSpan").box-item.modify
         el-button(type="text", @click="modify(index)") 修改
     el-row.box
       el-col(:span="leftSpan").box-item.title 房间海报
@@ -17,8 +17,8 @@
       el-col(:span="leftSpan").box-item.title 准入学校
       el-col(:span="contentSpan").box-item.content.colleges
         span(v-for="(item, index) of roomInfo.advertising")
-          span.college-item {{ colleges[item - 1].title }}
-      el-col(:span="24-leftSpan-contentSpan").box-item.modify
+          span.college-item {{ item.name_ch }}
+      //- el-col(:span="24-leftSpan-contentSpan").box-item.modify
         el-button(type="text", @click="modify(titles.length)") 修改
 </template>
 
@@ -104,5 +104,4 @@ export default {
           padding-right 20px
     .no-border
       border-bottom none
-        color white
 </style>
