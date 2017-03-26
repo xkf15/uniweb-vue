@@ -23,7 +23,8 @@ var isLoggedIn = function isLoggedIn() {
 };
 
 var state = {
-  token: isLoggedIn() || null
+  token: isLoggedIn() || null,
+  userInfo: []
 };
 
 var setUser = function setUser(state, token) {
@@ -36,6 +37,8 @@ var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, type
 }), (0, _defineProperty3.default)(_mutations, types.USER_SIGNOUT, function (state) {
   sessionStorage.setItem('uni-token', null);
   state.token = null;
+}), (0, _defineProperty3.default)(_mutations, types.CHANGE_USER_INFO, function (state, data) {}), (0, _defineProperty3.default)(_mutations, types.GET_USER_INFO, function (state, data) {
+  state.userInfo = data;
 }), _mutations);
 
 exports.default = {

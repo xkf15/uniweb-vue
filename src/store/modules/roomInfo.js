@@ -40,7 +40,7 @@ var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, type
   state.info = data;
 }), (0, _defineProperty3.default)(_mutations, types.GET_MEMBERS, function (state, data) {
   state.members = data;
-}), (0, _defineProperty3.default)(_mutations, types.GET_APPLICATIONS, function (state, data) {
+}), (0, _defineProperty3.default)(_mutations, types.DELETE_MEMBER, function (state, data) {}), (0, _defineProperty3.default)(_mutations, types.GET_APPLICATIONS, function (state, data) {
   state.applications = data;
 }), _mutations);
 

@@ -9,8 +9,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    productionSourceMap: true,
-
+    productionSourceMap: false,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
 
@@ -24,17 +23,17 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/uniadmin': {
-        target: 'http://101.6.161.105:8000',
+        target: 'http://localhost:8000',
         changeOrigin: true,
         pathRewrite: {
           '^/uniadmin': '/uniadmin'
         }
       },
-      '/login': {
-        target: 'http://101.6.161.105:8000',
+      '/auth': {
+        target: 'http://localhost:8000',
         changeOrigin: true,
         pathRewrite: {
-          '^/login': '/login'
+          '^/auth': '/auth'
         }
       }
     },

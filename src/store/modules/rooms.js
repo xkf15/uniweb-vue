@@ -20,13 +20,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var state = {
   roomList: [],
-  loading: true
+  loading: false,
+  searchRoomList: []
 };
 
 var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, types.GET_ROOMS, function (state, data) {
   state.roomList = data;
-}), (0, _defineProperty3.default)(_mutations, types.CHANGE_LOADING, function (state) {
-  state.loading = !state.loading;
+}), (0, _defineProperty3.default)(_mutations, types.SET_LOADING_FALSE, function (state) {
+  state.loading = false;
+}), (0, _defineProperty3.default)(_mutations, types.SET_LOADING_TRUE, function (state) {
+  state.loading = true;
+}), (0, _defineProperty3.default)(_mutations, types.SEARCH_ROOMS_BY_NAME, function (state, data) {
+  state.searchRoomList = [];
+}), (0, _defineProperty3.default)(_mutations, types.SEARCH_ROOMS_BY_LABELS, function (state, data) {
+  state.searchRoomList = [];
 }), _mutations);
 
 exports.default = {

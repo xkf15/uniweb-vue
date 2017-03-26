@@ -21,8 +21,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _vue2.default.use(_vueAxios2.default, _axios2.default);
 
 exports.default = {
+  getExcel: function getExcel(id) {
+    return _vue2.default.axios.get('/uniadmin/room/' + id + '/user_xls');
+  },
   localLogin: function localLogin(data) {
-    return _vue2.default.axios.post('/login/', data);
+    return _vue2.default.axios.post('/auth/', data);
+  },
+  localSignup: function localSignup(data) {
+    return _vue2.default.axios.post('/auth/signup', data);
+  },
+  getUserInfo: function getUserInfo() {
+    return _vue2.default.axios.get('/uniadmin/host');
   },
   createRoom: function createRoom(data) {
     return _vue2.default.axios.post('/uniadmin/create', data);
@@ -42,11 +51,29 @@ exports.default = {
   getMembers: function getMembers(roomId) {
     return _vue2.default.axios.get('/uniadmin/room/' + roomId + '/users');
   },
+  deleteMember: function deleteMember(data) {
+    return _vue2.default.axios.delete('', data);
+  },
+  getMemberInfo: function getMemberInfo(data) {
+    return _vue2.default.axios.get('', data);
+  },
   getRooms: function getRooms() {
     return _vue2.default.axios.get('/uniadmin/');
   },
   getApplications: function getApplications(roomId) {
     return _vue2.default.axios.get('/uniadmin/room/' + roomId + '/application');
+  },
+  acceptApplication: function acceptApplication(data) {
+    return _vue2.default.axios.post('', data);
+  },
+  searchRoomsByName: function searchRoomsByName(data) {
+    return _vue2.default.axios.post('', data);
+  },
+  searchRoomsByLabel: function searchRoomsByLabel(data) {
+    return _vue2.default.axios.post('', data);
+  },
+  changeUserInfo: function changeUserInfo(data) {
+    return _vue2.default.axios.post('', data);
   }
 };
 //# sourceMappingURL=index.js.map

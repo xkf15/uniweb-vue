@@ -12,9 +12,17 @@ var _vueRouter = require('vue-router');
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
+var _HomeLayout = require('@/components/common/HomeLayout');
+
+var _HomeLayout2 = _interopRequireDefault(_HomeLayout);
+
 var _Login = require('@/components/pages/Login');
 
 var _Login2 = _interopRequireDefault(_Login);
+
+var _Signup = require('@/components/pages/Signup');
+
+var _Signup2 = _interopRequireDefault(_Signup);
 
 var _Room = require('@/components/pages/user/Room');
 
@@ -60,6 +68,14 @@ var _Message = require('@/components/pages/user/activity/Message');
 
 var _Message2 = _interopRequireDefault(_Message);
 
+var _Notice = require('@/components/pages/user/activity/newMessage/Notice');
+
+var _Notice2 = _interopRequireDefault(_Notice);
+
+var _Questionnaire = require('@/components/pages/user/activity/newMessage/Questionnaire');
+
+var _Questionnaire2 = _interopRequireDefault(_Questionnaire);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue2.default.use(_vueRouter2.default);
@@ -67,7 +83,11 @@ _vue2.default.use(_vueRouter2.default);
 var router = new _vueRouter2.default({
   mode: 'history',
   base: __dirname,
-  routes: [{ path: '/', redirect: '/login' }, { path: '/login', component: _Login2.default }, { path: '/user', redirect: '/user/room' }, {
+  routes: [{
+    path: '/',
+    component: _HomeLayout2.default,
+    children: [{ path: '', redirect: 'login' }, { path: 'login', component: _Login2.default }, { path: 'signup', component: _Signup2.default }]
+  }, { path: '/user', redirect: '/user/room' }, {
     path: '/user/room',
     component: _Room2.default,
     children: [{ path: '', redirect: 'admin' }, { path: 'admin', component: _Admin2.default }, {
@@ -77,20 +97,20 @@ var router = new _vueRouter2.default({
     }]
   }, { path: '/user/activity', redirect: '/user' }, { path: '/user/activity/:id',
     component: _Activity2.default,
-    children: [{ path: '', redirect: 'info' }, { path: 'info', component: _Info2.default }, { path: 'member', component: _Member2.default }, { path: 'message', component: _Message2.default }]
+    children: [{ path: '', redirect: 'info' }, { path: 'info', component: _Info2.default }, { path: 'member', component: _Member2.default }, { path: 'message', component: _Message2.default }, { path: 'newMessage', redirect: 'message' }, { path: 'newMessage/notice', component: _Notice2.default }, { path: 'newMessage/questionnaire', component: _Questionnaire2.default }]
   }]
 });
 
 router.beforeEach(function (to, from, next) {
   var token = sessionStorage.getItem('uni-token');
-  if (to.path === '/' || to.path === '/login') {
+  if (to.path === '/' || to.path === '/login' || to.path === '/signup') {
     if (token !== 'null' && token !== null) {
       next('/user/room');
     }
     next();
   } else {
     if (token !== 'null' && token !== null) {
-      _vue2.default.axios.create().defaults.headers.common['Authorization'] = 'Token ' + token;
+      _vue2.default.axios.create().defaults.headers.common['Authorization'] = 'Bearer ' + token;
       next();
     } else next('/');
   }

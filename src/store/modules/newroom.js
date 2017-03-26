@@ -36,7 +36,7 @@ var state = {
 var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, types.SET_BASIC_INFO, function (state, data) {
   console.log((0, _stringify2.default)(data));
   sessionStorage.setItem('basic_info', (0, _stringify2.default)(data));
-  state.basicInfo = data;
+  state.basicInfo = JSON.parse((0, _stringify2.default)(data));
 }), (0, _defineProperty3.default)(_mutations, types.SET_MEMBER_INFO, function (state, data) {
   sessionStorage.setItem('member_info', (0, _stringify2.default)(data));
   state.memberInfo = data;
