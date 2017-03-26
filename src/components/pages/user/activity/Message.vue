@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     toNewMessage (type) {
-      this.$router.push('./newMessage/' + type)
+      this.$router.push('./message/' + type)
     },
     delete_message (messageId) {
       this.$confirm('此操作将永久删除该消息, 是否继续?', '提示', {

@@ -9,7 +9,7 @@
       el-form-item(label="内容", prop="info", :rules="[{ required: true, message: '内容不能为空'}]")
         el-input(type="textarea", v-model="notice.info", auto-complete="off", :maxlength="1000", :rows="8")
       .flex
-        el-button.submit_btn(type="primary", @click="submitForm('notice')") 发布
+        el-button.submit_btn(type="primary", @click="submitForm()") 发布
 </template>
 <script>
 export default {
@@ -17,21 +17,19 @@ export default {
     return {
       notice: {
         title: '',
-        info: '',
-        age: ''
+        description: '',
+        is_announcement: true,
+        choices: []
       }
     }
   },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          console.log(this.notice)
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
+    submitForm () {
+      let data = {
+        roomId: this.$route.params.id,
+        questionnaire: [this.notice]
+      }
+      this.$store.dispatch('CreateQuestionnaire', data)
     }
   }
 }

@@ -109,6 +109,12 @@ export const CreateMessage = ({commit}, data) => {
 }
 
 export const CreateQuestionnaire = ({commit}, data) => {
+  api.createQuestionnaire(data).then(res => {
+    Vue.prototype.$message('添加问卷成功！')
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
 }
 
 export const DeleteMessage = ({commit}, data) => {

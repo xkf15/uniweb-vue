@@ -26,6 +26,9 @@ export default {
   createMessage: data => {
     return Vue.axios.post('/uniadmin/room/' + data.roomId + '/notice/create', data.data)
   },
+  createQuestionnaire: data => {
+    return Vue.axios.post('/uniadmin/room/' + data.roomId + '/notice/create', data.questionnaire)
+  },
   deleteMessage: data => {
     return Vue.axios.delete('/uniadmin/room/' + data.roomId + '/notice/' + data.announcementId + '/delete')
   },
