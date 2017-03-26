@@ -95,6 +95,9 @@ export const CreateMessage = ({commit}, data) => {
   })
 }
 
+export const CreateQuestionnaire = ({commit}, data) => {
+}
+
 export const DeleteMessage = ({commit}, data) => {
   api.deleteMessage(data).then(res => {
     if (res.status === 200) {
