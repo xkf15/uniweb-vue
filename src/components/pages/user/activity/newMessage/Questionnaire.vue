@@ -5,13 +5,13 @@
     el-form-item(v-for="(question, index) in dynamicValidateForm.questions", :label="'问题' + (index+1)", :prop="'questions.' + index + '.title'", :rules="{required: true, message: '域名不能为空', trigger: 'blur'}")
       .question_top
         .question_title
-          span(v-if="question.is_announcement") （填空）
+          span(v-if="question.key === 'blank'") （填空）
           span(v-else)
             span(v-if="question.key === 'single'") （单选）
             span(v-else) （多选）
           span {{ question.title }}
         el-button.question_delete(@click.prevent="removeQuestion(question)", type="danger") 删除
-      input.question_answer(v-if="question.is_announcement", placeholder="用户可在此输入回答", disable)
+      input.question_answer(v-if="question.key === 'blank'", placeholder="用户可在此输入回答", disable)
       el-checkbox-group.checkbox(v-if="question.key === 'multiple'")
         .show_checkbox(v-for="(choice, index_choice) in question.choices")
           el-checkbox(:label="choice")
@@ -23,7 +23,7 @@
         el-collapse-item.collapse-item(title="修改", :name="index")
           span.question_tip 问题{{index+1}}
           el-input.input_question(v-model="question.title", :maxlength="100")
-          el-checkbox-group.inner_checkbox(v-model="question.choices", v-if="!question.is_announcement")
+          el-checkbox-group.inner_checkbox(v-model="question.choices", v-if="!(question.key === 'blank')")
             .inner_choices(v-for="(choice, index_choice) in question.choices")
               //- el-checkbox(disabled)
               el-input.inner_input(v-model="question.choices[index_choice]")
