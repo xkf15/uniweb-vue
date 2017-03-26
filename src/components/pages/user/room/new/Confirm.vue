@@ -79,7 +79,6 @@ export default {
           description: item.question
         })
       }
-
       const all = {
         title: this.basicInfo.name,
         location_string: this.basicInfo.place,
@@ -94,8 +93,6 @@ export default {
         advertising: this.basicInfo.colleges,
         questionnaires: questionaires
       }
-
-      console.log(all)
       this.$store.dispatch('CreateRoom', all)
       this.$router.push('publish')
     }

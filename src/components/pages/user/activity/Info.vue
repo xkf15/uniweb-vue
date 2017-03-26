@@ -1,10 +1,10 @@
 <template lang="pug">
-#settings
+#info
   .container
     el-row.box(v-for="(item, index) of titles", :key="index")
       el-col(:span="leftSpan").box-item.title {{ item }}
       el-col(:span="contentSpan").box-item.content {{ info[index] }}
-      //- el-col(:span="24-leftSpan-contentSpan").box-item.modify
+      el-col(:span="24-leftSpan-contentSpan").box-item.modify
         el-button(type="text", @click="modify(index)") 修改
     el-row.box
       el-col(:span="leftSpan").box-item.title 房间海报
@@ -19,14 +19,16 @@
         span(v-for="(item, index) of roomInfo.advertising")
           span.college-item {{ colleges[item - 1].title }}
       el-col(:span="24-leftSpan-contentSpan").box-item.modify
-        //- el-button(type="text", @click="modify(titles.length)") 修改
-
+        el-button(type="text", @click="modify(titles.length)") 修改
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex'
 
 export default {
+  created () {
+    this.$store.dispatch('GetRoomInfo', this.$route.params.id)
+  },
   data () {
     return {
       leftSpan: 4,
@@ -71,14 +73,11 @@ export default {
       return [
         this.roomInfo.title,
         this.roomInfo.location_string,
-        this.roomDateFormat.date_time_start + ' —— ' + this.roomDateFormat.date_time_end,
+        this.roomDateFormat.date_time_start + ' — ' + this.roomDateFormat.date_time_end,
         this.roomInfo.max_participants,
         this.roomInfo.description
       ]
     }
-  },
-  created () {
-    this.$store.dispatch('GetRoomInfo', this.$route.params.id)
   },
   methods: {
     modify (index) {
@@ -88,7 +87,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-#settings
+#info
   .container
     margin 20px
     border 1px solid #ddd
@@ -105,4 +104,5 @@ export default {
           padding-right 20px
     .no-border
       border-bottom none
+        color white
 </style>

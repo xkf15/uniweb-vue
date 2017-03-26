@@ -33,7 +33,7 @@ export default {
     return Vue.axios.get('/uniadmin/room/' + roomId + '/detail')
   },
   modifyRoomInfo: data => {
-    return Vue.axios.post('/uniadmin/', data)
+    return Vue.axios.post('/uniadmin/room/' + data.id + '/update', data)
   },
   getMembers: roomId => {
     return Vue.axios.get('/uniadmin/room/' + roomId + '/users')

@@ -27,7 +27,7 @@
       .subtitle 准入条件（将在用户选择加入时提醒）
       el-input(type="text", v-model="ruleForm.condition")
     el-form-item
-      el-button.submitButton(type="danger", size="large", @click="submitForm('ruleForm')") 修改房间信息
+      el-button.submitButton(type="danger", size="large", @click="submitForm('ruleForm')") 下一步
 </template>
 
 <script>
@@ -43,45 +43,7 @@ export default {
     }),
     ...mapGetters([
       'roomDateFormat'
-    ]),
-    colleges () {
-      let cols = [
-        {
-          title: '清华大学',
-          u_id: 1,
-          id: 'tsinghua',
-          toggle: false
-        },
-        {
-          title: '北方交大',
-          u_id: 2,
-          id: 'bfjd',
-          toggle: false
-        },
-        {
-          title: '隔壁',
-          u_id: 3,
-          id: 'gebi',
-          toggle: false
-        }
-      ]
-      for (let id of this.roomInfo.advertising) {
-        cols[id - 1].toggle = true
-      }
-      return cols
-    },
-    ruleForm () {
-      return {
-        name: this.roomInfo.title,       // 活动名称 // title
-        place: this.roomInfo.location_string,      // 活动地点 // location_string
-        people: this.roomInfo.max_participants,     // 参与人数 (需转化为数字) (非必须) // participants
-        desc: this.roomInfo.description,       // 详细内容 // discription
-        wechat: this.roomInfo.options[0],     // 微信推送链接 (非必须)
-        condition: this.roomInfo.options[1],  // 准入条件 (非必须) // welcome
-        colleges: [],    // 准入学校 // advertising
-        timeRange: [this.roomInfo.date_time_start, this.roomInfo.date_time_end]
-      }
-    }
+    ])
   },
   methods: {
     submitForm (formName) {
@@ -102,18 +64,8 @@ export default {
             alert('准入学校至少填写1所')
             return false
           }
-          this.$store.dispatch('ModifyRoomInfo', {
-            id: this.$route.params.id,
-            title: allData.name,
-            location_string: allData.place,
-            date_time_start: allData.timeRange[0].split('.')[0],
-            date_time_end: allData.timeRange[1].split('.')[0],
-            max_participants: allData.people,
-            description: allData.desc,
-            options: allData.options,
-            advertising: allData.colleges,
-            questionnaires: allData.questionnaires
-          })
+          this.$store.dispatch('BasicInfo', allData)
+          this.$router.push('member')
         } else {
           console.log('error submit!!')
           return false
@@ -123,6 +75,36 @@ export default {
   },
   data () {
     return {
+      colleges: [
+        {
+          title: '清华大学',
+          u_id: 1,
+          id: 'tsinghua',
+          toggle: false
+        },
+        {
+          title: '北方交大',
+          u_id: 2,
+          id: 'bfjd',
+          toggle: false
+        },
+        {
+          title: '隔壁',
+          u_id: 3,
+          id: 'gebi',
+          toggle: false
+        }
+      ],
+      ruleForm: {
+        name: '',       // 活动名称 // title
+        place: '',      // 活动地点 // location_string
+        people: '',     // 参与人数 (需转化为数字) (非必须) // participants
+        desc: '',       // 详细内容 // discription
+        wechat: '',     // 微信推送链接 (非必须)
+        condition: '',  // 准入条件 (非必须) // welcome
+        colleges: [],    // 准入学校 // advertising
+        timeRange: ''
+      },
       rules: {
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
