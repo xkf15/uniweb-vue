@@ -67,11 +67,8 @@ const router = new Router({
         { path: 'info', component: Info },
         { path: 'member', component: Member },
         { path: 'message', component: Message },
-<<<<<<< HEAD
         { path: 'result', component: Result },
-=======
         { path: 'settings', component: Settings },
->>>>>>> 8d71e697a7348fce366a3a36f2a4a95e405f3691
         { path: 'newMessage', redirect: 'message' },
         { path: 'newMessage/notice', component: Notice },
         { path: 'newMessage/questionnaire', component: Questionnaire }
