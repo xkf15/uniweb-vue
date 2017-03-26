@@ -8,7 +8,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    productionSourceMap: true,
+    productionSourceMap: false, // true
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/uniadmin': {
-        // target: 'http://101.6.162.123:8000',
+        // target: 'http://101.6.161.73:8000',
         target: 'http://localhost:8000',
         changeOrigin: true,
         pathRewrite: {
@@ -37,7 +37,7 @@ module.exports = {
         }
       },
       '/auth': {
-        // target: 'http://101.6.162.123:8000',
+        // target: 'http://101.6.161.73:8000',
         target: 'http://localhost:8000',
         changeOrigin: true,
         pathRewrite: {

@@ -24,6 +24,10 @@ export default {
         {
           title: '成员管理',
           path: '/user/activity/' + this.$route.params.id + '/member'
+        },
+        {
+          title: '房间设置',
+          path: '/user/activity/' + this.$route.params.id + '/settings'
         }
       ],
       menuTitle: '活动管理',

@@ -1,7 +1,8 @@
 <template lang="pug">
 .homeLayout
   nav
-    .nav-logo UNIWORLD
+    .nav-logo
+      img(src="../../assets/logo_text.png")
   canvas#canvas.canvas
   .container
     el-row.content
