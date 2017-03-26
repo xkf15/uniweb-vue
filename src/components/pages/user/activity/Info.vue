@@ -2,9 +2,9 @@
   #roomInfo
     .bigTitle 活动信息
       .subtitle 这里包含了详细的活动信息
-      //- .excel(style="margin: 30px;")
+      .excel(style="margin: 30px;")
         el-button(type="danger", @click="excel") 测试Excel
-      form.excel(:action="'/uniadmin/room/' + roomInfo.id + '/user_xls'", method="get" style="margin: 30px;")
+      //- form.excel(:action="'/uniadmin/room/' + roomInfo.id + '/user_xls'", method="get" style="margin: 30px;")
         button(type="submit") Submit
     .room_wrap
       .room_box

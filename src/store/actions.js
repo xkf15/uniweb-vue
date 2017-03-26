@@ -168,7 +168,11 @@ export const CreateRoom = ({commit}, data) => {
       commit(types.CLEAR_NEW_ROOM)
       Vue.prototype.$message('创建房间成功')
     } else {
-      Vue.prototype.$message.error('Status code is not matched')
+      if (res.data.success) {
+        Vue.prototype.$message('创建房间成功')
+      } else {
+        Vue.prototype.$message.error('Status code is not matched')
+      }
     }
   }, () => {
     Vue.prototype.$message.error('请求错误！')

@@ -10,24 +10,26 @@
         router-link.room_avatar(:to="'/user/activity/' + item.id", :style="{background: 'url(http://101.6.161.111:8000/static/uniadmin/default_avatar.jpg)'}")
           .tag 桌游
         .room_content
-          .content
+          .title
             span.tag 官方
             span {{ item.title }}
+          //- .content
+            span {{ item.description }}
+          .room_attach
+            .room_time {{ item.date_time_start }}
+            .room_time {{ item.date_time_end }}
+            .room_icons
+              .msg_icon
+                span
+                  i.fa.fa-comment-o(aria-hidden="true")
+                  span 3
+                span
+                  i.fa.fa-user-o(aria-hidden="true")
+                  span 3
+              .member_icon
           .msg-text
             .new_msg 有新结束的群消息！
             .new_member 有新的成员申请！
-      //- .room_attach
-      //-   .room_time {{ item.date_time_start }}
-      //-   .room_time {{ item.date_time_end }}
-      //-   .room_icons
-      //-     .msg_icon
-      //-       span
-      //-         i.fa.fa-comment-o(aria-hidden="true")
-      //-         span 3
-      //-       span
-      //-         i.fa.fa-user-o(aria-hidden="true")
-      //-         span 3
-      //-     .member_icon
 </template>
 
 <script>
@@ -42,24 +44,6 @@
         roomList: state => state.rooms.roomList[0],
         loading: state => state.rooms.loading
       })
-    },
-    data () {
-      return {
-        rooms: [
-          {
-            tag: '桌游',
-            official: '官方!',
-            title: 'Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅Uniworld请你吃麻辣香锅',
-            time: '于2016-1-17 21:30建立，还有2天12时结束'
-          },
-          {
-            tag: '桌游',
-            official: '官方!',
-            title: 'Uniworld请你吃麻辣香锅',
-            time: '于2016-1-17 21:30建立，还有2天12时结束'
-          }
-        ]
-      }
     }
   }
 </script>
@@ -108,8 +92,10 @@ $tag-color = #ff586d
         display flex
         flex-direction column
         margin 0 20px
-        .content
+        .content, .title
           text-align left
+        .title
+          margin-bottom 20px
         .msg-text
           text-align right
         .tag

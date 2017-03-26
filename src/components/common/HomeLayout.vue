@@ -8,7 +8,7 @@
       span.title
         img(src="../../assets/logo_white.png")
       el-row
-        slot
+        router-view
 </template>
 
 <script>
