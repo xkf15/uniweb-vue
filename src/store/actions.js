@@ -8,6 +8,7 @@ export const Excel = ({commit}, roomId) => {
     if (res.status === 200) { // 如果成功
       console.log(res.data)
       // commit(types.USER_SIGNIN, res.data.token)
+      window.location.href = res.data
       Vue.prototype.$message({ // 登录成功，显示提示语
         type: 'success',
         message: '请求成功！'

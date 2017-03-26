@@ -1,6 +1,7 @@
 <template lang="pug">
 #info
   .container
+    el-button(type="danger", @click="excel") 测试Excel
     el-row.box(v-for="(item, index) of titles", :key="index")
       el-col(:span="leftSpan").box-item.title {{ item }}
       el-col(:span="contentSpan").box-item.content {{ info[index] }}
@@ -80,6 +81,9 @@ export default {
     }
   },
   methods: {
+    excel () {
+      this.$store.dispatch('Excel', this.roomInfo.id)
+    },
     modify (index) {
     }
   }

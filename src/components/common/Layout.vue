@@ -2,7 +2,7 @@
   .layout
     nav#navbar
       .nav-logo
-        a(href="")
+        router-link(to="/user/room")
           img(src="../../assets/logo_text.png")
       .nav-menu
         .user-menu
