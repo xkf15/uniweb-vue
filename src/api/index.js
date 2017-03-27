@@ -23,7 +23,13 @@ export default {
   getMessages: data => {
     return Vue.axios.get(`/uniadmin/room/${data}/notice`)
   },
-  createMessage: data => {
+  getAnnouncement: data => {
+    return Vue.axios.get(`/uniadmin/room/${data}/announcement`)
+  },
+  getQuestion: data => {
+    return Vue.axios.get(`/uniadmin/room/${data}/question`)
+  },
+  createMessage: data => { // 已弃用
     return Vue.axios.post(`/uniadmin/room/${data.roomId}/notice/create`, data.data)
   },
   createQuestionnaire: data => {

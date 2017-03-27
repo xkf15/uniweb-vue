@@ -2,6 +2,8 @@ import * as types from '../types'
 
 const state = {
   messages: [],
+  announcement: [],
+  question: [],
   members: [],
   info: [],
   applications: []
@@ -10,6 +12,15 @@ const state = {
 const mutations = {
   [types.GET_MESSAGES] (state, data) {
     state.messages = data
+  },
+  [types.GET_ANNOUNCEMENT] (state, data) {
+    state.announcement = data
+  },
+  [types.GET_QUESTION] (state, data) {
+    state.question = data
+    for (var i = 0; i < state.question.length; i++) {
+      state.question[i].choices = JSON.parse(state.question[i].choices)
+    }
   },
   [types.MODIFY_ROOM_INFO] (state, data) {
     state.info = data
