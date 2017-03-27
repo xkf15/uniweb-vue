@@ -5,33 +5,34 @@
     el-form-item(v-for="(question, index) in dynamicValidateForm.questions", :label="'问题' + (index+1)", :prop="'questions.' + index + '.title'", :rules="{required: true, message: '域名不能为空', trigger: 'blur'}")
       .question_top
         .question_title
-          span(v-if="!question.is_annoucement")
-            span(v-if="question.key === 'single'") 单选
-            span(v-else) 多选
+          span(v-if="question.key === 'blank'") （填空）
+          span(v-else)
+            span(v-if="question.key === 'single'") （单选）
+            span(v-else) （多选）
           span {{ question.title }}
         el-button.question_delete(@click.prevent="removeQuestion(question)", type="danger") 删除
-      input.question_answer(v-if="question.is_annoucement", placeholder="用户可在此输入回答", disable)
-      el-checkbox-group.checkbox(v-if="question.key === 'multiple'", v-model="activeNames")
+      input.question_answer(v-if="question.key === 'blank'", placeholder="用户可在此输入回答", disable)
+      el-checkbox-group.checkbox(v-if="question.key === 'multiple'")
         .show_checkbox(v-for="(choice, index_choice) in question.choices")
           el-checkbox(:label="choice")
       el-radio-group.radiogroup(v-if="question.key === 'single'")
         .show_radiogroup(v-for="(choice, index_choice) in question.choices")
           el-radio(:label="index_choice") {{choice}}
           br
-      el-collapse(v-model="activeNames")
-        el-collapse-item(title="修改", :name="index")
+      el-collapse
+        el-collapse-item.collapse-item(title="修改", :name="index")
           span.question_tip 问题{{index+1}}
-          input.input_question(v-model="question.title", :maxlength="100")
-          el-checkbox-group.inner_checkbox(v-model="question.choices", v-if="!question.is_annoucement")
+          el-input.input_question(v-model="question.title", :maxlength="100")
+          el-checkbox-group.inner_checkbox(v-model="question.choices", v-if="!(question.key === 'blank')")
             .inner_choices(v-for="(choice, index_choice) in question.choices")
-              el-checkbox(disabled)
+              //- el-checkbox(disabled)
               el-input.inner_input(v-model="question.choices[index_choice]")
               i.fa.fa-minus-circle.icon_minus(aria-hidden="true", @click="deleteChoices(index, index_choice)")
             i.fa.fa-plus-circle.icon_plus(aria-hidden="true", @click="addChoices(index)")
     el-form-item.flex
       el-button(@click="dialogFormVisible=true") 新增问题
     el-form-item.flex.flex-row-reverse
-      el-button.submit_btn(type="primary", @click="submitForm('dynamicValidateForm')") 提交
+      el-button.submit_btn(type="primary", @click="submitQuestionnaire()") 提交
   el-dialog(title="请选择问题类型", v-model="dialogFormVisible")
     el-button(type="primary", @click="addQuestion('blank')") 填空
     el-button(type="primary", @click="addQuestion('single')") 单选
@@ -46,7 +47,7 @@ export default {
         // title: '',
         // description: '',
         questions: [{
-          is_annoucement: false,
+          is_announcement: false,
           title: '请输入问题',
           description: '',
           choices: ['选项1', '选项2', '选项3'],
@@ -57,15 +58,26 @@ export default {
   },
   methods: {
     removeQuestion (item) {
-      var index = this.dynamicValidateForm.questions.indexOf(item)
-      if (index !== -1) {
-        this.dynamicValidateForm.questions.splice(index, 1)
-      }
+      this.$confirm('该问题将被删除, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        var index = this.dynamicValidateForm.questions.indexOf(item)
+        if (index !== -1) {
+          this.dynamicValidateForm.questions.splice(index, 1)
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
     addQuestion (type) {
       if (type !== 'blank') {
         this.dynamicValidateForm.questions.push({
-          is_annoucement: false,
+          is_announcement: false,
           title: '请输入问题',
           description: '',
           choices: ['选项1', '选项2', '选项3'],
@@ -73,23 +85,28 @@ export default {
         })
       } else {
         this.dynamicValidateForm.questions.push({
-          is_annoucement: true,
+          is_announcement: false,
           title: '请输入问题',
           description: '',
-          choices: ['选项1', '选项2', '选项3'],
+          choices: [],
           key: type
         })
       }
       this.dialogFormVisible = false
     },
     addChoices (index) {
-      console.log(index)
       this.dynamicValidateForm.questions[index].choices.push('选项')
     },
     deleteChoices (index, choice) {
-      console.log(index)
-      console.log(choice)
       this.dynamicValidateForm.questions[index].choices.splice(choice, 1)
+    },
+    submitQuestionnaire () {
+      let data = {
+        roomId: this.$route.params.id,
+        questionnaire: this.dynamicValidateForm.questions
+      }
+      console.log(data)
+      this.$store.dispatch('CreateQuestionnaire', data)
     }
   }
 }
