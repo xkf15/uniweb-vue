@@ -1,20 +1,23 @@
 <template lang="pug">
 .homeLayout
-  nav
-    .nav-logo
-      img(src="../../assets/logo_text.png")
+  navbar
   canvas#canvas.canvas
   .container
     el-row.content
-      span.title
+      .title
         img(src="../../assets/logo_white.png")
-      el-row
-        router-view
+      .view-box
+        el-col(:span="16")
+          router-view
 </template>
 
 <script>
+import Navbar from '@/components/common/Navbar'
 
 export default {
+  components: {
+    Navbar
+  },
   mounted () {
     require('@/js/main.js')
   }
@@ -22,49 +25,31 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-$navbar-color = #FF586D
 $nav-height = 50px
 
-flexbox(num)
-  per = num * 100 + '%'
-  -webkit-box-flex num      /* OLD - iOS 6-, Safari 3.1-6 */
-  -moz-box-flex num         /* OLD - Firefox 19- */
-  width per               /* For old syntax, otherwise collapses. */
-  -webkit-flex num          /* Chrome */
-  -ms-flex num              /* IE 10 */
-  flex num
+flexDisplay()
+  display flex
+  display -webkit-flex
+  display -ms-flexbox
+
 
 .homeLayout
-  nav
-    z-index 10
-    background $navbar-color
-    height $nav-height
-    display flex
-    align-items center
-    color: white
-    .nav-logo
-      font-size 30px
-      margin-left 100px
   .container
     height 'calc(100vh - %s)' % $nav-height
     width 100vw
-    display flex
-    display -webkit-flex
-    display -ms-flexbox
+    flexDisplay()
     justify-content center
     align-items center
-    .content
-      flexbox(0.3)
   .el-row.content
     padding 16px
   .title
     font-size 28px
+  .view-box
+    flexDisplay()
+    justify-content center
   .canvas
     position absolute
     z-index -1
     top 0
     left 0
-@media screen and (max-width: 768px)
-  #login .container .content
-    flexbox(0.7)
 </style>
