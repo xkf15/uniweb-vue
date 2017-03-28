@@ -6,36 +6,17 @@
       span |
       span 已结束
     .room_box(v-for="(item, index) of roomList")
-      .room_item
-        router-link.room_avatar(:to="'/user/activity/' + item.id", :style="{background: 'url(' + item.cover + ')'}")
-          .tag 桌游
-        .room_content
-          .title
-            span.tag 官方
-            span {{ item.title }}
-          //- .content
-            span {{ item.description }}
-          .room_attach
-            .room_time {{ item.date_time_start }}
-            .room_time {{ item.date_time_end }}
-            .room_icons
-              .msg_icon
-                span
-                  i.fa.fa-comment-o(aria-hidden="true")
-                  span 3
-                span
-                  i.fa.fa-user-o(aria-hidden="true")
-                  span 3
-              .member_icon
-          .msg-text
-            .new_msg 有新结束的群消息！
-            .new_member 有新的成员申请！
+      room-item(:room-info="item")
 </template>
 
 <script>
   import { mapState } from 'vuex'
+  import RoomItem from '@/components/common/RoomItem'
 
   export default {
+    components: {
+      RoomItem
+    },
     created () {
       this.$store.dispatch('GetRooms')
     },

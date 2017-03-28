@@ -164,7 +164,6 @@ export const DeleteMessage = ({commit}, data) => {
 export const GetRooms = ({commit}) => {
   commit(types.SET_LOADING_TRUE)
   api.getRooms().then(res => {
-    console.log(res.data)
     commit(types.GET_ROOMS, res.data)
     commit(types.SET_LOADING_FALSE)
   }, (err) => {

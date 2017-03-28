@@ -5,7 +5,7 @@
       user-cover(:userInfo="userData")
     .wrap
       .sidebar
-        dropdown-menu(:menu="menu", :menuTitle="menuTitle")
+        slot(name="sidebar")
       .content
         .decorator
           el-breadcrumb(separator="/")
@@ -52,7 +52,7 @@ export default {
       userInfo: state => state.login.userInfo
     })
   },
-  props: ['menu', 'menuTitle', 'tag', 'breadcrumb']
+  props: ['tag', 'breadcrumb']
 }
 </script>
 
@@ -75,7 +75,7 @@ $margin-bottom = 30px
     background white
     flex 1
   .content
-    flex 4.5
+    flex 4
     padding-right 20px
 
 .content

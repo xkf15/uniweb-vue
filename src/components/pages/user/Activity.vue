@@ -1,14 +1,17 @@
 <template lang="pug">
   #activities
-    layout(:menu="menu", :menu-title="menuTitle", :tag="menuTag", :breadcrumb="breadcrumb")
+    layout(:tag="menuTag", :breadcrumb="breadcrumb")
+      dropdown-menu(slot="sidebar", :menu="menu", :menu-title="menuTitle")
 </template>
 
 <script>
 import Layout from '@/components/common/Layout'
+import DropdownMenu from '@/components/common/DropdownMenu'
 
 export default {
   components: {
-    Layout
+    Layout,
+    DropdownMenu
   },
   data () {
     return {
