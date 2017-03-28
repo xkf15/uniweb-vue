@@ -48,6 +48,9 @@ exports.default = {
   getRoomInfo: function getRoomInfo(roomId) {
     return _vue2.default.axios.get('/uniadmin/room/' + roomId + '/detail');
   },
+  modifyRoomInfo: function modifyRoomInfo(data) {
+    return _vue2.default.axios.post('/uniadmin/room/' + data.id + '/edit', data);
+  },
   getMembers: function getMembers(roomId) {
     return _vue2.default.axios.get('/uniadmin/room/' + roomId + '/users');
   },

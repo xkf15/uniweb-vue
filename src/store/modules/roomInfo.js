@@ -27,6 +27,8 @@ var state = {
 
 var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, types.GET_MESSAGES, function (state, data) {
   state.messages = data;
+}), (0, _defineProperty3.default)(_mutations, types.MODIFY_ROOM_INFO, function (state, data) {
+  state.info = data;
 }), (0, _defineProperty3.default)(_mutations, types.DELETE_MESSAGE, function (state, data) {
   for (var i = 0; i < state.messages.length; i++) {
     if (state.messages[i].id === data.announcementId) {
@@ -37,7 +39,11 @@ var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, type
 }), (0, _defineProperty3.default)(_mutations, types.CREATE_MESSAGE, function (state, data) {
   state.messages.push(data);
 }), (0, _defineProperty3.default)(_mutations, types.GET_ROOM_INFO, function (state, data) {
+  console.log(data);
   state.info = data;
+  state.info.advertising = JSON.parse(data.advertising);
+  state.info.options = JSON.parse(data.options);
+  state.info.questionnaires = JSON.parse(data.questionnaires);
 }), (0, _defineProperty3.default)(_mutations, types.GET_MEMBERS, function (state, data) {
   state.members = data;
 }), (0, _defineProperty3.default)(_mutations, types.DELETE_MEMBER, function (state, data) {}), (0, _defineProperty3.default)(_mutations, types.GET_APPLICATIONS, function (state, data) {

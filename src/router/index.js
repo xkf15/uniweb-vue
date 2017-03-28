@@ -68,6 +68,10 @@ var _Message = require('@/components/pages/user/activity/Message');
 
 var _Message2 = _interopRequireDefault(_Message);
 
+var _Settings = require('@/components/pages/user/activity/Settings');
+
+var _Settings2 = _interopRequireDefault(_Settings);
+
 var _Notice = require('@/components/pages/user/activity/newMessage/Notice');
 
 var _Notice2 = _interopRequireDefault(_Notice);
@@ -97,7 +101,7 @@ var router = new _vueRouter2.default({
     }]
   }, { path: '/user/activity', redirect: '/user' }, { path: '/user/activity/:id',
     component: _Activity2.default,
-    children: [{ path: '', redirect: 'info' }, { path: 'info', component: _Info2.default }, { path: 'member', component: _Member2.default }, { path: 'message', component: _Message2.default }, { path: 'newMessage', redirect: 'message' }, { path: 'newMessage/notice', component: _Notice2.default }, { path: 'newMessage/questionnaire', component: _Questionnaire2.default }]
+    children: [{ path: '', redirect: 'info' }, { path: 'info', component: _Info2.default }, { path: 'member', component: _Member2.default }, { path: 'message', component: _Message2.default }, { path: 'settings', component: _Settings2.default }, { path: 'newMessage', redirect: 'message' }, { path: 'newMessage/notice', component: _Notice2.default }, { path: 'newMessage/questionnaire', component: _Questionnaire2.default }]
   }]
 });
 
@@ -110,7 +114,7 @@ router.beforeEach(function (to, from, next) {
     next();
   } else {
     if (token !== 'null' && token !== null) {
-      _vue2.default.axios.create().defaults.headers.common['Authorization'] = 'Bearer ' + token;
+      _vue2.default.axios.create().defaults.headers.common['Authorization'] = 'Token ' + token;
       next();
     } else next('/');
   }

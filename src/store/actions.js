@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.AcceptApplication = exports.GetMemberInfo = exports.DeleteMember = exports.ChangeUserInfo = exports.SearchRoomsByLabel = exports.SearchRoomsByName = exports.GetUserInfo = exports.CreateRoom = exports.GetApplications = exports.GetMembers = exports.GetRoomInfo = exports.GetRooms = exports.DeleteMessage = exports.CreateMessage = exports.GetMessages = exports.UserLogout = exports.UserLogin = exports.UserSignup = exports.MemberInfo = exports.BasicInfo = exports.Excel = undefined;
+exports.AcceptApplication = exports.GetMemberInfo = exports.DeleteMember = exports.ChangeUserInfo = exports.SearchRoomsByLabel = exports.SearchRoomsByName = exports.GetUserInfo = exports.CreateRoom = exports.GetApplications = exports.GetMembers = exports.GetRoomInfo = exports.GetRooms = exports.DeleteMessage = exports.CreateMessage = exports.GetMessages = exports.UserLogout = exports.UserLogin = exports.UserSignup = exports.MemberInfo = exports.ModifyRoomInfo = exports.BasicInfo = exports.Excel = undefined;
 
 var _api = require('../api');
 
@@ -51,14 +51,29 @@ var BasicInfo = exports.BasicInfo = function BasicInfo(_ref2, data) {
   _router2.default.push('member');
 };
 
-var MemberInfo = exports.MemberInfo = function MemberInfo(_ref3, data) {
+var ModifyRoomInfo = exports.ModifyRoomInfo = function ModifyRoomInfo(_ref3, data) {
   var commit = _ref3.commit;
+
+  _api2.default.modifyRoomInfo(data).then(function (res) {
+    if (res.status === 200) {
+      commit(types.MODIFY_ROOM_INFO, data);
+      _router2.default.push('info');
+    } else {
+      _vue2.default.prototype.$message.error('状态吗错误！');
+    }
+  }, function () {
+    _vue2.default.prototype.$message.error('请求错误！');
+  });
+};
+
+var MemberInfo = exports.MemberInfo = function MemberInfo(_ref4, data) {
+  var commit = _ref4.commit;
 
   commit(types.SET_MEMBER_INFO, data);
 };
 
-var UserSignup = exports.UserSignup = function UserSignup(_ref4, data) {
-  var commit = _ref4.commit;
+var UserSignup = exports.UserSignup = function UserSignup(_ref5, data) {
+  var commit = _ref5.commit;
 
   _api2.default.localSignup(data).then(function (res) {
     if (res.data.success) {
@@ -78,8 +93,8 @@ var UserSignup = exports.UserSignup = function UserSignup(_ref4, data) {
   });
 };
 
-var UserLogin = exports.UserLogin = function UserLogin(_ref5, data) {
-  var commit = _ref5.commit;
+var UserLogin = exports.UserLogin = function UserLogin(_ref6, data) {
+  var commit = _ref6.commit;
 
   _api2.default.localLogin(data).then(function (res) {
     if (res.status === 200) {
@@ -100,16 +115,16 @@ var UserLogin = exports.UserLogin = function UserLogin(_ref5, data) {
   });
 };
 
-var UserLogout = exports.UserLogout = function UserLogout(_ref6) {
-  var commit = _ref6.commit;
+var UserLogout = exports.UserLogout = function UserLogout(_ref7) {
+  var commit = _ref7.commit;
 
   commit(types.USER_SIGNOUT);
 
   window.location = '/';
 };
 
-var GetMessages = exports.GetMessages = function GetMessages(_ref7, data) {
-  var commit = _ref7.commit;
+var GetMessages = exports.GetMessages = function GetMessages(_ref8, data) {
+  var commit = _ref8.commit;
 
   _api2.default.getMessages(data).then(function (res) {
     console.log(res.data);
@@ -120,8 +135,8 @@ var GetMessages = exports.GetMessages = function GetMessages(_ref7, data) {
   });
 };
 
-var CreateMessage = exports.CreateMessage = function CreateMessage(_ref8, data) {
-  var commit = _ref8.commit;
+var CreateMessage = exports.CreateMessage = function CreateMessage(_ref9, data) {
+  var commit = _ref9.commit;
 
   _api2.default.createMessage(data).then(function (res) {
     data.data.id = res.data;
@@ -133,8 +148,8 @@ var CreateMessage = exports.CreateMessage = function CreateMessage(_ref8, data) 
   });
 };
 
-var DeleteMessage = exports.DeleteMessage = function DeleteMessage(_ref9, data) {
-  var commit = _ref9.commit;
+var DeleteMessage = exports.DeleteMessage = function DeleteMessage(_ref10, data) {
+  var commit = _ref10.commit;
 
   _api2.default.deleteMessage(data).then(function (res) {
     if (res.status === 200) {
@@ -150,8 +165,8 @@ var DeleteMessage = exports.DeleteMessage = function DeleteMessage(_ref9, data) 
   });
 };
 
-var GetRooms = exports.GetRooms = function GetRooms(_ref10) {
-  var commit = _ref10.commit;
+var GetRooms = exports.GetRooms = function GetRooms(_ref11) {
+  var commit = _ref11.commit;
 
   commit(types.SET_LOADING_TRUE);
   _api2.default.getRooms().then(function (res) {
@@ -165,8 +180,8 @@ var GetRooms = exports.GetRooms = function GetRooms(_ref10) {
   });
 };
 
-var GetRoomInfo = exports.GetRoomInfo = function GetRoomInfo(_ref11, roomId) {
-  var commit = _ref11.commit;
+var GetRoomInfo = exports.GetRoomInfo = function GetRoomInfo(_ref12, roomId) {
+  var commit = _ref12.commit;
 
   _api2.default.getRoomInfo(roomId).then(function (res) {
     if (res.status === 200) {
@@ -180,8 +195,8 @@ var GetRoomInfo = exports.GetRoomInfo = function GetRoomInfo(_ref11, roomId) {
   });
 };
 
-var GetMembers = exports.GetMembers = function GetMembers(_ref12, roomId) {
-  var commit = _ref12.commit;
+var GetMembers = exports.GetMembers = function GetMembers(_ref13, roomId) {
+  var commit = _ref13.commit;
 
   _api2.default.getMembers(roomId).then(function (res) {
     if (res.status === 200) {
@@ -195,8 +210,8 @@ var GetMembers = exports.GetMembers = function GetMembers(_ref12, roomId) {
   });
 };
 
-var GetApplications = exports.GetApplications = function GetApplications(_ref13, roomId) {
-  var commit = _ref13.commit;
+var GetApplications = exports.GetApplications = function GetApplications(_ref14, roomId) {
+  var commit = _ref14.commit;
 
   _api2.default.getApplications(roomId).then(function (res) {
     if (res.status === 200) {
@@ -210,8 +225,8 @@ var GetApplications = exports.GetApplications = function GetApplications(_ref13,
   });
 };
 
-var CreateRoom = exports.CreateRoom = function CreateRoom(_ref14, data) {
-  var commit = _ref14.commit;
+var CreateRoom = exports.CreateRoom = function CreateRoom(_ref15, data) {
+  var commit = _ref15.commit;
 
   _api2.default.createRoom(data).then(function (res) {
     if (res.status === 201) {
@@ -229,8 +244,8 @@ var CreateRoom = exports.CreateRoom = function CreateRoom(_ref14, data) {
   });
 };
 
-var GetUserInfo = exports.GetUserInfo = function GetUserInfo(_ref15) {
-  var commit = _ref15.commit;
+var GetUserInfo = exports.GetUserInfo = function GetUserInfo(_ref16) {
+  var commit = _ref16.commit;
 
   _api2.default.getUserInfo().then(function (res) {
     if (res.status) {
@@ -245,8 +260,8 @@ var GetUserInfo = exports.GetUserInfo = function GetUserInfo(_ref15) {
   });
 };
 
-var SearchRoomsByName = exports.SearchRoomsByName = function SearchRoomsByName(_ref16, data) {
-  var commit = _ref16.commit;
+var SearchRoomsByName = exports.SearchRoomsByName = function SearchRoomsByName(_ref17, data) {
+  var commit = _ref17.commit;
 
   _api2.default.searchRoomsByName(data).then(function (res) {
     if (res.status) {
@@ -260,8 +275,8 @@ var SearchRoomsByName = exports.SearchRoomsByName = function SearchRoomsByName(_
   });
 };
 
-var SearchRoomsByLabel = exports.SearchRoomsByLabel = function SearchRoomsByLabel(_ref17, data) {
-  var commit = _ref17.commit;
+var SearchRoomsByLabel = exports.SearchRoomsByLabel = function SearchRoomsByLabel(_ref18, data) {
+  var commit = _ref18.commit;
 
   _api2.default.searchRoomsByLabel(data).then(function (res) {
     if (res.status) {
@@ -275,8 +290,8 @@ var SearchRoomsByLabel = exports.SearchRoomsByLabel = function SearchRoomsByLabe
   });
 };
 
-var ChangeUserInfo = exports.ChangeUserInfo = function ChangeUserInfo(_ref18, data) {
-  var commit = _ref18.commit;
+var ChangeUserInfo = exports.ChangeUserInfo = function ChangeUserInfo(_ref19, data) {
+  var commit = _ref19.commit;
 
   _api2.default.changeUserInfo(data).then(function (res) {
     if (res.status) {
@@ -290,8 +305,8 @@ var ChangeUserInfo = exports.ChangeUserInfo = function ChangeUserInfo(_ref18, da
   });
 };
 
-var DeleteMember = exports.DeleteMember = function DeleteMember(_ref19, data) {
-  var commit = _ref19.commit;
+var DeleteMember = exports.DeleteMember = function DeleteMember(_ref20, data) {
+  var commit = _ref20.commit;
 
   _api2.default.deleteMember(data).then(function (res) {
     if (res.status) {
@@ -305,8 +320,8 @@ var DeleteMember = exports.DeleteMember = function DeleteMember(_ref19, data) {
   });
 };
 
-var GetMemberInfo = exports.GetMemberInfo = function GetMemberInfo(_ref20, data) {
-  var commit = _ref20.commit;
+var GetMemberInfo = exports.GetMemberInfo = function GetMemberInfo(_ref21, data) {
+  var commit = _ref21.commit;
 
   _api2.default.getMemberInfo(data).then(function (res) {
     if (res.status) {
@@ -320,8 +335,8 @@ var GetMemberInfo = exports.GetMemberInfo = function GetMemberInfo(_ref20, data)
   });
 };
 
-var AcceptApplication = exports.AcceptApplication = function AcceptApplication(_ref21, data) {
-  var commit = _ref21.commit;
+var AcceptApplication = exports.AcceptApplication = function AcceptApplication(_ref22, data) {
+  var commit = _ref22.commit;
 
   _api2.default.acceptApplication(data).then(function (res) {
     if (res.status) {
