@@ -106,6 +106,26 @@ export const GetMessages = ({commit}, data) => {
   })
 }
 
+export const GetAnnouncement = ({commit}, data) => {
+  api.getAnnouncement(data).then(res => {
+    console.log(res.data)
+    commit(types.GET_ANNOUNCEMENT, res.data)
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
+export const GetQuestion = ({commit}, data) => {
+  api.getQuestion(data).then(res => {
+    console.log(res.data)
+    commit(types.GET_QUESTION, res.data)
+  }, (err) => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
 export const CreateMessage = ({commit}, data) => {
   api.createMessage(data).then(res => {
     data.data.id = res.data

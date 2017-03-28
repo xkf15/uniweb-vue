@@ -3,12 +3,6 @@
   .new_msg
     el-button(type="danger", @click="dialogFormVisible=true") 发布新消息>>
   el-dialog(title="发布新消息", v-model="dialogFormVisible")
-    //- el-form(:model="newMsg", ref="newMsg")
-    //-   el-form-item(label="名称", :prop="newMsg.question", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
-    //-     el-input(v-model="newMsg.question", placeholder="请输入问题", :maxlength="100", type="textarea", autosize)
-    //-   el-input(v-model="newMsg.tips", placeholder="提示信息写在这里", type="textarea", autosize)
-    //-   el-checkbox(v-model="newMsg.checked") 必填
-    //- .dialog-footer(slot="footer")
     el-button(type="primary", @click="toNewMessage('notice')") 群公告
     el-button(type="primary", @click="toNewMessage('questionnaire')") 群问卷
   .room_msg_box
@@ -22,14 +16,17 @@
         .run_text {{ item.choices }}
       .middle
         div {{ item.title }}
-        .time_domain 开始于{{ item.description }}，结束于{{ item.description }}
+        //- .description 开始于{{ item.description }}，结束于{{ item.description }}
+        .description 内容：{{ item.description }}
       .right
         div
-          el-button(type="text") 截止
-          span |
+          //- el-button(type="text") 截止
+          //- span |
           el-button(type="text", @click="delete_message (item.id)") 删除
-          .people_num 人数10/30
-          el-button.check_data(type="primary") 查看数据
+          .people_num(v-if="!item.is_announcement") 填写人数
+            br
+            div {{item.replies.length}}/30
+          el-button.check_data(v-if="!item.is_announcement", type="primary", @click="checkResult") 查看数据
 </template>
 
 <script>
@@ -37,6 +34,8 @@ import { mapState } from 'vuex'
 export default {
   created () {
     this.$store.dispatch('GetMessages', this.room_id)
+    this.$store.dispatch('GetAnnouncement', this.room_id)
+    this.$store.dispatch('GetQuestion', this.room_id)
   },
   data () {
     return {
@@ -90,6 +89,9 @@ export default {
       console.log(data.data.title)
       this.$store.dispatch('CreateMessage', data)
       this.dialogFormVisible = false
+    },
+    checkResult () {
+      this.$router.push('./message/result')
     }
   },
   computed: {
@@ -100,7 +102,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 #message
   margin 10px
   .new_msg
@@ -143,9 +145,11 @@ export default {
       margin-left 3%
       margin-right 3%
       text-align left
-    .time_domain
-      opacity 0.3
+      font-size 20px
+    .description
+      opacity 0.7
       margin-top 20px
+      font-size 15px
     .right
       text-align center
       width 17%

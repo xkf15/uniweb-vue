@@ -19,7 +19,7 @@ export default {
         title: '',
         description: '',
         is_announcement: true,
-        choices: []
+        choices: null
       }
     }
   },

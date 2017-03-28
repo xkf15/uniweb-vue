@@ -19,8 +19,8 @@ import Activity from '@/components/pages/user/Activity'
 import Info from '@/components/pages/user/activity/Info'
 import Member from '@/components/pages/user/activity/Member'
 import Message from '@/components/pages/user/activity/Message'
-import Result from '@/components/pages/user/activity/Result'
 import Settings from '@/components/pages/user/activity/Settings'
+import Result from '@/components/pages/user/activity/message/Result'
 import Notice from '@/components/pages/user/activity/message/Notice'
 import Questionnaire from '@/components/pages/user/activity/message/Questionnaire'
 
@@ -67,7 +67,7 @@ const router = new Router({
         { path: 'info', component: Info },
         { path: 'member', component: Member },
         { path: 'message', component: Message },
-        { path: 'result', component: Result },
+        { path: 'message/result', component: Result },
         { path: 'settings', component: Settings },
         { path: 'message/notice', component: Notice },
         { path: 'message/questionnaire', component: Questionnaire }
