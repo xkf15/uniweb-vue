@@ -10,10 +10,11 @@
     el-row.box
       el-col(:span="leftSpan").box-item.title 房间海报
       el-col(:span="24-leftSpan").box-item.content
-        el-upload.upload(drag, action="//jsonplaceholder.typicode.com/posts/")
-          i.el-icon-upload
-          .el-upload__text 将文件拖到此处，或<em>点击上传</em>
-          .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
+        img(:src="roomInfo.cover")
+        //- el-upload.upload(drag, action="//jsonplaceholder.typicode.com/posts/")
+        //-   i.el-icon-upload
+        //-   .el-upload__text 将文件拖到此处，或<em>点击上传</em>
+        //-   .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
     el-row.box.no-border
       el-col(:span="leftSpan").box-item.title 准入学校
       el-col(:span="contentSpan").box-item.content.colleges

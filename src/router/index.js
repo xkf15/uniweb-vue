@@ -21,8 +21,8 @@ import Member from '@/components/pages/user/activity/Member'
 import Message from '@/components/pages/user/activity/Message'
 import Result from '@/components/pages/user/activity/Result'
 import Settings from '@/components/pages/user/activity/Settings'
-import Notice from '@/components/pages/user/activity/newMessage/Notice'
-import Questionnaire from '@/components/pages/user/activity/newMessage/Questionnaire'
+import Notice from '@/components/pages/user/activity/message/Notice'
+import Questionnaire from '@/components/pages/user/activity/message/Questionnaire'
 
 Vue.use(Router)
 

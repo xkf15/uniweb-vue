@@ -21,6 +21,14 @@ export const Excel = ({commit}, roomId) => {
   })
 }
 
+export const UploadCover = ({commit}, data) => {
+  api.uploadCover.then(res => {
+    console.log(res)
+  }, () => {
+    Vue.prototype.$message.error('请求错误！')
+  })
+}
+
 export const BasicInfo = ({commit}, data) => {
   commit(types.SET_BASIC_INFO, data)
   router.push('member')

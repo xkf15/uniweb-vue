@@ -8,11 +8,14 @@
     el-form-item(label="活动时间", prop="timeRange")
       //- el-date-picker(v-model="ruleForm.timeRange", type="datetimerange", placeholder="选择活动时间")
       Date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
+    //- input(type="file", @change="onFileChange")
     el-form-item(label="上传图片", prop="upload")
-      el-upload.upload(drag, action="//jsonplaceholder.typicode.com/posts/")
-        i.el-icon-upload
-        .el-upload__text 将文件拖到此处，或<em>点击上传</em>
-        .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
+      el-upload.upload(drag, :action="`/uniadmin/room/${roomInfo.id}/upload_cover`", :headers="{'Authorization': `Token ${token}`}", :auto-upload="false", :on-change="onChange", :on-preview="onPreview", :on-progress="onProgress", :before-upload="beforeUpload")
+        //- img(:src="roomInfo.cover")
+        .upload_box(:style="{background: `url(${roomInfo.cover}) no-repeat center center`}")
+          i.el-icon-upload
+          .el-upload__text 将文件P拖到此处，或<em>点击上传</em>
+          .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
     el-form-item(label="活动人数", prop="people")
       el-input(v-model.number="ruleForm.people")
     el-form-item(label="详细内容", prop="desc")
@@ -40,7 +43,8 @@ export default {
   },
   computed: {
     ...mapState({
-      roomInfo: state => state.roomInfo.info
+      roomInfo: state => state.roomInfo.info,
+      token: state => state.login.token
     }),
     ...mapGetters([
       'roomDateFormat'
@@ -80,11 +84,33 @@ export default {
         wechat: this.roomInfo.options[0],     // 微信推送链接 (非必须)
         condition: this.roomInfo.options[1],  // 准入条件 (非必须) // welcome
         colleges: [],    // 准入学校 // advertising
-        timeRange: [this.roomInfo.date_time_start, this.roomInfo.date_time_end]
+        timeRange: [this.roomInfo.date_time_start, this.roomInfo.date_time_end],
+        cover: {}
       }
     }
   },
   methods: {
+    onFileChange (e) {
+      e.preventDefault()
+      const files = e.target.files || e.dataTransfer.files
+      console.log(files)
+    },
+    onChange (file, fileList) {
+      // console.log(file)
+      // this.$store.dispatch('UploadCover', {id: this.roomInfo.id, file: file})
+      console.log('On change')
+    },
+    onProgress (event, file, fileList) {
+      console.log('On Progress')
+    },
+    onPreview (file) {
+      console.log('On Preview')
+    },
+    beforeUpload (file) {
+      // console.log(file)
+      console.log('beforeUpload')
+      // if (file) this.$store.dispatch('UploadCover', {id: this.roomInfo.id, file: file})
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
