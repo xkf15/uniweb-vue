@@ -38,6 +38,7 @@ export const ModifyRoomInfo = ({commit}, data) => {
   api.modifyRoomInfo(data).then(res => {
     if (res.status === 200) {
       commit(types.MODIFY_ROOM_INFO, data)
+      Vue.prototype.$message('修改房间信息成功')
       router.push('info')
     } else {
       Vue.prototype.$message.error('状态吗错误！')

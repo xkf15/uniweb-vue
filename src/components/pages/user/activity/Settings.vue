@@ -10,12 +10,17 @@
       Date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
     //- input(type="file", @change="onFileChange")
     el-form-item(label="上传图片", prop="upload")
-      el-upload.upload(drag, :action="`/uniadmin/room/${roomInfo.id}/upload_cover`", :headers="{'Authorization': `Token ${token}`}", :auto-upload="false", :on-change="onChange", :on-preview="onPreview", :on-progress="onProgress", :before-upload="beforeUpload")
-        //- img(:src="roomInfo.cover")
+      //- el-upload.upload(drag, :action="`/uniadmin/room/${roomInfo.id}/upload_cover`", :headers="{'Authorization': `Token ${token}`}", name="cover", :auto-upload="false", :on-change="onChange", :on-preview="onPreview", :on-progress="onProgress", :before-upload="beforeUpload")
+      el-upload.upload(drag, :action="`/uniadmin/room/${roomInfo.id}/upload_cover`", :headers="{'Authorization': `Token ${token}`}", name="cover")
         .upload_box(:style="{background: `url(${roomInfo.cover}) no-repeat center center`}")
           i.el-icon-upload
           .el-upload__text 将文件P拖到此处，或<em>点击上传</em>
           .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
+        el-button(type="success", @click="uploadFile") 上传文件
+      //- el-upload.upload-demo(ref="upload", action="//jsonplaceholder.typicode.com/posts/", :file-list="fileList", :auto-upload="false")
+        el-button(slot="trigger" size="small", type="primary") 选取文件
+        el-button(style="margin-left: 10px;", size="small", type="success", @click="submitUpload") 上传到服务器
+        div(slot="tip" class="el-upload__tip") 只能上传jpg/png文件，且不超过500kb
     el-form-item(label="活动人数", prop="people")
       el-input(v-model.number="ruleForm.people")
     el-form-item(label="详细内容", prop="desc")
@@ -90,6 +95,13 @@ export default {
     }
   },
   methods: {
+    submitUpload () {
+      const upload = this.$refs['upload']
+      console.log(upload)
+    },
+    uploadFile () {
+      console.log('upload')
+    },
     onFileChange (e) {
       e.preventDefault()
       const files = e.target.files || e.dataTransfer.files
@@ -152,6 +164,7 @@ export default {
   },
   data () {
     return {
+      fileList: [],
       rules: {
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
