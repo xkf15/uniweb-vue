@@ -20,6 +20,10 @@
     el-form-item(label="房间标签")
       el-select(v-model="ruleForm.tags", multiple, filterable, placeholder="请选择房间标签")
         el-option(v-for="(item, index) in initialData.labels", :label="item.name_ch", :value="item.id")
+    el-form-item(label="在广场上显示")
+      el-switch(v-model="ruleForm.show", on-text="是", off-text="否", on-color="#13ce66", off-color="#ff4949")
+    el-form-item(label="需要申请加入")
+      el-switch(v-model="ruleForm.apply", on-text="是", off-text="否", on-color="#13ce66", off-color="#ff4949")
     el-form-item
       .subtitle 准入学校（可多选）
       .colleges
@@ -31,11 +35,18 @@
       .subtitle 准入条件（将在用户选择加入时提醒）
       el-input(type="text", v-model="ruleForm.condition")
     el-form-item
+      option-menu
+    el-form-item
       el-button.submitButton(type="danger", size="large", @click="submitForm('ruleForm')") {{ submitString }}
 </template>
 
 <script>
+import OptionMenu from '@/components/common/OptionMenu'
+
 export default {
+  components: {
+    OptionMenu
+  },
   props: {
     token: {
       type: String,
@@ -60,7 +71,9 @@ export default {
           wechat: '',     // 微信推送链接 (非必须)
           condition: '',  // 准入条件 (非必须) // welcome
           timeRange: '',
-          tags: []
+          tags: [],
+          show: true,
+          apply: true
         }
       }
     },
