@@ -1,6 +1,6 @@
 <template lang="pug">
 .drop-menu
-  input(type="checkbox", id="room")
+  input(type="checkbox", id="room", checked)
   label(for="room")
     .drop-title {{ menuTitle }}
   .drop-content
