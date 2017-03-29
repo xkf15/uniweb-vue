@@ -37,7 +37,7 @@ const mutations = {
     state.messages.push(data)
   },
   [types.GET_ROOM_INFO] (state, data) {
-    console.log(data)
+    console.log('Get Room Info')
     state.info = data
     state.info.options = JSON.parse(data.options)
   },

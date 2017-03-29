@@ -20,6 +20,9 @@ export default {
   getUserInfo: () => {
     return Vue.axios.get(`/uniadmin/host`)
   },
+  getInitialData: () => {
+    return Vue.axios.get(`/uniadmin/labels`)
+  },
   createRoom: data => {
     return Vue.axios.post(`/uniadmin/create`, data)
   },

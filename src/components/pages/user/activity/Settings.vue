@@ -25,6 +25,9 @@
       el-input(v-model.number="ruleForm.people")
     el-form-item(label="详细内容", prop="desc")
       el-input(type="textarea", v-model="ruleForm.desc")
+    el-form-item(label="房间标签")
+      el-select(v-model="ruleForm.tags", multiple, filterable, placeholder="请选择房间标签")
+        el-option(v-for="(item, index) in options", :label="item.name_ch", :value="item.id")
     el-form-item
       .subtitle 准入学校（可多选）
       .colleges
@@ -41,15 +44,40 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import store from '@/store'
 
 export default {
-  created () {
-    this.$store.dispatch('GetRoomInfo', this.$route.params.id)
+  beforeRouteEnter: (to, from, next) => {
+    store.dispatch('GetRoomInfo', to.params.id)
+      .then(() => {
+        store.dispatch('GetInitialData').then(() => {
+          const roomInfo = store.state.roomInfo.info
+          const ruleForm = {
+            name: roomInfo.title,       // 活动名称 // title
+            place: roomInfo.location_string,      // 活动地点 // location_string
+            people: roomInfo.max_participants,     // 参与人数 (需转化为数字) (非必须) // participants
+            desc: roomInfo.description,       // 详细内容 // discription
+            wechat: roomInfo.options[0],     // 微信推送链接 (非必须)
+            condition: roomInfo.options[1],  // 准入条件 (非必须) // welcome
+            colleges: [],    // 准入学校 // advertising
+            timeRange: [roomInfo.date_time_start, roomInfo.date_time_end],
+            cover: {},
+            tags: roomInfo.labels.map(item => Number(item.id))
+          }
+          next(vm => {
+            vm.ruleForm = ruleForm
+            vm.options = store.state.login.initialData[0]
+            // vm.colleges = store.state.login.initialData[1]
+          })
+        })
+      })
   },
   computed: {
     ...mapState({
       roomInfo: state => state.roomInfo.info,
       token: state => state.login.token
+      // options: state => state.login.initialData[0]
+      // colleges: state => state.login.initialData[1]
     }),
     ...mapGetters([
       'roomDateFormat'
@@ -79,19 +107,6 @@ export default {
         cols[item.id - 1].toggle = true
       }
       return cols
-    },
-    ruleForm () {
-      return {
-        name: this.roomInfo.title,       // 活动名称 // title
-        place: this.roomInfo.location_string,      // 活动地点 // location_string
-        people: this.roomInfo.max_participants,     // 参与人数 (需转化为数字) (非必须) // participants
-        desc: this.roomInfo.description,       // 详细内容 // discription
-        wechat: this.roomInfo.options[0],     // 微信推送链接 (非必须)
-        condition: this.roomInfo.options[1],  // 准入条件 (非必须) // welcome
-        colleges: [],    // 准入学校 // advertising
-        timeRange: [this.roomInfo.date_time_start, this.roomInfo.date_time_end],
-        cover: {}
-      }
     }
   },
   methods: {
@@ -152,7 +167,8 @@ export default {
             description: allData.desc,
             options: allData.options,
             advertising: allData.colleges,
-            questionnaires: allData.questionnaires
+            questionnaires: allData.questionnaires,
+            labels: allData.tags
           }
           this.$store.dispatch('ModifyRoomInfo', allData)
         } else {
@@ -165,6 +181,8 @@ export default {
   data () {
     return {
       fileList: [],
+      ruleForm: {},
+      options: [],
       rules: {
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },

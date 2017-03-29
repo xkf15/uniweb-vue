@@ -34,6 +34,19 @@ export const BasicInfo = ({commit}, data) => {
   router.push('member')
 }
 
+export const GetInitialData = ({commit}) => {
+  return api.getInitialData().then(res => {
+    if (res.status === 200) {
+      console.log(res.data)
+      commit(types.GET_INITIAL_DATA, res.data)
+    } else {
+      Vue.prototype.$message.error('状态码错误')
+    }
+  }, () => {
+    Vue.prototype.$message.error('请求错误')
+  })
+}
+
 export const ModifyRoomInfo = ({commit}, data) => {
   api.modifyRoomInfo(data).then(res => {
     if (res.status === 200) {
@@ -175,7 +188,7 @@ export const GetRooms = ({commit}) => {
 }
 
 export const GetRoomInfo = ({commit}, roomId) => {
-  api.getRoomInfo(roomId).then(res => {
+  return api.getRoomInfo(roomId).then(res => {
     if (res.status === 200) {
       commit(types.GET_ROOM_INFO, res.data)
     } else {

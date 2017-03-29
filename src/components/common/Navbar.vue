@@ -12,7 +12,7 @@ nav.navbar
         .drop-menu
           .drop-item 设置
           .drop-item 测试
-      .home.item
+      //- .home.item
         router-link(to="/user/room") 首页
       .message.item 消息
       .line.item |

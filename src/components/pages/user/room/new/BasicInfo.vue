@@ -17,6 +17,9 @@
       el-input(v-model.number="ruleForm.people")
     el-form-item(label="详细内容", prop="desc")
       el-input(type="textarea", v-model="ruleForm.desc")
+    el-form-item(label="房间标签")
+      el-select(v-model="ruleForm.tags", multiple, filterable, placeholder="请选择房间标签")
+        el-option(v-for="(item, index) in options", :label="item.name_ch", :value="item.id")
     el-form-item
       .subtitle 准入学校（可多选）
       .colleges
@@ -32,7 +35,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
+  created () {
+    this.$store.dispatch('GetInitialData')
+  },
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -91,7 +99,8 @@ export default {
         wechat: '',     // 微信推送链接 (非必须)
         condition: '',  // 准入条件 (非必须) // welcome
         colleges: [],    // 准入学校 // advertising
-        timeRange: ''
+        timeRange: '',
+        tags: []
       },
       rules: {
         name: [
@@ -112,6 +121,11 @@ export default {
         ]
       }
     }
+  },
+  computed: {
+    ...mapState({
+      options: state => state.login.initialData[0]
+    })
   }
 }
 </script>

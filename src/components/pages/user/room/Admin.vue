@@ -30,7 +30,6 @@
 </script>
 
 <style lang="stylus" scoped>
-$tag-color = #ff586d
 
 #admin
   .loading
@@ -50,35 +49,4 @@ $tag-color = #ff586d
       justify-content space-between
       .msg_icon span
         margin 0 10px
-    .room_item
-      margin-bottom 40px
-      display flex
-      .tag
-        background $tag-color
-        color white
-        border-radius 5px
-        padding 5px 10px
-      .room_avatar
-        display flex
-        flex-direction column-reverse
-        align-items flex-start
-        border 1px solid #ccc
-        width 385px
-        height 160px
-        background no-repeat center center
-        .tag
-          margin -5px
-      .room_content
-        width 100%
-        display flex
-        flex-direction column
-        margin 0 20px
-        .content, .title
-          text-align left
-        .title
-          margin-bottom 20px
-        .msg-text
-          text-align right
-        .tag
-          margin-right 10px
 </style>

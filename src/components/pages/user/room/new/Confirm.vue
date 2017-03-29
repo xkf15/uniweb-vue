@@ -90,6 +90,7 @@ export default {
           this.basicInfo.wechat,
           this.basicInfo.condition
         ],
+        labels: this.basicInfo.tags,
         advertising: this.basicInfo.colleges,
         questionnaires: questionaires
       }
