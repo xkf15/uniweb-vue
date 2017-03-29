@@ -2,7 +2,7 @@
 #questionnaire
   //- .title 发布问卷
   el-form.form(:model="dynamicValidateForm", ref="dynamicValidateForm", label-width="10%", class="demo-ruleForm")
-    el-form-item(v-for="(question, index) in dynamicValidateForm.questions", :label="'问题' + (index+1)", :prop="'questions.' + index + '.title'", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
+    el-form-item(v-for="(question, index) in dynamicValidateForm.questions", :key="index", :label="'问题' + (index+1)", :prop="'questions.' + index + '.title'", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
       .question_top
         .question_title
           span(v-if="question.choices.length === 0") （填空）
@@ -13,7 +13,7 @@
         el-button.question_delete(@click.prevent="removeQuestion(question)", type="danger") 删除
       input.question_answer(v-if="question.choices.length === 0", placeholder="用户可在此输入回答", disable)
       el-checkbox-group.checkbox(v-if="question.choices[0] === 'multiple'")
-        .show_checkbox(v-for="(choice, index_choice) in question.choices", v-if="index_choice > 0")
+        .show_checkbox(v-for="(choice, index_choice) in question.choices", :key="index_choice", v-if="index_choice > 0")
           el-checkbox(:label="choice")
       el-radio-group.radiogroup(v-if="question.choices[0] === 'single'")
         .show_radiogroup(v-for="(choice, index_choice) in question.choices", v-if="index_choice > 0")
@@ -115,7 +115,6 @@ export default {
           roomId: this.$route.params.id,
           questionnaire: this.dynamicValidateForm.questions
         }
-        console.log(data)
         this.$store.dispatch('CreateQuestionnaire', data)
       }
     }

@@ -2,7 +2,6 @@ import * as types from '../types'
 
 const getInfo = str => {
   const info = sessionStorage.getItem(str)
-  console.log(str + info)
   if (info) return JSON.parse(info)
   else return null
 }
@@ -14,7 +13,6 @@ const state = {
 
 const mutations = {
   [types.SET_BASIC_INFO] (state, data) {
-    console.log(JSON.stringify(data))
     sessionStorage.setItem('basic_info', JSON.stringify(data))
     state.basicInfo = JSON.parse(JSON.stringify(data))
   },

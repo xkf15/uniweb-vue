@@ -19,7 +19,7 @@
       el-input(type="textarea", v-model="ruleForm.desc")
     el-form-item(label="房间标签")
       el-select(v-model="ruleForm.tags", multiple, filterable, placeholder="请选择房间标签")
-        el-option(v-for="(item, index) in initialData.labels", :label="item.name_ch", :value="item.id")
+        el-option(v-for="(item, index) in initialData.labels", :key="index", :label="item.name_ch", :value="item.id")
     el-form-item(label="在广场上显示")
       el-switch(v-model="ruleForm.show", on-text="是", off-text="否", on-color="#13ce66", off-color="#ff4949")
     el-form-item(label="需要申请加入")
@@ -105,7 +105,6 @@ export default {
           this.myColleges.map(item => {
             item.toggle ? collegesId.push(Number(item.id)) : ''
           })
-          console.log(collegesId)
           if (!collegesId.length) {
             alert('准入学校至少填写1所')
             return false
@@ -124,7 +123,6 @@ export default {
             questionnaires: allData.questionnaires,
             labels: allData.tags
           }
-          console.log(allData)
           this.$store.dispatch(this.dispatch, allData)
         } else {
           console.log('error submit!!')

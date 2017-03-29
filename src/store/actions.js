@@ -40,7 +40,6 @@ export const QuestionExcel = ({commit}, roomId) => {
 export const UserExcel = ({commit}, roomId) => {
   return api.getUserExcel(roomId).then(res => {
     if (res.status === 200) {
-      console.log(res.data)
       Vue.prototype.$message({
         type: 'success',
         message: '请求成功！'
@@ -119,7 +118,6 @@ export const UserSignup = ({ commit }, data) => {
 export const UserLogin = ({ commit }, data) => {
   api.localLogin(data).then(res => {
     if (res.status === 200) { // 如果成功
-      console.log(res.data)
       commit(types.USER_SIGNIN, res.data.token)
       Vue.prototype.$message({ // 登录成功，显示提示语
         type: 'success',
@@ -144,7 +142,6 @@ export const UserLogout = ({commit}) => {
 
 export const GetMessages = ({commit}, data) => {
   api.getMessages(data).then(res => {
-    console.log(res.data)
     commit(types.GET_MESSAGES, res.data)
   }, (err) => {
     console.log(err)
@@ -154,7 +151,6 @@ export const GetMessages = ({commit}, data) => {
 
 export const GetAnnouncement = ({commit}, data) => {
   api.getAnnouncement(data).then(res => {
-    console.log(res.data)
     commit(types.GET_ANNOUNCEMENT, res.data)
   }, (err) => {
     console.log(err)
@@ -164,7 +160,6 @@ export const GetAnnouncement = ({commit}, data) => {
 
 export const GetQuestion = ({commit}, data) => {
   api.getQuestion(data).then(res => {
-    console.log(res.data)
     commit(types.GET_QUESTION, res.data)
   }, (err) => {
     console.log(err)
@@ -279,7 +274,6 @@ export const CreateRoom = ({commit}, data) => {
 export const GetUserInfo = ({commit}) => { // 得到我的信息
   api.getUserInfo().then(res => {
     if (res.status) {
-      console.log(res)
       commit(types.GET_USER_INFO, res.data)
     } else {
       Vue.prototype.$message.error('状态码错误')

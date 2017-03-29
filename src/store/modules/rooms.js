@@ -9,8 +9,6 @@ const state = {
 const mutations = {
   [types.GET_ROOMS] (state, data) {
     state.roomList = data
-    // console.log(state.roomList[0])
-    console.log('mutations: GetRooms')
   },
   [types.SET_LOADING_FALSE] (state) {
     state.loading = false

@@ -50,7 +50,6 @@ export default {
   methods: {
     handleCurrentChange (val) {
       this.current = val
-      console.log(this.current, val)
     },
     back () {
       this.$router.push('./')
