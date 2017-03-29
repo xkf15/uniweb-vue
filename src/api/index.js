@@ -8,6 +8,12 @@ export default {
   getExcel: id => {
     return Vue.axios.get(`/uniadmin/room/${id}/room_xls`)
   },
+  getQuestionExcel: id => {
+    return Vue.axios.get(`/uniadmin/room/${id}/question_xls`)
+  },
+  getUserExcel: id => {
+    return Vue.axios.get(`/uniadmin/room/${id}/user_xls`)
+  },
   uploadCover: data => {
     return Vue.axios.post(`/uniadmin/room/${data.id}/upload_cover`, data.file)
   },
@@ -54,10 +60,10 @@ export default {
     return Vue.axios.get(`/uniadmin/room/${roomId}/users`)
   },
   deleteMember: data => {
-    return Vue.axios.delete('', data)
+    return Vue.axios.delete(`/uniadmin/room/${data.roomId}/user/${data.memberId}/delete`)
   },
   getMemberInfo: data => {
-    return Vue.axios.get('', data)
+    return Vue.axios.get(`/uniadmin/user/${data}/detail`)
   },
   getRooms: () => {
     return Vue.axios.get(`/uniadmin/`)
@@ -66,7 +72,7 @@ export default {
     return Vue.axios.get(`/uniadmin/room/${roomId}/application`)
   },
   acceptApplication: data => {
-    return Vue.axios.post('', data)
+    return Vue.axios.post(`/uniadmin/room/${data.roomId}/application/${data.applicationId}/judge`, {judge: data.judge})
   },
   searchRoomsByName: data => {
     return Vue.axios.post('', data)

@@ -6,23 +6,23 @@
         .member_signup(v-for="(item, index) in applications")
           .memberavatar
             .memberavatar_outer
-              img.avatar_style(:src="item.avatar")
+              img.avatar_style(:src="item.user.avatar")
           .member_info
             .info_top
               .info_top_left
                 .basic_info
                   .member_name
-                    strong {{item.name}}
-                    i.fa.fa-mars.male(v-if="item.gender === 1", aria-hidden="true")
-                    i.fa.fa-venus.female(v-else, aria-hidden="true")
-                  .department {{item.department}}
+                    strong {{item.user.name}}
+                    i.fa.fa-mars.male(v-if="item.user.gender === 1", aria-hidden="true")
+                    i.fa.fa-venus.female(v-if="item.user.gender === 0", aria-hidden="true")
+                  .department {{item.user.department}}
                 .extra_info
-                  span.extra_info_detail 信誉值 {{item.like}}
+                  span.extra_info_detail 信誉值 {{item.user.like}}
                   span.extra_info_detail 粉丝
                   span.extra_info_detail 参与活动
               .buttons
-                el-button.refuse_button(type="danger") 拒绝
-                el-button.agree_button(type="success")
+                el-button.refuse_button(type="danger", @click="refuseApplication(index)") 拒绝
+                el-button.agree_button(type="success", @click="acceptApplication(index)")
                   strong +通过！
             .signup_info
               strong 申请理由：
@@ -32,15 +32,17 @@
         span ({{members.length}})
       .members
         .member_style(v-for="(item, index) in members", v-if="(index < currentPage_second * maxmembernum && index >= (currentPage_second - 1) * maxmembernum)")
-          .img_outer
-            img.img_style(:src="item.avatar")
-          .username {{item.name}}
-      el-pagination(layout="prev, pager, next, jumper", @current-change="handleCurrentChange", :page-count="Math.ceil(allmembers.length/maxmembernum)")
+          member-info(:memberInfo="item", :poptipPlace="poptipPlace(index)", v-on:del="deleteMember(index)", roomId="roomId", :memberId="item.id")
+      el-pagination(layout="prev, pager, next, jumper", @current-change="handleCurrentChange", :page-count="Math.ceil(members.length/maxmembernum)")
 </template>
 <script>
 import { mapState } from 'vuex'
+import MemberInfo from '@/components/common/MemberInfo'
 
 export default {
+  components: {
+    MemberInfo
+  },
   computed: {
     ...mapState({
       members: state => state.roomInfo.members,
@@ -55,7 +57,8 @@ export default {
     return {
       activeName2: 'second',
       currentPage_second: 1,
-      maxmembernum: 10,
+      maxmembernum: 20,
+      roomId: this.$route.params.id,
       signupmembers: [
         {
           name: '宋阿三',
@@ -127,10 +130,66 @@ export default {
   },
   methods: {
     handleClick (tab, event) {
-      console.log(tab, event)
+      // console.log(tab, event)
+      if (tab.name === 'first') {
+        this.$store.dispatch('GetApplications', this.$route.params.id)
+      } else {
+        this.$store.dispatch('GetMembers', this.$route.params.id)
+      }
     },
     handleCurrentChange (val) {
       this.currentPage_second = val
+    },
+    poptipPlace (index) {
+      if (index % 4 < 2) {
+        return 'right'
+      } else {
+        return 'left'
+      }
+    },
+    getMemberInfo (index) {
+      let data = {
+        roomId: this.$route.params.id,
+        memberId: this.members[index].id
+      }
+      this.$store.dispatch('GetMemberInfo', data)
+    },
+    deleteMember (index) {
+      this.$confirm('此操作将剔除该成员, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let data = {
+          roomId: this.roomId,
+          memberId: this.members[index].id,
+          number: index
+        }
+        this.$store.dispatch('DeleteMember', data)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    acceptApplication (index) {
+      let data = {
+        roomId: this.$route.params.id,
+        applicationId: this.applications[index].id,
+        judge: 1,
+        number: index
+      }
+      this.$store.dispatch('AcceptApplication', data)
+    },
+    refuseApplication (index) {
+      let data = {
+        roomId: this.$route.params.id,
+        applicationId: this.applications[index].id,
+        judge: 0,
+        number: index
+      }
+      this.$store.dispatch('AcceptApplication', data)
     }
   }
 }
@@ -153,6 +212,7 @@ export default {
     padding 0 5%
   .member_style
     padding 20px
+    width 25%
   .img_outer
     overflow hidden
     width 100px
@@ -234,4 +294,8 @@ export default {
     .reasons
       font-size 15px
       margin-bottom 10px
+  .poptipContent
+    display flex
+    .userinfo
+      display flex
 </style>
