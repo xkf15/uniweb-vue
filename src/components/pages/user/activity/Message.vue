@@ -81,7 +81,7 @@ export default {
       })
     },
     checkResult () {
-      this.$router.push('./message/result')
+      this.$router.push('message/result')
     }
   },
   computed: {

@@ -52,7 +52,7 @@ export default {
       this.current = val
     },
     back () {
-      this.$router.push('./')
+      this.$router.push(`/user/activity/${this.$route.params.id}/message`)
     },
     getQuestionExel () {
       this.$store.dispatch('QuestionExcel', this.$route.params.id)
