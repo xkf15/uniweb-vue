@@ -10,36 +10,28 @@
           .room_content
             .room_name
               span.tag 官方
-              span {{ basicInfo.name }}
+              span {{ basicInfo.title }}
             .room_details
               .room_desc
                 span.title 活动内容：
-                span {{ basicInfo.desc }}
+                span {{ basicInfo.description }}
               .room_place
                 span.title 活动地点：
-                span {{ basicInfo.place }}
+                span {{ basicInfo.location_string }}
               .room_start
                 span.title 开始时间：
-                span {{ String(basicInfo.timeRange[0]) }}
+                span {{ String(basicInfo.date_time_start) }}
               .room_end
                 span.title 结束时间：
-                span {{ String(basicInfo.timeRange[1]) }}
+                span {{ String(basicInfo.date_time_end) }}
               .room_people
                 span.title 活动人数：
-                span(v-if="basicInfo.people") {{ basicInfo.people }}
-                span(v-else) [未设置]
-              .room_wechat
-                span.title 微信推送链接：
-                span(v-if="basicInfo.wechat") {{ basicInfo.wechat }}
+                span(v-if="basicInfo.people") {{ basicInfo.max_participants }}
                 span(v-else) [未设置]
               .room_colleges
                 span.title 准入学校：
-                span(v-if="basicInfo.colleges.length")
+                span(v-if="basicInfo.advertising.length")
                   span.college(v-for="item of basicInfo.colleges") {{ item }}；
-                span(v-else) [未设置]
-              .room_condition
-                span.title 准入条件：
-                span(v-if="basicInfo.condition") {{ basicInfo.condition }}
                 span(v-else) [未设置]
       .members_info
         .member_info(v-for="(item, index) of memberInfo")
@@ -79,21 +71,8 @@ export default {
           description: item.question
         })
       }
-      const all = {
-        title: this.basicInfo.name,
-        location_string: this.basicInfo.place,
-        date_time_start: this.basicInfo.timeRange[0].split('.')[0],
-        date_time_end: this.basicInfo.timeRange[1].split('.')[0],
-        max_participants: this.basicInfo.people,
-        description: this.basicInfo.desc,
-        options: [
-          this.basicInfo.wechat,
-          this.basicInfo.condition
-        ],
-        labels: this.basicInfo.tags,
-        advertising: this.basicInfo.colleges,
-        questionnaires: questionaires
-      }
+      const all = this.basicInfo
+      all.questionnaires = questionaires
       this.$store.dispatch('CreateRoom', all)
       this.$router.push('publish')
     }

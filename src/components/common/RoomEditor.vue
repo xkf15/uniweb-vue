@@ -8,7 +8,7 @@
     el-form-item(label="活动时间", prop="timeRange")
       Date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
     el-form-item(label="上传图片", prop="upload")
-      el-upload.upload(drag, :action="action", :headers="{'Authorization': `Token ${token}`}", name="cover")
+      el-upload.upload(drag, :action="action", :headers="headers", name="cover")
         .upload_box(:style="{background: `url(${cover}) no-repeat center center`}")
           i.el-icon-upload
           .el-upload__text 将文件P拖到此处，或<em>点击上传</em>
@@ -30,10 +30,6 @@
         span(v-for="(item, index) of myColleges")
           input(:id="item.id", type="checkbox", v-model="item.toggle")
           label(:for="item.id") {{ item.name_ch }}
-      .subtitle 若已有微信推送，请直接粘贴链接
-      el-input(type="text", v-model="ruleForm.wechat")
-      .subtitle 准入条件（将在用户选择加入时提醒）
-      el-input(type="text", v-model="ruleForm.condition")
     el-form-item
       option-menu
     el-form-item
@@ -50,7 +46,7 @@ export default {
   props: {
     token: {
       type: String,
-      required: true
+      default: null
     },
     roomInfo: {
       type: Object,
@@ -71,6 +67,7 @@ export default {
           wechat: '',     // 微信推送链接 (非必须)
           condition: '',  // 准入条件 (非必须) // welcome
           timeRange: '',
+          options: [],
           tags: [],
           show: true,
           apply: true
@@ -139,6 +136,9 @@ export default {
     },
     cover () {
       return this.roomInfo ? this.roomInfo.cover : ''
+    },
+    headers () {
+      return this.token ? {'Authorization': `Token ${this.token}`} : {}
     }
   },
   data () {
