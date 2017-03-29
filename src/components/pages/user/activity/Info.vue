@@ -1,8 +1,7 @@
 <template lang="pug">
 #info
-  .container
-    el-button(type="danger", @click="excel") 测试Excel
-    room-info(:room-info="info")
+  el-button(type="danger", @click="excel") 测试Excel
+  room-info(:room-info="info")
   </template>
 
 <script>
@@ -36,20 +35,7 @@ export default {
 
 <style lang="stylus" scoped>
 #info
-  .container
-    margin 20px
-    border 1px solid #ddd
-    border-radius 10px
-    .box
-      margin 10px
-      border-bottom 1px solid #ddd
-      .title, .content
-        padding 10px 0
-        font-size 14px
-      .content
-        text-align left
-        .college-item
-          padding-right 20px
-    .no-border
-      border-bottom none
+  margin 20px
+  border 1px solid #ddd
+  border-radius 10px
 </style>
