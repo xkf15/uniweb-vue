@@ -31,7 +31,7 @@
           input(:id="item.id", type="checkbox", v-model="item.toggle")
           label(:for="item.id") {{ item.name_ch }}
     el-form-item
-      option-menu
+      option-menu(:options="initialRuleForm.options")
     el-form-item
       el-button.submitButton(type="danger", size="large", @click="submitForm('ruleForm')") {{ submitString }}
 </template>
@@ -67,7 +67,16 @@ export default {
           wechat: '',     // 微信推送链接 (非必须)
           condition: '',  // 准入条件 (非必须) // welcome
           timeRange: '',
-          options: [],
+          options: [
+            {
+              name: '微信链接',
+              content: ''
+            },
+            {
+              name: '准入条件',
+              content: ''
+            }
+          ],
           tags: [],
           show: true,
           apply: true

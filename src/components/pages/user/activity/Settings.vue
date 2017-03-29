@@ -23,8 +23,7 @@ export default {
             place: roomInfo.location_string,      // 活动地点 // location_string
             people: roomInfo.max_participants,     // 参与人数 (需转化为数字) (非必须) // participants
             desc: roomInfo.description,       // 详细内容 // discription
-            wechat: roomInfo.options[0],     // 微信推送链接 (非必须)
-            condition: roomInfo.options[1],  // 准入条件 (非必须) // welcome
+            options: JSON.parse(JSON.stringify(roomInfo.options ? roomInfo.options : '')),     // 微信推送链接 (非必须)
             colleges: [],    // 准入学校 // advertising
             timeRange: [roomInfo.date_time_start, roomInfo.date_time_end],
             cover: {},
