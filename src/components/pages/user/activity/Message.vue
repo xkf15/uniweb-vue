@@ -12,12 +12,16 @@
   .content
     .notification(v-for="(item, index) of messages")
       .left
-        .run_title.display_flex <i class="fa fa-bullhorn" aria-hidden="true" id="icon-notification"></i>群公告
-        .run_text {{ item.choices }}
+        .run_title.display_flex(v-if="item.is_announcement") <i class="fa fa-bullhorn" aria-hidden="true" id="icon-notification"></i>群公告
+        .run_title.display_flex(v-else) <i class="fa fa-bar-chart" aria-hidden="true" id="icon-notification"></i>群问卷
+        //- .run_text {{ item.choices }}
       .middle
         div {{ item.title }}
         //- .description 开始于{{ item.description }}，结束于{{ item.description }}
-        .description 内容：{{ item.description }}
+        .description(v-if="item.is_announcement") 内容：{{ item.description }}
+        .description(v-else)
+          .choices(v-for="(choice, index_choice) in item.choices")
+            .choice {{choice}}
       .right
         div
           //- el-button(type="text") 截止

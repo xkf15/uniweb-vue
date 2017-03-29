@@ -12,6 +12,9 @@ const state = {
 const mutations = {
   [types.GET_MESSAGES] (state, data) {
     state.messages = data
+    for (var i = 0; i < state.messages.length; i++) {
+      state.messages[i].choices = JSON.parse(state.messages[i].choices)
+    }
   },
   [types.GET_ANNOUNCEMENT] (state, data) {
     state.announcement = data

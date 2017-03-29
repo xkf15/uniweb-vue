@@ -2,29 +2,29 @@
 #questionnaire
   //- .title 发布问卷
   el-form.form(:model="dynamicValidateForm", ref="dynamicValidateForm", label-width="10%", class="demo-ruleForm")
-    el-form-item(v-for="(question, index) in dynamicValidateForm.questions", :label="'问题' + (index+1)", :prop="'questions.' + index + '.title'", :rules="{required: true, message: '域名不能为空', trigger: 'blur'}")
+    el-form-item(v-for="(question, index) in dynamicValidateForm.questions", :label="'问题' + (index+1)", :prop="'questions.' + index + '.title'", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
       .question_top
         .question_title
-          span(v-if="question.key === 'blank'") （填空）
+          span(v-if="question.choices.length === 0") （填空）
           span(v-else)
-            span(v-if="question.key === 'single'") （单选）
+            span(v-if="question.choices[0] === 'single'") （单选）
             span(v-else) （多选）
           span {{ question.title }}
         el-button.question_delete(@click.prevent="removeQuestion(question)", type="danger") 删除
-      input.question_answer(v-if="question.key === 'blank'", placeholder="用户可在此输入回答", disable)
-      el-checkbox-group.checkbox(v-if="question.key === 'multiple'")
-        .show_checkbox(v-for="(choice, index_choice) in question.choices")
+      input.question_answer(v-if="question.choices.length === 0", placeholder="用户可在此输入回答", disable)
+      el-checkbox-group.checkbox(v-if="question.choices[0] === 'multiple'")
+        .show_checkbox(v-for="(choice, index_choice) in question.choices", v-if="index_choice > 0")
           el-checkbox(:label="choice")
-      el-radio-group.radiogroup(v-if="question.key === 'single'")
-        .show_radiogroup(v-for="(choice, index_choice) in question.choices")
+      el-radio-group.radiogroup(v-if="question.choices[0] === 'single'")
+        .show_radiogroup(v-for="(choice, index_choice) in question.choices", v-if="index_choice > 0")
           el-radio(:label="index_choice") {{choice}}
           br
       el-collapse
         el-collapse-item.collapse-item(title="修改", :name="index")
           span.question_tip 问题{{index+1}}
           el-input.input_question(v-model="question.title", :maxlength="100")
-          el-checkbox-group.inner_checkbox(v-model="question.choices", v-if="!(question.key === 'blank')")
-            .inner_choices(v-for="(choice, index_choice) in question.choices")
+          el-checkbox-group.inner_checkbox(v-model="question.choices", v-if="!(question.choices.length === 0)")
+            .inner_choices(v-for="(choice, index_choice) in question.choices", v-if="index_choice > 0")
               //- el-checkbox(disabled)
               el-input.inner_input(v-model="question.choices[index_choice]")
               i.fa.fa-minus-circle.icon_minus(aria-hidden="true", @click="deleteChoices(index, index_choice)")
@@ -50,8 +50,7 @@ export default {
           is_announcement: false,
           title: '请输入问题',
           description: '',
-          choices: ['选项1', '选项2', '选项3'],
-          key: 'single'
+          choices: ['single', '选项1', '选项2', '选项3']
         }]
       }
     }
@@ -80,16 +79,14 @@ export default {
           is_announcement: false,
           title: '请输入问题',
           description: '',
-          choices: ['选项1', '选项2', '选项3'],
-          key: type
+          choices: [type, '选项1', '选项2', '选项3']
         })
       } else {
         this.dynamicValidateForm.questions.push({
           is_announcement: false,
           title: '请输入问题',
           description: '',
-          choices: [],
-          key: type
+          choices: []
         })
       }
       this.dialogFormVisible = false
@@ -98,15 +95,29 @@ export default {
       this.dynamicValidateForm.questions[index].choices.push('选项')
     },
     deleteChoices (index, choice) {
-      this.dynamicValidateForm.questions[index].choices.splice(choice, 1)
+      if (this.dynamicValidateForm.questions[index].choices.length > 2) {
+        this.dynamicValidateForm.questions[index].choices.splice(choice, 1)
+      } else {
+        this.$message({
+          type: 'warning',
+          message: '请至少保留一个选项'
+        })
+      }
     },
     submitQuestionnaire () {
-      let data = {
-        roomId: this.$route.params.id,
-        questionnaire: this.dynamicValidateForm.questions
+      if (this.dynamicValidateForm.questions.length <= 0) {
+        this.$message({
+          type: 'warning',
+          message: '请至少输入一个问题'
+        })
+      } else {
+        let data = {
+          roomId: this.$route.params.id,
+          questionnaire: this.dynamicValidateForm.questions
+        }
+        console.log(data)
+        this.$store.dispatch('CreateQuestionnaire', data)
       }
-      console.log(data)
-      this.$store.dispatch('CreateQuestionnaire', data)
     }
   }
 }
