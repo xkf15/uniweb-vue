@@ -1,57 +1,23 @@
 <template lang="pug">
 #settings
-  el-form.ruleForm(:model="ruleForm", :rules="rules", ref="ruleForm", label-width="100px")
-    el-form-item(label="填写名称", prop="name")
-      el-input(v-model="ruleForm.name", placeholder="活动标题（不少于5个字）")
-    el-form-item(label="选择地点", prop="place")
-      el-input(v-model="ruleForm.place", placeholder="例如：北京市海淀区中关村南大街")
-    el-form-item(label="活动时间", prop="timeRange")
-      //- el-date-picker(v-model="ruleForm.timeRange", type="datetimerange", placeholder="选择活动时间")
-      Date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
-    //- input(type="file", @change="onFileChange")
-    el-form-item(label="上传图片", prop="upload")
-      //- el-upload.upload(drag, :action="`/uniadmin/room/${roomInfo.id}/upload_cover`", :headers="{'Authorization': `Token ${token}`}", name="cover", :auto-upload="false", :on-change="onChange", :on-preview="onPreview", :on-progress="onProgress", :before-upload="beforeUpload")
-      el-upload.upload(drag, :action="`/uniadmin/room/${roomInfo.id}/upload_cover`", :headers="{'Authorization': `Token ${token}`}", name="cover")
-        .upload_box(:style="{background: `url(${roomInfo.cover}) no-repeat center center`}")
-          i.el-icon-upload
-          .el-upload__text 将文件P拖到此处，或<em>点击上传</em>
-          .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
-        el-button(type="success", @click="uploadFile") 上传文件
-      //- el-upload.upload-demo(ref="upload", action="//jsonplaceholder.typicode.com/posts/", :file-list="fileList", :auto-upload="false")
-        el-button(slot="trigger" size="small", type="primary") 选取文件
-        el-button(style="margin-left: 10px;", size="small", type="success", @click="submitUpload") 上传到服务器
-        div(slot="tip" class="el-upload__tip") 只能上传jpg/png文件，且不超过500kb
-    el-form-item(label="活动人数", prop="people")
-      el-input(v-model.number="ruleForm.people")
-    el-form-item(label="详细内容", prop="desc")
-      el-input(type="textarea", v-model="ruleForm.desc")
-    el-form-item(label="房间标签")
-      el-select(v-model="ruleForm.tags", multiple, filterable, placeholder="请选择房间标签")
-        el-option(v-for="(item, index) in options", :label="item.name_ch", :value="item.id")
-    el-form-item
-      .subtitle 准入学校（可多选）
-      .colleges
-        span(v-for="(item, index) of colleges")
-          input(:id="item.id", type="checkbox", v-model="item.toggle")
-          label(:for="item.id") {{ item.title }}
-      .subtitle 若已有微信推送，请直接粘贴链接
-      el-input(type="text", v-model="ruleForm.wechat")
-      .subtitle 准入条件（将在用户选择加入时提醒）
-      el-input(type="text", v-model="ruleForm.condition")
-    el-form-item
-      el-button.submitButton(type="danger", size="large", @click="submitForm('ruleForm')") 修改房间信息
+  room-editor(:token="token", :roomInfo="roomInfo", :initialData="initialData", :initialRuleForm="ruleForm")
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import store from '@/store'
+import RoomEditor from '@/components/common/RoomEditor'
 
 export default {
+  components: {
+    RoomEditor
+  },
   beforeRouteEnter: (to, from, next) => {
     store.dispatch('GetRoomInfo', to.params.id)
       .then(() => {
         store.dispatch('GetInitialData').then(() => {
           const roomInfo = store.state.roomInfo.info
+          const initialData = store.state.login.initialData
           const ruleForm = {
             name: roomInfo.title,       // 活动名称 // title
             place: roomInfo.location_string,      // 活动地点 // location_string
@@ -64,10 +30,22 @@ export default {
             cover: {},
             tags: roomInfo.labels.map(item => Number(item.id))
           }
+          const colleges = initialData[1]
+          for (let college of colleges) {
+            college.toggle = false
+            for (let adv of roomInfo.advertising) {
+              if (college.id === adv.id) {
+                college.toggle = true
+                break
+              }
+            }
+          }
           next(vm => {
             vm.ruleForm = ruleForm
-            vm.options = store.state.login.initialData[0]
-            // vm.colleges = store.state.login.initialData[1]
+            vm.initialData = {
+              colleges: colleges,
+              labels: initialData[0]
+            }
           })
         })
       })
@@ -78,160 +56,16 @@ export default {
       token: state => state.login.token
       // options: state => state.login.initialData[0]
       // colleges: state => state.login.initialData[1]
-    }),
-    ...mapGetters([
-      'roomDateFormat'
-    ]),
-    colleges () {
-      let cols = [
-        {
-          title: '清华大学',
-          u_id: 1,
-          id: 'tsinghua',
-          toggle: false
-        },
-        {
-          title: '北方交大',
-          u_id: 2,
-          id: 'bfjd',
-          toggle: false
-        },
-        {
-          title: '隔壁',
-          u_id: 3,
-          id: 'gebi',
-          toggle: false
-        }
-      ]
-      for (let item of this.roomInfo.advertising) {
-        cols[item.id - 1].toggle = true
-      }
-      return cols
-    }
-  },
-  methods: {
-    submitUpload () {
-      const upload = this.$refs['upload']
-      console.log(upload)
-    },
-    uploadFile () {
-      console.log('upload')
-    },
-    onFileChange (e) {
-      e.preventDefault()
-      const files = e.target.files || e.dataTransfer.files
-      console.log(files)
-    },
-    onChange (file, fileList) {
-      // console.log(file)
-      // this.$store.dispatch('UploadCover', {id: this.roomInfo.id, file: file})
-      console.log('On change')
-    },
-    onProgress (event, file, fileList) {
-      console.log('On Progress')
-    },
-    onPreview (file) {
-      console.log('On Preview')
-    },
-    beforeUpload (file) {
-      // console.log(file)
-      console.log('beforeUpload')
-      // if (file) this.$store.dispatch('UploadCover', {id: this.roomInfo.id, file: file})
-    },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          if (Number(this.ruleForm.people) < 2) {
-            alert('参与人数必须大于2')
-            return false
-          }
-          let allData = this.ruleForm
-          for (let item of this.colleges) {
-            if (item.toggle) {
-              console.log(item.title)
-              allData.colleges.push(item.u_id)
-            }
-          }
-          if (!allData.colleges.length) {
-            alert('准入学校至少填写1所')
-            return false
-          }
-          allData = JSON.parse(JSON.stringify(allData))
-          allData = {
-            id: this.$route.params.id,
-            title: allData.name,
-            location_string: allData.place,
-            date_time_start: allData.timeRange[0].split('.')[0],
-            date_time_end: allData.timeRange[1].split('.')[0],
-            max_participants: allData.people,
-            description: allData.desc,
-            options: allData.options,
-            advertising: allData.colleges,
-            questionnaires: allData.questionnaires,
-            labels: allData.tags
-          }
-          this.$store.dispatch('ModifyRoomInfo', allData)
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    }
+    })
   },
   data () {
     return {
-      fileList: [],
       ruleForm: {},
-      options: [],
-      rules: {
-        name: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 5, message: '活动标题不少于5个字符', trigger: 'blur' }
-        ],
-        place: [
-          { required: true, message: '请选择活动地点', trigger: 'blur' }
-        ],
-        people: [
-          { required: true, type: 'number', message: '人数必须是数字', trigger: 'change' }
-        ],
-        desc: [
-          { required: true, message: '请填写活动形式', trigger: 'blur' }
-        ],
-        timeRange: [
-          { required: true, message: '请填写活动时间' }
-        ]
-      }
+      initialData: {}
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-#settings
-  margin 20px
-  border 1px solid #ddd
-  border-radius 10px
-  padding 40px 40px 20px 20px
-  .submitButton
-    padding 10px 100px
-  .upload
-    text-align left
-  .subtitle
-    text-align left
-    margin-top 15px
-  .ruleForm
-    text-align left
-    .colleges input
-      display none
-
-    .colleges label
-      cursor pointer
-      background #eee
-      border 1px solid #ccc
-      padding 5px 20px
-      margin-right 20px
-
-    .colleges input:checked ~ label
-      background red
-      color white
 </style>
