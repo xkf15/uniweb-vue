@@ -12,24 +12,24 @@
   .content
     .notification(v-for="(item, index) of messages")
       .left
-        .run_title.display_flex(v-if="item.is_announcement") <i class="fa fa-bullhorn" aria-hidden="true" id="icon-notification"></i>群公告
-        .run_title.display_flex(v-else) <i class="fa fa-bar-chart" aria-hidden="true" id="icon-notification"></i>群问卷
+        .run_title.display_flex(v-if="item.is_announcement") <i class="fa fa-bullhorn" aria-hidden="true" id="icon-notification-announcement"></i>群公告
+        .run_title.display_flex(v-else) <i class="fa fa-bar-chart" aria-hidden="true" id="icon-notification-questionnaire"></i>群问卷
         //- .run_text {{ item.choices }}
       .middle
         div {{ item.title }}
         //- .description 开始于{{ item.description }}，结束于{{ item.description }}
         .description(v-if="item.is_announcement") 内容：{{ item.description }}
         .description(v-else)
-          .choices(v-for="(choice, index_choice) in item.choices")
-            .choice {{choice}}
+          .choices(v-for="(choice, index_choice) in item.choices", v-if="index_choice > 0")
+            .choice {{index_choice}}、{{choice}}
       .right
         div
           //- el-button(type="text") 截止
           //- span |
-          el-button(type="text", @click="delete_message (item.id)") 删除
+          el-button(type="text", @click="delete_message(index, item.id)") 删除
           .people_num(v-if="!item.is_announcement") 填写人数
             br
-            div {{item.replies.length}}/30
+            div {{item.replies.length}}/{{memberNum}}
           el-button.check_data(v-if="!item.is_announcement", type="primary", @click="checkResult") 查看数据
 </template>
 
@@ -38,8 +38,8 @@ import { mapState } from 'vuex'
 export default {
   created () {
     this.$store.dispatch('GetMessages', this.room_id)
-    this.$store.dispatch('GetAnnouncement', this.room_id)
-    this.$store.dispatch('GetQuestion', this.room_id)
+    // this.$store.dispatch('GetAnnouncement', this.room_id)
+    // this.$store.dispatch('GetQuestion', this.room_id)
   },
   data () {
     return {
@@ -66,13 +66,13 @@ export default {
     toNewMessage (type) {
       this.$router.push('./message/' + type)
     },
-    delete_message (messageId) {
+    delete_message (index, messageId) {
       this.$confirm('此操作将永久删除该消息, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$store.dispatch('DeleteMessage', {roomId: this.room_id, announcementId: messageId})
+        this.$store.dispatch('DeleteMessage', {roomId: this.room_id, announcementId: messageId, number: index})
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -80,27 +80,14 @@ export default {
         })
       })
     },
-    create_message () {
-      const data = {
-        data: {
-          title: this.newMsg.question,
-          description: this.newMsg.tips,
-          is_announcement: true,
-          choices: [1, 2, 3]
-        },
-        roomId: this.room_id
-      }
-      console.log(data.data.title)
-      this.$store.dispatch('CreateMessage', data)
-      this.dialogFormVisible = false
-    },
     checkResult () {
       this.$router.push('./message/result')
     }
   },
   computed: {
     ...mapState({
-      messages: state => state.roomInfo.messages
+      messages: state => state.roomInfo.messages,
+      memberNum: state => state.roomInfo.memberNum
     })
   }
 }
@@ -161,8 +148,12 @@ export default {
       margin-top 30px
       color darkblue
 
-    #icon-notification
+    #icon-notification-announcement
       color darkblue
+      padding-right 5px
+      font-size 1em
+    #icon-notification-questionnaire
+      color #ec5367
       padding-right 5px
       font-size 1em
 </style>

@@ -1,13 +1,13 @@
 <template lang="pug">
-#notice asd
-  .title 发布公告
+#notice
+  //- .title 发布公告
   el-form.form(:model="notice", ref="notice", label-width="10%", class="demo-ruleForm")
     el-form-item(label="标题", prop="title", :rules="[{ required: true, message: '标题不能为空'}]")
       el-input(v-model="notice.title", :maxlength="100")
     //- el-form-item(label="内容", prop="info", :rules="[{ required: true, message: '标题不能为空'}]")
     //-   el-input(type="info", v-model="notice.info", :maxlength="100")
-    el-form-item(label="内容", prop="info", :rules="[{ required: true, message: '内容不能为空'}]")
-      el-input(type="textarea", v-model="notice.info", auto-complete="off", :maxlength="1000", :rows="8")
+    el-form-item(label="内容", prop="description", :rules="[{ required: true, message: '内容不能为空'}]")
+      el-input(type="textarea", v-model="notice.description", auto-complete="off", :maxlength="1000", :rows="8")
     .flex
       el-button.submit_btn(type="primary", @click="submitForm()") 发布
 </template>
@@ -15,24 +15,15 @@
 export default {
   data () {
     return {
-      dynamicValidateForm: {
+      notice: {
         title: '',
-        description: '',
         is_announcement: true,
+        description: '',
         choices: null
       }
     }
   },
   methods: {
-    // submitForm (formName) {
-    //   this.$refs[formName].validate((valid) => {
-    //     if (valid) {
-    //       console.log(this.dynamicValidateForm)
-    //     } else {
-    //       console.log('error submit!!')
-    //       return false
-    //     }
-    //   })
     submitForm () {
       let data = {
         roomId: this.$route.params.id,
@@ -47,4 +38,9 @@ export default {
   #notice
     .title
       height 100px
+    .flex
+      display flex
+      text-align right
+      flex-direction row-reverse
+      padding 10px 0 20px 0
 </style>

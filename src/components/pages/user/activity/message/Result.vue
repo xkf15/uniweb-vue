@@ -1,30 +1,32 @@
 <template lang="pug">
 #result
-  strong.title 问卷统计
+  div
+    strong.title 问卷统计
+  .outer
+    el-button.downloadQuestionnaire(type="danger", @click="getQuestionExel") 导出问卷
   .questions(v-for="(question, index) in questions")
     strong.questionTitle {{question.title}}
-    div(v-if="question.choices.length === 0")
-      .choices(v-for="(choice, index_choice) in question.choices")
-        .originQuestion {{choice}}
+    div(v-if="question.choices.length !== 0")
+      .choices(v-for="(choice, index_choice) in question.choices", v-if="index_choice > 0")
+        .originQuestion {{index_choice}}、{{choice}}
         .result
-          el-progress.progress(:text-inside="true", :stroke-width="18", :percentage="50", status="exception")
-        .percentage 50%
+          el-progress.progress(:text-inside="true", :stroke-width="18", :percentage="results[index][index_choice] * 100.0 / memberNum", status="exception")
+        .percentage {{results[index][index_choice] * 100.0 / memberNum}}%
     div(v-else)
-      .answers(v-for="(answer, index_answer) in question.choices", v-if="index_answer < 2")
-        .answer {{answer}}
-      el-button.checkAll(type="text", @click="showDialog = true") 查看全部
+      .answers(v-for="(answer, index_answer) in question.replies", v-if="index_answer < 2")
+        .answer {{answer.user}} : {{answer.text}}
+      el-button.checkAll(type="text", @click="showDialog = true") 查看全部回答
       el-dialog(v-model="showDialog", :title="question.title")
-        .answers(v-for="(answer, index_answer) in question.choices")
+        .answers(v-for="(answer, index_answer) in question.replies")
           .answer {{answer}}
-    //- el-pagination(small, layout="prev, pager, next", :total="50")
-    //- el-pagination(small, layout="prev, pager, next", :total="50", @current-change="handleCurrentChange", :current-page="currentPage[index]")
-    //- Page(size="small", :total="50", @on-change="handleCurrentChange", :current="currentPage.index")
+  el-button(type="primary", @click="back") 返回
 </template>
 <script>
 import { mapState } from 'vuex'
 export default {
   created () {
     this.$store.dispatch('GetQuestion', this.roomId)
+    this.$message.error('没调完')
   },
   data () {
     return {
@@ -40,23 +42,21 @@ export default {
   },
   computed: {
     ...mapState({
-      questions: state => state.roomInfo.question
-      // currentPage: new Array(state => state.roomInfo.question.length)
+      questions: state => state.roomInfo.question,
+      results: state => state.roomInfo.results,
+      memberNum: state => state.roomInfo.memberNum
     })
-    // currentPage () {
-    //   let cp = []
-    //   for (let id in this.questions) {
-    //     cp.push(1)
-    //     id - 1
-    //   }
-    //   return cp
-    // }
   },
   methods: {
     handleCurrentChange (val) {
-      // this.currentPage = val
       this.current = val
       console.log(this.current, val)
+    },
+    back () {
+      this.$router.push('./')
+    },
+    getQuestionExel () {
+      this.$store.dispatch('QuestionExcel', this.$route.params.id)
     }
   }
 }
@@ -66,6 +66,12 @@ export default {
   .title
     text-align center
     font-size 22px
+  .outer
+    width 100%
+    display flex
+    flex-direction row-reverse
+  .downloadQuestionnaire
+    margin-right 20px
   .questions
     display flex
     flex-direction column
@@ -97,5 +103,5 @@ export default {
         font-size 15px
         padding 10px 0 0 15px
   .checkAll
-    width 20%
+    margin-right 70%
 </style>
