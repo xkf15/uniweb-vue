@@ -14,11 +14,12 @@ const state = {
 
 const mutations = {
   [types.GET_MESSAGES] (state, data) {
-    state.messages = data[1]
-    state.memberNum = data[0]
-    for (var i = 0; i < state.messages.length; i++) {
-      if (state.messages[i].choices !== null && state.messages[i].choices !== '') {
-        state.messages[i].choices = JSON.parse(state.messages[i].choices)
+    // state.messages = data[1]
+    // state.memberNum = data[0]
+    state.messages = data
+    for (let message of state.messages) {
+      if (message.choices !== null && message.choices !== '') {
+        message.choices = JSON.parse(message.choices)
       }
     }
   },

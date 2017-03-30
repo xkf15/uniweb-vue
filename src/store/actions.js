@@ -142,6 +142,7 @@ export const UserLogout = ({commit}) => {
 
 export const GetMessages = ({commit}, data) => {
   api.getMessages(data).then(res => {
+    console.log(res.data)
     commit(types.GET_MESSAGES, res.data)
   }, (err) => {
     console.log(err)
