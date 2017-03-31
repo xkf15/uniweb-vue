@@ -43,9 +43,14 @@ module.exports = {
         options: vueLoaderConfig
       },
       {
+        test: /iview.src.*?js$/,
+        loader: 'babel-loader'
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/vue-awesome')]
+        exclude: /node_modules/,
+        include: [resolve('src'), resolve('test')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

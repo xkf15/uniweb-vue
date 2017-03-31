@@ -10,9 +10,6 @@
 
 <script>
 export default {
-  mounted () {
-    require('@/js/main.js')
-  },
   data () {
     return {
       account: '',

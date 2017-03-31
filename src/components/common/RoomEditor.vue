@@ -6,7 +6,7 @@
     el-form-item(label="选择地点", prop="place")
       el-input(v-model="ruleForm.place", placeholder="例如：北京市海淀区中关村南大街")
     el-form-item(label="活动时间", prop="timeRange")
-      Date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
+      date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
     el-form-item(label="上传图片", prop="upload")
       el-upload.upload(drag, :action="action", :headers="headers", name="cover")
         .upload_box(:style="{background: `url(${cover}) no-repeat center center`}")
@@ -38,9 +38,11 @@
 
 <script>
 import OptionMenu from '@/components/common/OptionMenu'
+import DatePicker from 'iview/src/components/date-picker'
 
 export default {
   components: {
+    DatePicker,
     OptionMenu
   },
   props: {

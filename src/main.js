@@ -7,16 +7,16 @@ import store from './store'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-import iView from 'iview'
+// import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
 import 'font-awesome/css/font-awesome.css'
 
 /* eslint-disable no-unused-vars */
-import mock from './api/mock'
+// import mock from './api/mock'
 
 Vue.use(ElementUI)
-Vue.use(iView)
+// Vue.use(iView)
 
 Vue.config.productionTip = false
 
