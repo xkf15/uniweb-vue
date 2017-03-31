@@ -3,20 +3,21 @@ div(@click="getMemberInfo(memberId)")
   Poptip(:placement="poptipPlace", width="350")
     .img_outer
       img.img_style(:src="memberInfo.avatar")
-    .poptipContent(slot="content")
-      i.fa.fa-trash.deleteIcon(aria-hidden="true", v-on:click="del")
-      .img_outer.img_inner
-        img.img_style(:src="member.avatar_thumbnail")
-      .userInfo
-        .username_inner {{ member.name }}
-          i.fa.fa-mars.male(v-if="member.gender === 1", aria-hidden="true")
-          i.fa.fa-venus.female(v-if="member.gender === 0", aria-hidden="true")
-        .signature {{ member.signature}}
-        .department {{ member.department }}
-    .extrainfo(slot="content")
-      span 好友 {{ member.friends }}
-      span 参与活动 {{ member.activities }}
-      span 赞 {{ member.zan }}
+    div(slot="content", v-loading.body="memberInfoLoading")
+      .poptipContent
+        i.fa.fa-trash.deleteIcon(aria-hidden="true", v-on:click="del")
+        .img_outer.img_inner
+          img.img_style(:src="member.avatar_thumbnail")
+        .userInfo
+          .username_inner {{ member.name }}
+            i.fa.fa-mars.male(v-if="member.gender === 1", aria-hidden="true")
+            i.fa.fa-venus.female(v-if="member.gender === 0", aria-hidden="true")
+          .signature {{ member.signature}}
+          .department {{ member.department }}
+      .extrainfo
+        span 好友 {{ member.friends }}
+        span 参与活动 {{ member.activities }}
+        span 赞 {{ member.zan }}
   .username {{ memberInfo.name }}
 </template>
 <script>
@@ -28,7 +29,8 @@ export default {
   // },
   computed: {
     ...mapState({
-      member: state => state.roomInfo.member
+      member: state => state.roomInfo.member,
+      memberInfoLoading: state => state.roomInfo.memberInfoLoading
     })
   },
   props: {
@@ -63,6 +65,7 @@ export default {
       this.$emit('del')
     },
     getMemberInfo () {
+      this.memberInfoLoading = true
       this.$store.dispatch('GetMemberInfo', this.memberId)
     }
   }

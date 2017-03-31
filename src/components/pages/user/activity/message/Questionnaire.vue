@@ -1,8 +1,8 @@
 <template lang="pug">
 #questionnaire
   //- .title 发布问卷
-  el-form.form(:model="dynamicValidateForm", ref="dynamicValidateForm", label-width="10%", class="demo-ruleForm")
-    el-form-item(v-for="(question, index) in dynamicValidateForm.questions", :key="index", :label="'问题' + (index+1)", :prop="'questions.' + index + '.title'", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
+  el-form(:model="dynamicValidateForm", ref="dynamicValidateForm", label-width="10%", class="demo-ruleForm")
+    el-form-item.form(v-for="(question, index) in dynamicValidateForm.questions", :key="index", :label="'问题' + (index+1)", :prop="'questions.' + index + '.title'", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
       .question_top
         .question_title
           span(v-if="question.choices.length === 0") （填空）
@@ -20,7 +20,8 @@
           el-radio(:label="index_choice") {{choice}}
           br
       el-collapse
-        el-collapse-item.collapse-item(title="修改", :name="index")
+        el-collapse-item(:name="index")
+          template.collapse-title(slot="title") 修改
           span.question_tip 问题{{index+1}}
           el-input.input_question(v-model="question.title", :maxlength="100")
           el-checkbox-group.inner_checkbox(v-model="question.choices", v-if="!(question.choices.length === 0)")
@@ -132,6 +133,10 @@ export default {
     font-size 22px
   .form
     padding 10px 10% 25px 5px
+  .form:hover
+    border-color red
+    border-style solid
+    border-width 1px
   .question_top
     display flex
     justify-content space-between
@@ -158,6 +163,9 @@ export default {
     .show_radiogroup
       text-align left
       padding-top 10px
+  .collapse-title
+    text-align left
+    width 50%
   .question_tip
     width 20%
   .input_question
@@ -184,4 +192,5 @@ export default {
     padding 0 0 0 5%
   .submit_btn
     width 100px
+
 </style>

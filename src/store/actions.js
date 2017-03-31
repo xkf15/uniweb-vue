@@ -339,7 +339,7 @@ export const DeleteMember = ({commit}, data) => {
 }
 
 export const GetMemberInfo = ({commit}, data) => { // 得到房间内某个用户信息
-  api.getMemberInfo(data).then(res => {
+  return api.getMemberInfo(data).then(res => {
     if (res.status) {
       commit(types.GET_MEMBER_INFO, res.data)
     } else {

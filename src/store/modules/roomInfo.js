@@ -9,7 +9,8 @@ const state = {
   member: [],
   memberNum: -1,
   info: [],
-  applications: []
+  applications: [],
+  memberInfoLoading: false
 }
 
 const mutations = {
@@ -28,10 +29,11 @@ const mutations = {
     state.memberNum = data[0]
   },
   [types.GET_QUESTION] (state, data) {
-    state.question = data[1]
-    state.memberNum = data[0]
-    var results = []
-    for (var i = 0; i < state.question.length; i++) {
+    // state.question = data[1]
+    // state.memberNum = data[0]
+    state.question = data
+    let results = []
+    for (let i = 0; i < state.question.length; i++) {
       state.question[i].choices = JSON.parse(state.question[i].choices)
       results[i] = []
       if (state.question[i].choices.length > 0) {
@@ -68,6 +70,7 @@ const mutations = {
   },
   [types.GET_MEMBER_INFO] (state, data) {
     state.member = data
+    state.memberInfoLoading = false
   },
   [types.DELETE_MEMBER] (state, data) {
     state.members.splice(data, 1)
