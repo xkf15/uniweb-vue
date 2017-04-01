@@ -49,15 +49,6 @@ export default {
     poptipPlace: {
       type: String,
       default: 'bottom'
-    // },
-    // deleteMember: {
-    //   type: Function,
-    //   default: function () {
-    //     this.$message({
-    //       type: 'warning',
-    //       message: 'nofunction'
-    //     })
-    //   }
     }
   },
   methods: {
