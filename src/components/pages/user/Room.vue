@@ -8,28 +8,46 @@
             strong 搜索
           .searchInput
             .searchBarLabel 标签
-            el-select.el-select(v-model="value9", multiple, filterable, remote, placeholder="请输入关键词", :remote-method="remoteMethod", :loading="loading")
+            //- el-select.el-select(v-model="labels", filterable, remote, placeholder="请输入关键词", :remote-method="remoteMethod", :loading="loading")
+            el-select.el-select(v-model="chosenLabel", filterable, remote, placeholder="请输入关键词")
+              el-option(v-for="(item, index) in labels", :label="item.name_ch", :value="item.id")
           //- input.searchInput(v-model="search.searchLabel", placeholder="请输入房间标签")
           .searchInput
             .searchBarLabel 名称
-            el-input.el-select
-            //- input.searchInput(v-model="search.searchTitle", placeholder="请输入房间名称")
+            //- el-select.el-select(v-model="labels", filterable, remote, placeholder="请输入关键词", :remote-method="remoteMethod", :loading="loading")
+            //-   el-option(v-for="(item, index) in labels", :label="item.name_ch", :value="item.id")
           button.btn(type="danger") 搜索
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Layout from '@/components/common/Layout'
 import DropdownMenu from '@/components/common/DropdownMenu'
 
 export default {
   created () {
-
+    this.$store.dispatch('GetInitialData')
   },
   components: {
     Layout,
     DropdownMenu
+  // },
+  // mounted () {
+  //   this.list = this.labels.map(item => {
+  //     return { value: item, label: item }
+  //   })
   },
   computed: {
+    ...mapState({
+      // labels: state => {
+      //   const labelsTemp = []
+      //   for (let label of state.login.initialData[0]) {
+      //     labelsTemp.push(label.name_ch)
+      //   }
+      //   return labelsTemp
+      // }
+      labels: state => state.login.initialData[0]
+    }),
     ifShowSearchTable () {
       const route = this.$route.path.split('/')
       if (route.indexOf('admin')) {
@@ -55,7 +73,8 @@ export default {
       search: {
         searchLabel: '',
         searchTitle: ''
-      }
+      },
+      chosenLabel: ''
     }
   }
 }

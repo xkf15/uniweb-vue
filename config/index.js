@@ -30,7 +30,6 @@ module.exports = {
     proxyTable: {
       '/uniadmin': {
         target: 'http://47.92.73.52:81',
-        // target: 'http://localhost:7001',
         changeOrigin: true,
         pathRewrite: {
           '^/uniadmin': '/uniadmin'
@@ -38,7 +37,6 @@ module.exports = {
       },
       '/auth': {
         target: 'http://47.92.73.52:81',
-        // target: 'http://localhost:7001',
         changeOrigin: true,
         pathRewrite: {
           '^/auth': '/auth'

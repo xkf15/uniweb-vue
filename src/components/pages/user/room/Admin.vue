@@ -30,7 +30,7 @@
     },
     data () {
       return {
-        showList: 'all'
+        showList: 'on'
       }
     },
     methods: {
