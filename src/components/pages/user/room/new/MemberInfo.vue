@@ -1,12 +1,12 @@
 <template lang="pug">
 #memberInfo
-  .title 收集成员信息
-  .subtitle 我们会根据您的需求生成群问卷，让加入成员填写
+  .title 准入申请
+  .subtitle 在加入房间的申请中，申请者需要填写的信息
   .input_box
     el-form.demo-dynamic(:model="dynamicValidateForm", ref="dynamicValidateForm", label-width="10%")
       el-form-item(v-for="(domain, index) in dynamicValidateForm.domains", :label="'问题' + (index+1)", :key="domain.key", :prop="'domains.' + index + '.question'", :rules="{required: true, message: '问题不能为空', trigger: 'blur'}")
         .display_flex
-          el-checkbox.checkbox_style(v-model="domain.checked") 必填
+          //- el-checkbox.checkbox_style(v-model="domain.checked") 必填
           el-input.input_style1(v-model="domain.question", placeholder="请输入问题", :maxlength="100", type="textarea", autosize)
           el-input.input_style2(v-model="domain.tips", placeholder="提示信息写在这里", type="textarea", autosize)
           i.el-icon-delete.icon_style(@click.prevent="removeDomain(domain)")

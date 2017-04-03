@@ -1,8 +1,8 @@
 <template lang="pug">
   .layout
-    navbar(:login="true", :avatar="userData.avatar")
+    navbar(:login="true", :avatar="userInfo.avatar")
     .white
-      user-cover(:userInfo="userData")
+      user-cover(:userInfo="userInfo", :colleges="colleges")
     .wrap
       .sidebar
         slot(name="sidebar")
@@ -32,6 +32,7 @@ export default {
   },
   created () {
     this.$store.dispatch('GetUserInfo')
+    this.$store.dispatch('GetInitialData')
   },
   data () {
     return {
@@ -49,7 +50,8 @@ export default {
   },
   computed: {
     ...mapState({
-      userInfo: state => state.login.userInfo
+      userInfo: state => state.login.userInfo,
+      colleges: state => state.login.initialData[1]
     })
   },
   props: ['tag', 'breadcrumb']

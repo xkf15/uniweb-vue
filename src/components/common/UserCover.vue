@@ -4,19 +4,19 @@
     img(:src="userInfo.avatar")
   .intro.flex_box
     .title.item
-      span {{ userInfo.title }}
+      span {{ userInfo.name }}
       span
         img(src="../../assets/title.png")
     .subtitle.item
-      span {{ userInfo.subtitle }}
+      span {{ userInfo.signature }}
     .college.item
       span
         img(src="../../assets/thu.png")
-      span {{ userInfo.college }} ({{ userInfo.student_id }})
+      span {{ colleges[userInfo.university - 1].name_ch }} ({{ userInfo.department }})
     .info.item
-      span 好友 {{ userInfo.friends }}
-      span 参与活动 {{ userInfo.activities }}
-      span 赞 {{ userInfo.zan }}
+      span 房间总数 {{ userInfo.room_count - 11 }}
+      span 点赞 {{ userInfo.thumb_ups }}
+      span 差评 {{ userInfo.thumb_downs }}
 </template>
 
 <script>
@@ -25,6 +25,10 @@ export default {
     userInfo: {
       type: Object,
       required: true
+    },
+    colleges: {
+      type: Array,
+      required: true
     }
   }
 }
@@ -32,6 +36,12 @@ export default {
 
 <style lang="stylus" scoped>
   .cover
+    .avatar
+      width 250px
+      img
+        width 100%
+        height 100%
+        border-radius 200px
     background url(../../assets/jumb.png) no-repeat top right
     height 200px
     display flex

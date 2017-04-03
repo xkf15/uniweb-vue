@@ -44,7 +44,8 @@ export default {
       for (let item of this.memberInfo) {
         questionaires.push({
           title: item.tips,
-          description: item.question
+          description: item.question,
+          required: true
         })
       }
       const all = this.basicInfo
