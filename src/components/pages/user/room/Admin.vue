@@ -2,10 +2,12 @@
 #admin
   .loading(v-loading.body="loading", element-loading-text="拼命加载中")
     .status
-      span 进行中
+      a(@click="showList = 'all'") 全部
       span |
-      span 已结束
-    .room_box(v-for="(item, index) of roomList")
+      a(@click="showList = 'on'") 进行中
+      span |
+      a(@click="showList = 'end'") 已结束
+    .room_box(v-for="(item, index) of roomList", v-if="whetherShow(item.expired)")
       room-item(:room-info="item")
 </template>
 
@@ -25,6 +27,27 @@
         roomList: state => state.rooms.roomList[0],
         loading: state => state.rooms.loading
       })
+    },
+    data () {
+      return {
+        showList: 'all'
+      }
+    },
+    methods: {
+      show () {
+        this.$message.success(this.showList)
+      },
+      whetherShow (expired) {
+        if (this.showList === 'all') {
+          return true
+        } else {
+          if (this.showList === 'on') {
+            return !expired
+          } else {
+            return expired
+          }
+        }
+      }
     }
   }
 </script>

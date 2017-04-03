@@ -22,11 +22,12 @@ div(@click="getMemberInfo(memberId)")
 </template>
 <script>
 import { mapState } from 'vuex'
+import Poptip from 'iview/src/components/poptip'
 
 export default {
-  // created () {
-  //   this.$store.dispatch('GetMemberInfo', this.memberId)
-  // },
+  components: {
+    Poptip
+  },
   computed: {
     ...mapState({
       member: state => state.roomInfo.member,

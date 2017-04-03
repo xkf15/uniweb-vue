@@ -1,7 +1,7 @@
 <template lang="pug">
 #info
-  el-button(type="danger", @click="excel") 测试Excel
   room-info(:room-info="info")
+  el-button.btn_room(type="danger", @click="excel") 导出房间数据到Exel
   </template>
 
 <script>
@@ -38,4 +38,6 @@ export default {
   margin 20px
   border 1px solid #ddd
   border-radius 10px
+  .btn_room
+    margin-bottom 10px
 </style>

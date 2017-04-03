@@ -13,7 +13,7 @@
           el-progress.progress(:text-inside="true", :stroke-width="18", :percentage="results[index][index_choice] * 100.0 / memberNum", status="exception")
         .percentage {{results[index][index_choice] * 100.0 / memberNum}}%
     div(v-else)
-      .answers(v-for="(answer, index_answer) in question.replies", v-if="index_answer < 2")
+      .answers(v-for="(answer, index_answer) in question.replies", v-if="index_answer < 5")
         .answer {{answer.user}} : {{answer.text}}
       el-button.checkAll(type="text", @click="showDialog = true") 查看全部回答
       el-dialog(v-model="showDialog", :title="question.title")

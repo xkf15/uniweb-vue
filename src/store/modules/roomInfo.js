@@ -15,9 +15,9 @@ const state = {
 
 const mutations = {
   [types.GET_MESSAGES] (state, data) {
-    // state.messages = data[1]
-    // state.memberNum = data[0]
-    state.messages = data
+    state.messages = data[1]
+    state.memberNum = data[0]
+    // state.messages = data
     for (let message of state.messages) {
       if (message.choices !== null && message.choices !== '') {
         message.choices = JSON.parse(message.choices)
@@ -29,9 +29,9 @@ const mutations = {
     state.memberNum = data[0]
   },
   [types.GET_QUESTION] (state, data) {
-    // state.question = data[1]
-    // state.memberNum = data[0]
-    state.question = data
+    state.question = data[1]
+    state.memberNum = data[0]
+    // state.question = data
     let results = []
     for (let i = 0; i < state.question.length; i++) {
       state.question[i].choices = JSON.parse(state.question[i].choices)

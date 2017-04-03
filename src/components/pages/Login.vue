@@ -2,10 +2,10 @@
 #login
   el-input(v-model="account", placeholder="账号", type="text")
   el-input(v-model="password", placeholder="密码", type="password", @keyup.enter.native="loginToDo")
-  el-col#signup(:xs="12", :sm="12")
-    el-button(type="text", @click="signup") 注册
-  el-col#forgot(:xs="12", :sm="12")
-    el-button(type="text", @click="forgot") 忘记密码
+  //- el-col#signup(:xs="12", :sm="12")
+  //-   el-button(type="text", @click="signup") 注册
+  //- el-col#forgot(:xs="12", :sm="12")
+  //-   el-button(type="text", @click="forgot") 忘记密码
   el-button.login(type="primary", @click="loginToDo") 登录
 </template>
 

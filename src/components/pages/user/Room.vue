@@ -8,10 +8,12 @@
             strong 搜索
           .searchInput
             .searchBarLabel 标签
-            input.searchInput(v-model="search.searchLabel", placeholder="请输入房间标签")
+            el-select.el-select(v-model="value9", multiple, filterable, remote, placeholder="请输入关键词", :remote-method="remoteMethod", :loading="loading")
+          //- input.searchInput(v-model="search.searchLabel", placeholder="请输入房间标签")
           .searchInput
             .searchBarLabel 名称
-            input.searchInput(v-model="search.searchTitle", placeholder="请输入房间名称")
+            el-input.el-select
+            //- input.searchInput(v-model="search.searchTitle", placeholder="请输入房间名称")
           button.btn(type="danger") 搜索
 </template>
 
@@ -20,6 +22,9 @@ import Layout from '@/components/common/Layout'
 import DropdownMenu from '@/components/common/DropdownMenu'
 
 export default {
+  created () {
+
+  },
   components: {
     Layout,
     DropdownMenu
@@ -69,9 +74,13 @@ export default {
         border-bottom #ddd solid 1px
       .searchInput
         display flex
+        align-items center
         padding 10px 10px 0 10px
+        .el-select
+          flex 2
         .searchBarLabel
-          width 50px
+          // width 50px
+          flex 1
           color #6c64db
           padding 0
         .searchInput
