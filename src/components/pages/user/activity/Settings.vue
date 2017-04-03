@@ -27,8 +27,8 @@ export default {
             colleges: [],    // 准入学校 // advertising
             timeRange: [roomInfo.date_time_start, roomInfo.date_time_end],
             cover: {},
-            show: true,
-            apply: true,
+            show: roomInfo.show,
+            apply: roomInfo.apply,
             tags: roomInfo.labels.map(item => Number(item.id))
           }
           const colleges = initialData[1]

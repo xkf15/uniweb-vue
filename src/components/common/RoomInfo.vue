@@ -18,15 +18,13 @@
     el-col(:span="24-leftSpan").box-item.content.colleges
       span(v-for="(item, index) of roomInfo.advertising")
         span.college-item {{ item.name_ch }}
-  el-row.box
+  el-row.box.no-border
     el-col(:span="leftSpan").box-item.title 房间选项
     el-col(:span="24-leftSpan").box-item.content.options
       el-card
         .option(v-for="(item, index) of roomInfo.options", :class="{'option-top': index === 0}")
           .option-name {{ item.name }}:
           .option-content {{ item.content }}
-  el-row.box.no-border
-    el-button(type="danger", @click="update") 修改房间信息
 </template>
 
 <script>
@@ -65,11 +63,6 @@ export default {
         '是否在广场上显示': this.roomInfo.show ? '是' : '否',
         '是否需要申请加入': this.roomInfo.apply ? '是' : '否'
       }
-    }
-  },
-  methods: {
-    update () {
-      this.$router.push('settings')
     }
   }
 }

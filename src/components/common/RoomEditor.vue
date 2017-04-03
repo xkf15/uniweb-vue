@@ -123,7 +123,9 @@ export default {
             options: allData.options,
             advertising: collegesId,
             questionnaires: allData.questionnaires,
-            labels: allData.tags
+            labels: allData.tags,
+            apply: allData.apply,
+            show: allData.show
           }
           this.$store.dispatch(this.dispatch, allData)
         } else {

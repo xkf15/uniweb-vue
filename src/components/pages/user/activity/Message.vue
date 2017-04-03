@@ -46,14 +46,6 @@ export default {
       room_id: this.$route.params.id,
       value: '',
       options: ['全部', '最近10条'],
-      // messages: [
-      //   {
-      //     status: '进行中！',
-      //     content: '谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？谁怀孕了？',
-      //     startTime: new Date(Date.now()),
-      //     endTime: new Date(Date.now() + 3600000)
-      //   }
-      // ],
       dialogFormVisible: false,
       newMsg: {
         checked: false,

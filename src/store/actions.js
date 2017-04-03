@@ -98,7 +98,7 @@ export const MemberInfo = ({commit}, data) => {
 
 export const UserSignup = ({ commit }, data) => {
   api.localSignup(data).then(res => {
-    if (res.data.success) { // 如果成功
+    if (res.status === 200) { // 如果成功
       commit(types.USER_SIGNIN, res.data.token)
       Vue.prototype.$message({ // 登录成功，显示提示语
         type: 'success',

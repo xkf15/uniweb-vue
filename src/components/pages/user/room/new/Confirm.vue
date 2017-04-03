@@ -4,35 +4,7 @@
       .subtitle 我们会根据您的需求生成群问卷，让加入成员填写。
     .room_wrap
       .room_box
-        .room_item
-          .room_avatar
-            .tag 桌游
-          .room_content
-            .room_name
-              span.tag 官方
-              span {{ basicInfo.title }}
-            .room_details
-              .room_desc
-                span.title 活动内容：
-                span {{ basicInfo.description }}
-              .room_place
-                span.title 活动地点：
-                span {{ basicInfo.location_string }}
-              .room_start
-                span.title 开始时间：
-                span {{ String(basicInfo.date_time_start) }}
-              .room_end
-                span.title 结束时间：
-                span {{ String(basicInfo.date_time_end) }}
-              .room_people
-                span.title 活动人数：
-                span(v-if="basicInfo.people") {{ basicInfo.max_participants }}
-                span(v-else) [未设置]
-              .room_colleges
-                span.title 准入学校：
-                span(v-if="basicInfo.advertising.length")
-                  span.college(v-for="item of basicInfo.colleges") {{ item }}；
-                span(v-else) [未设置]
+        room-info(:room-info="basicInfo")
       .members_info
         .member_info(v-for="(item, index) of memberInfo")
           span.item
@@ -51,8 +23,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import RoomInfo from '@/components/common/RoomInfo'
 
 export default {
+  components: {
+    RoomInfo
+  },
   computed: {
     ...mapState({
       basicInfo: state => state.newroom.basicInfo,
@@ -102,50 +78,8 @@ export default {
       .title
         font-weight bold
   .room_wrap
-    padding 10px 8%
+    padding 0 20px
     background white
-    .room_box
-      margin-bottom 20px
-      padding 15px
-      background #D0D0D0
-      border-radius 10px
-      .room_attach
-        display flex
-        justify-content space-between
-        .msg_icon span
-          margin 0 10px
-      .room_item
-        display flex
-        .tag
-          background blue
-          color white
-          border-radius 5px
-          padding 3px 10px
-        .room_avatar
-          display flex
-          flex-direction column-reverse
-          align-items flex-start
-          border 1px solid #ccc
-          width 255px
-          height 150px
-          background url(../../../../../assets/logo.png) no-repeat center center
-          .tag
-            margin 15px
-        .room_content
-          width 80%
-          display flex
-          flex-direction column
-          margin 0 20px
-          .room_name, .room_details
-            text-align left
-          .room_details
-            padding 10px
-            .title
-              font-weight bold
-          .msg-text
-            text-align right
-          .tag
-            margin-right 10px
     .buttons
       text-align center
       margin 20px

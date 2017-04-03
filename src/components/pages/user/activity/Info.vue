@@ -1,8 +1,9 @@
 <template lang="pug">
 #info
   room-info(:room-info="info")
+  el-button.button(type="danger", @click="update") 修改房间信息
   el-button.btn_room(type="danger", @click="excel") 导出房间数据到Exel
-  </template>
+</template>
 
 <script>
 import RoomInfo from '@/components/common/RoomInfo'
@@ -28,6 +29,9 @@ export default {
   methods: {
     excel () {
       this.$store.dispatch('Excel', this.info.id)
+    },
+    update () {
+      this.$router.push('settings')
     }
   }
 }
@@ -40,4 +44,6 @@ export default {
   border-radius 10px
   .btn_room
     margin-bottom 10px
+  .button
+    margin 20px 0
 </style>
