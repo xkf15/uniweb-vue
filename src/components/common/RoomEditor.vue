@@ -13,10 +13,10 @@
           i.el-icon-upload
           .el-upload__text 将文件P拖到此处，或<em>点击上传</em>
           .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
-    el-form-item(label="上传图片")
-      //- file-upload(title="Add upload files", :files="fileList")
-      input(type="file", ref="file")
-      el-button(@click="test") 测试
+    //- el-form-item(label="上传图片")
+    //-   //- file-upload(title="Add upload files", :files="fileList")
+    //-   input(type="file", ref="file")
+    //-   el-button(@click="test") 测试
     el-form-item(label="活动人数", prop="people")
       el-input(v-model.number="ruleForm.people")
     el-form-item(label="详细内容", prop="desc")

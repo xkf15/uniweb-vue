@@ -1,7 +1,7 @@
 <template lang="pug">
 .cover
   .avatar.flex_box
-    img(:src="userInfo.avatar")
+    img(:src="userInfo.avatar_thumbnail")
   .intro.flex_box
     .title.item
       span {{ userInfo.name }}

@@ -24,6 +24,7 @@
 <script>
 import { mapState } from 'vuex'
 import RoomInfo from '@/components/common/RoomInfo'
+import _ from 'lodash'
 
 export default {
   components: {
@@ -31,8 +32,25 @@ export default {
   },
   computed: {
     ...mapState({
-      basicInfo: state => state.newroom.basicInfo,
-      memberInfo: state => state.newroom.memberInfo
+      basicInfo: state => {
+        let labels = []
+        let advertising = []
+        // let userInfo = JSON.parse(JSON.stringify(state.newroom.basicInfo))
+        let userInfo = _.clone(state.newroom.basicInfo, true)
+        const initialData = state.login.initialData
+        for (let i of userInfo.labels) {
+          labels.push(initialData[0][i - 1])
+        }
+        for (let i of userInfo.advertising) {
+          advertising.push(initialData[1][i - 1])
+        }
+        userInfo.labels = labels
+        userInfo.advertising = advertising
+        return userInfo
+      },
+      memberInfo: state => state.newroom.memberInfo,
+      labels: state => state.login.initialData[0],
+      colleges: state => state.login.initialData[1]
     })
   },
   methods: {
@@ -50,6 +68,7 @@ export default {
       }
       const all = this.basicInfo
       all.questionnaires = questionaires
+      console.log(all)
       this.$store.dispatch('CreateRoom', all)
       this.$router.push('publish')
     }

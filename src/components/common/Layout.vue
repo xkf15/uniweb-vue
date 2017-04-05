@@ -1,6 +1,6 @@
 <template lang="pug">
   .layout
-    navbar(:login="true", :avatar="userData.avatar")
+    navbar(:login="true", :avatar="userInfo.avatar_thumbnail")
     .white
       user-cover(:userInfo="userInfo", :colleges="colleges")
     .wrap
