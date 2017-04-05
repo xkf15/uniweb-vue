@@ -2,13 +2,17 @@
 #admin
   .loading(v-loading.body="loading", element-loading-text="拼命加载中")
     .status
-      a(@click="showList = 'all'") 全部
+      a(@click="setShowList('all')") 全部
       span |
-      a(@click="showList = 'on'") 进行中
+      a(@click="setShowList('on')") 进行中
       span |
-      a(@click="showList = 'end'") 已结束
-    .room_box(v-for="(item, index) of roomList", v-if="whetherShow(item.expired)")
-      room-item(:room-info="item")
+      a(@click="setShowList('end')") 已结束
+    div(v-if="searchRoom.showType === 'search'")
+      .room_box(v-for="(item, index) of searchRoom.roomList")
+        room-item(:room-info="item")
+    div(v-else)
+      .room_box(v-for="(item, index) of roomList", v-if="whetherShow(item.expired)")
+        room-item(:room-info="item")
 </template>
 
 <script>
@@ -26,7 +30,8 @@
     computed: {
       ...mapState({
         roomList: state => state.rooms.roomList[0],
-        loading: state => state.rooms.loading
+        loading: state => state.rooms.loading,
+        searchRoom: state => state.rooms.searchRoomList
       })
     },
     data () {
@@ -38,11 +43,18 @@
       show () {
         this.$message.success(this.showList)
       },
+      setShowList (type) {
+        const data = {
+          showType: type,
+          roomList: []
+        }
+        this.$store.dispatch('ChangeDisplayedRooms', data)
+      },
       whetherShow (expired) {
-        if (this.showList === 'all') {
+        if (this.searchRoom.showType === 'all') {
           return true
         } else {
-          if (this.showList === 'on') {
+          if (this.searchRoom.showType === 'on') {
             return !expired
           } else {
             return expired

@@ -9,7 +9,7 @@
           .searchInput
             .searchBarLabel 标签
             //- el-select.el-select(v-model="labels", filterable, remote, placeholder="请输入关键词", :remote-method="remoteMethod", :loading="loading")
-            el-select.el-select(v-model="chosenLabel", filterable, remote, placeholder="请输入关键词")
+            el-select.el-select(v-model="searchLabel", filterable, remote, placeholder="请输入关键词")
               el-option(v-for="(item, index) in labels", :key="index", :label="item.name_ch", :value="item.id")
           //- input.searchInput(v-model="search.searchLabel", placeholder="请输入房间标签")
           .searchInput
