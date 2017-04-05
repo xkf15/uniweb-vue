@@ -12,8 +12,8 @@
     .college.item
       span
         img(src="../../assets/thu.png")
-      span {{ colleges[userInfo.university - 1].name_ch }} ({{ userInfo.department }})
       //- span {{ userInfo.advertising.name_ch }} ({{ userInfo.department }})
+      span {{ userInfo.university.name_ch }} ({{ userInfo.department }})
     .info.item
       span 房间总数 {{ userInfo.room_count }}
       //- span 房间总数 {{ userInfo.rooms.length }}
