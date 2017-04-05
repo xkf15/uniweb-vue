@@ -6,7 +6,7 @@ const isLoggedIn = () => {
 
 const state = {
   token: isLoggedIn() || null,
-  userInfo: [],
+  userInfo: {},
   initialData: {}
 }
 

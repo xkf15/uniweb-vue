@@ -68,7 +68,6 @@ export const BasicInfo = ({commit}, data) => {
 export const GetInitialData = ({commit}) => {
   return api.getInitialData().then(res => {
     if (res.status === 200) {
-      console.log(res.data)
       commit(types.GET_INITIAL_DATA, res.data)
     } else {
       Vue.prototype.$message.error('状态码错误')
@@ -79,7 +78,7 @@ export const GetInitialData = ({commit}) => {
 }
 
 export const ModifyRoomInfo = ({commit}, data) => {
-  api.modifyRoomInfo(data).then(res => {
+  return api.modifyRoomInfo(data).then(res => {
     if (res.status === 200) {
       commit(types.MODIFY_ROOM_INFO, data)
       Vue.prototype.$message('修改房间信息成功')
@@ -97,7 +96,7 @@ export const MemberInfo = ({commit}, data) => {
 }
 
 export const UserSignup = ({ commit }, data) => {
-  api.localSignup(data).then(res => {
+  return api.localSignup(data).then(res => {
     if (res.status === 200) { // 如果成功
       commit(types.USER_SIGNIN, res.data.token)
       Vue.prototype.$message({ // 登录成功，显示提示语
@@ -116,7 +115,7 @@ export const UserSignup = ({ commit }, data) => {
 }
 
 export const UserLogin = ({ commit }, data) => {
-  api.localLogin(data).then(res => {
+  return api.localLogin(data).then(res => {
     if (res.status === 200) { // 如果成功
       commit(types.USER_SIGNIN, res.data.token)
       Vue.prototype.$message({ // 登录成功，显示提示语
@@ -141,7 +140,7 @@ export const UserLogout = ({commit}) => {
 }
 
 export const GetMessages = ({commit}, data) => {
-  api.getMessages(data).then(res => {
+  return api.getMessages(data).then(res => {
     console.log(res.data)
     commit(types.GET_MESSAGES, res.data)
   }, (err) => {
@@ -151,7 +150,7 @@ export const GetMessages = ({commit}, data) => {
 }
 
 export const GetAnnouncement = ({commit}, data) => {
-  api.getAnnouncement(data).then(res => {
+  return api.getAnnouncement(data).then(res => {
     commit(types.GET_ANNOUNCEMENT, res.data)
   }, (err) => {
     console.log(err)
@@ -160,7 +159,7 @@ export const GetAnnouncement = ({commit}, data) => {
 }
 
 export const GetQuestion = ({commit}, data) => {
-  api.getQuestion(data).then(res => {
+  return api.getQuestion(data).then(res => {
     commit(types.GET_QUESTION, res.data)
   }, (err) => {
     console.log(err)
@@ -273,7 +272,7 @@ export const CreateRoom = ({commit}, data) => {
 }
 
 export const GetUserInfo = ({commit}) => { // 得到我的信息
-  api.getUserInfo().then(res => {
+  return api.getUserInfo().then(res => {
     if (res.status) {
       commit(types.GET_USER_INFO, res.data)
     } else {

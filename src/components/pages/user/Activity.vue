@@ -1,17 +1,31 @@
 <template lang="pug">
   #activities
-    layout(:tag="menuTag", :breadcrumb="breadcrumb")
+    layout(:tag="menuTag", :breadcrumb="breadcrumb", :user-info="userInfo", :colleges="colleges")
       dropdown-menu(slot="sidebar", :menu="menu", :menu-title="menuTitle")
 </template>
+
 
 <script>
 import Layout from '@/components/common/Layout'
 import DropdownMenu from '@/components/common/DropdownMenu'
+import { mapState } from 'vuex'
+import store from '@/store'
 
 export default {
   components: {
     Layout,
     DropdownMenu
+  },
+  beforeRouteEnter: async (to, from, next) => {
+    await store.dispatch('GetUserInfo')
+    await store.dispatch('GetInitialData')
+    next()
+  },
+  computed: {
+    ...mapState({
+      userInfo: state => state.login.userInfo,
+      colleges: state => state.login.initialData[1]
+    })
   },
   data () {
     return {
@@ -45,7 +59,3 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="stylus" scoped>
-</style>

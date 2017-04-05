@@ -1,6 +1,6 @@
 <template lang="pug">
   #roomAdmin
-    layout(:tag="menuTitle")
+    layout(:tag="menuTitle", :user-info="userInfo", :colleges="colleges")
       .sidebar(slot="sidebar")
         dropdown-menu(:menu="menu", :menu-title="menuTitle")
         .searchBox(v-if="$route.path === '/user/room/admin'")
@@ -10,7 +10,7 @@
             .searchBarLabel 标签
             //- el-select.el-select(v-model="labels", filterable, remote, placeholder="请输入关键词", :remote-method="remoteMethod", :loading="loading")
             el-select.el-select(v-model="chosenLabel", filterable, remote, placeholder="请输入关键词")
-              el-option(v-for="(item, index) in labels", :label="item.name_ch", :value="item.id")
+              el-option(v-for="(item, index) in labels", :key="index", :label="item.name_ch", :value="item.id")
           //- input.searchInput(v-model="search.searchLabel", placeholder="请输入房间标签")
           .searchInput
             .searchBarLabel 名称
@@ -20,32 +20,25 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import Layout from '@/components/common/Layout'
 import DropdownMenu from '@/components/common/DropdownMenu'
+import { mapState } from 'vuex'
+import store from '@/store'
 
 export default {
-  created () {
-    this.$store.dispatch('GetInitialData')
-  },
   components: {
     Layout,
     DropdownMenu
-  // },
-  // mounted () {
-  //   this.list = this.labels.map(item => {
-  //     return { value: item, label: item }
-  //   })
+  },
+  beforeRouteEnter: async (to, from, next) => {
+    await store.dispatch('GetInitialData')
+    await store.dispatch('GetUserInfo')
+    next()
   },
   computed: {
     ...mapState({
-      // labels: state => {
-      //   const labelsTemp = []
-      //   for (let label of state.login.initialData[0]) {
-      //     labelsTemp.push(label.name_ch)
-      //   }
-      //   return labelsTemp
-      // }
+      userInfo: state => state.login.userInfo,
+      colleges: state => state.login.initialData[1],
       labels: state => state.login.initialData[0]
     }),
     ifShowSearchTable () {
@@ -59,6 +52,8 @@ export default {
   },
   data () {
     return {
+      // userInfo: {},
+      // colleges: [],
       menu: [
         {
           title: '房间管理',

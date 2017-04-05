@@ -1,6 +1,6 @@
 <template lang="pug">
   .layout
-    navbar(:login="true", :avatar="userInfo.avatar")
+    navbar(:login="true", :avatar="userData.avatar")
     .white
       user-cover(:userInfo="userInfo", :colleges="colleges")
     .wrap
@@ -19,7 +19,6 @@
 
 
 <script>
-import { mapState } from 'vuex'
 import DropdownMenu from '@/components/common/DropdownMenu'
 import Navbar from '@/components/common/Navbar'
 import UserCover from '@/components/common/UserCover'
@@ -29,10 +28,6 @@ export default {
     DropdownMenu,
     Navbar,
     UserCover
-  },
-  created () {
-    this.$store.dispatch('GetUserInfo')
-    this.$store.dispatch('GetInitialData')
   },
   data () {
     return {
@@ -48,13 +43,7 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapState({
-      userInfo: state => state.login.userInfo,
-      colleges: state => state.login.initialData[1]
-    })
-  },
-  props: ['tag', 'breadcrumb']
+  props: ['tag', 'breadcrumb', 'userInfo', 'colleges']
 }
 </script>
 

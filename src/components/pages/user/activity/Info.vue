@@ -5,26 +5,24 @@
   el-button.btn_room(type="danger", @click="excel") 导出房间数据到Exel
 </template>
 
+
 <script>
 import RoomInfo from '@/components/common/RoomInfo'
 import store from '@/store'
+import { mapState } from 'vuex'
 
 export default {
   components: {
     RoomInfo
   },
-  beforeRouteEnter: (to, from, next) => {
-    store.dispatch('GetRoomInfo', to.params.id).then(() => {
-      console.log(store.state.roomInfo.info)
-      next(vm => {
-        vm.info = JSON.parse(JSON.stringify(store.state.roomInfo.info))
-      })
-    })
+  beforeRouteEnter: async (to, from, next) => {
+    await store.dispatch('GetRoomInfo', to.params.id)
+    next()
   },
-  data () {
-    return {
-      info: {}
-    }
+  computed: {
+    ...mapState({
+      info: state => state.roomInfo.info
+    })
   },
   methods: {
     excel () {
@@ -36,6 +34,7 @@ export default {
   }
 }
 </script>
+
 
 <style lang="stylus" scoped>
 #info

@@ -85,8 +85,8 @@ router.beforeEach((to, from, next) => {
     next() // 否则跳转回登录页
   } else {
     if (token !== 'null' && token !== null) {
-      Vue.axios.create().defaults.headers.common['Authorization'] = 'Token ' + token // 此为Django项目的token
-      // Vue.axios.create().defaults.headers.common['Authorization'] = 'Bearer ' + token // 此为jwt的token
+      // Vue.axios.create().defaults.headers.common['Authorization'] = 'Token ' + token // 此为Django项目的token
+      Vue.axios.create().defaults.headers.common['Authorization'] = 'Bearer ' + token // 此为jwt的token
       next() // 如果有token就正常转向
     } else next('/') // 否则跳转回登录页
   }
