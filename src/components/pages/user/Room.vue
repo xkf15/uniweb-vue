@@ -15,7 +15,7 @@
           .searchInput
             .searchBarLabel 名称
             el-select.el-select(v-model="searchTitle", filterable, remote, placeholder="请输入关键词")
-              el-option(v-for="(item, index) in roomList", :label="item.title", :value="item.id")
+              el-option(v-for="(item, index) in roomList", :label="item.title", :value="item.title")
           button.btn(type="danger", @click="search()") 搜索
 </template>
 

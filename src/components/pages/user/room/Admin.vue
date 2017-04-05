@@ -2,6 +2,8 @@
 #admin
   .loading(v-loading.body="loading", element-loading-text="拼命加载中")
     .status
+      span(v-if="searchRoom.showType === 'search'") 搜索
+        span |
       a(@click="setShowList('all')") 全部
       span |
       a(@click="setShowList('on')") 进行中
