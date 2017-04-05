@@ -14,9 +14,9 @@
           //- input.searchInput(v-model="search.searchLabel", placeholder="请输入房间标签")
           .searchInput
             .searchBarLabel 名称
-            //- el-select.el-select(v-model="labels", filterable, remote, placeholder="请输入关键词", :remote-method="remoteMethod", :loading="loading")
-            //-   el-option(v-for="(item, index) in labels", :label="item.name_ch", :value="item.id")
-          button.btn(type="danger") 搜索
+            el-select.el-select(v-model="searchTitle", filterable, remote, placeholder="请输入关键词")
+              el-option(v-for="(item, index) in roomList", :label="item.title", :value="item.id")
+          button.btn(type="danger", @click="search()") 搜索
 </template>
 
 <script>
@@ -39,7 +39,9 @@ export default {
     ...mapState({
       userInfo: state => state.login.userInfo,
       colleges: state => state.login.initialData[1],
-      labels: state => state.login.initialData[0]
+      labels: state => state.login.initialData[0],
+      roomList: state => state.rooms.roomList[0],
+      searchRoom: state => state.rooms.searchRoomList
     }),
     ifShowSearchTable () {
       const route = this.$route.path.split('/')
@@ -65,11 +67,39 @@ export default {
         }
       ],
       menuTitle: '房间',
-      search: {
-        searchLabel: '',
-        searchTitle: ''
-      },
-      chosenLabel: ''
+      // search: {
+      //   searchLabel: '',
+      //   searchTitle: ''
+      // },
+      searchLabel: '',
+      searchTitle: ''
+    }
+  },
+  methods: {
+    search () {
+      const data = {
+        showType: 'search',
+        roomList: []
+      }
+      for (let room of this.roomList) {
+        if (this.searchTitle === '') {
+          if (this.searchLabel === '') {
+            data.roomList.push(room)
+          } else {
+            for (let label of room.labels) {
+              if (this.searchLabel === label.name_ch) {
+                data.roomList.push(room)
+                break
+              }
+            }
+          }
+        } else {
+          if (room.title === this.searchTitle) {
+            data.roomList.push(room)
+          }
+        }
+      }
+      this.$store.dispatch('ChangeDisplayedRooms', data)
     }
   }
 }

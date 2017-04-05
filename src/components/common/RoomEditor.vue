@@ -43,13 +43,11 @@
 <script>
 import OptionMenu from '@/components/common/OptionMenu'
 import DatePicker from 'iview/src/components/date-picker'
-import FileUpload from 'vue-upload-component'
 
 export default {
   components: {
     DatePicker,
-    OptionMenu,
-    FileUpload
+    OptionMenu
   },
   props: {
     token: {

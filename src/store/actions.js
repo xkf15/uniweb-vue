@@ -215,6 +215,10 @@ export const GetRooms = ({commit}) => {
   })
 }
 
+export const ChangeDisplayedRooms = ({commit}, data) => {
+  commit(types.CHANGE_DISPLAYED_ROOMS, data)
+}
+
 export const GetRoomInfo = ({commit}, roomId) => {
   return api.getRoomInfo(roomId).then(res => {
     if (res.status === 200) {

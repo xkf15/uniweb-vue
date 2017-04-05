@@ -3,12 +3,18 @@ import * as types from '../types'
 const state = {
   roomList: [],
   loading: false,
-  searchRoomList: []
+  searchRoomList: {
+    showType: 'on',
+    roomList: []
+  }
 }
 
 const mutations = {
   [types.GET_ROOMS] (state, data) {
     state.roomList = data
+  },
+  [types.CHANGE_DISPLAYED_ROOMS] (state, data) {
+    state.searchRoomList = data
   },
   [types.SET_LOADING_FALSE] (state) {
     state.loading = false

@@ -21,6 +21,7 @@
     },
     created () {
       this.$store.dispatch('GetRooms')
+      this.$store.dispatch('GetInitialData')
     },
     computed: {
       ...mapState({
