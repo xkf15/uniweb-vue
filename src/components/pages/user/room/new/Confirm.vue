@@ -4,7 +4,7 @@
       .subtitle 我们会根据您的需求生成群问卷，让加入成员填写。
     .room_wrap
       .room_box
-        room-info(:room-info="basicInfo")
+        room-info(:room-info="roomInfo")
       .members_info
         .member_info(v-for="(item, index) of memberInfo")
           span.item
@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     ...mapState({
-      basicInfo: state => {
+      roomInfo: state => {
         let labels = []
         let advertising = []
         // let userInfo = JSON.parse(JSON.stringify(state.newroom.basicInfo))
@@ -46,8 +46,10 @@ export default {
         }
         userInfo.labels = labels
         userInfo.advertising = advertising
+        console.log(userInfo)
         return userInfo
       },
+      basicInfo: state => state.newroom.basicInfo,
       memberInfo: state => state.newroom.memberInfo,
       labels: state => state.login.initialData[0],
       colleges: state => state.login.initialData[1]
@@ -66,7 +68,7 @@ export default {
           required: true
         })
       }
-      const all = this.basicInfo
+      const all = _.clone(this.basicInfo, true)
       all.questionnaires = questionaires
       console.log(all)
       this.$store.dispatch('CreateRoom', all)

@@ -8,7 +8,7 @@
     el-form-item(label="活动时间", prop="timeRange")
       date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
     el-form-item(label="上传图片", prop="upload")
-      el-upload.upload(drag, action="//jsonplaceholder.typicode.com/posts/", :headers="headers", name="cover", :before-upload="beforeUpload")
+      el-upload.upload(drag, :action="action", :headers="headers", name="cover", :before-upload="beforeUpload", :on-progress="onProgress")
         .upload_box(:style="{background: `url(${cover}) no-repeat center center`}")
           i.el-icon-upload
           .el-upload__text 将文件P拖到此处，或<em>点击上传</em>
@@ -100,14 +100,16 @@ export default {
   },
   methods: {
     beforeUpload (file) {
-      console.log(file)
-      this.$store.dispatch('UploadCover', {
-        id: this.roomInfo.id,
-        file: file
-      })
+      // const upload = JSON.parse(JSON.stringify(file))
+      // console.log(upload)
+      // this.$store.dispatch('UploadCover', {
+      //   id: this.roomInfo.id,
+      //   file: file
+      // })
     },
-    test () {
-      console.log(this.$refs['file'].files[0])
+    onProgress (e, file, fileList) {
+      console.log(file)
+      console.log(fileList)
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -172,6 +174,8 @@ export default {
   },
   data () {
     return {
+      action: `/uniadmin/room/${this.roomInfo.id}/upload_cover`,
+      // action: "//jsonplaceholder.typicode.com/posts/",
       fileList: [],
       rules: {
         name: [
