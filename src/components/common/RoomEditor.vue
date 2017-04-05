@@ -8,15 +8,15 @@
     el-form-item(label="活动时间", prop="timeRange")
       date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
     el-form-item(label="上传图片", prop="upload")
-      el-upload.upload(drag, :action="action", :headers="headers", name="cover")
+      el-upload.upload(drag, action="//jsonplaceholder.typicode.com/posts/", :headers="headers", name="cover", :before-upload="beforeUpload")
         .upload_box(:style="{background: `url(${cover}) no-repeat center center`}")
           i.el-icon-upload
           .el-upload__text 将文件P拖到此处，或<em>点击上传</em>
           .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
-    //- el-form-item(label="上传图片")
-    //-   el-upload(:action="action", :headers="headers", name="cover", :file-list="fileList", :auto-upload="false")
-    //-     el-button(slot="trigger", size="small", type="primary") 选取文件
-    //-     el-button(style="margin-left: 10px", size="small", type="success", @click="submitUpload") 上传到服务器
+    el-form-item(label="上传图片")
+      //- file-upload(title="Add upload files", :files="fileList")
+      input(type="file", ref="file")
+      el-button(@click="test") 测试
     el-form-item(label="活动人数", prop="people")
       el-input(v-model.number="ruleForm.people")
     el-form-item(label="详细内容", prop="desc")
@@ -43,11 +43,13 @@
 <script>
 import OptionMenu from '@/components/common/OptionMenu'
 import DatePicker from 'iview/src/components/date-picker'
+import FileUpload from 'vue-upload-component'
 
 export default {
   components: {
     DatePicker,
-    OptionMenu
+    OptionMenu,
+    FileUpload
   },
   props: {
     token: {
@@ -99,6 +101,16 @@ export default {
     }
   },
   methods: {
+    beforeUpload (file) {
+      console.log(file)
+      this.$store.dispatch('UploadCover', {
+        id: this.roomInfo.id,
+        file: file
+      })
+    },
+    test () {
+      console.log(this.$refs['file'].files[0])
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -154,6 +166,10 @@ export default {
     },
     headers () {
       return this.token ? {'Authorization': `Token ${this.token}`} : {}
+    },
+    uploadFile () {
+      console.log(this.$refs['file'])
+      return this.$refs['file']
     }
   },
   data () {

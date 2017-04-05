@@ -53,7 +53,7 @@ export const UserExcel = ({commit}, roomId) => {
 }
 
 export const UploadCover = ({commit}, data) => {
-  api.uploadCover.then(res => {
+  return api.uploadCover(data).then(res => {
     console.log(res)
   }, () => {
     Vue.prototype.$message.error('请求错误！')

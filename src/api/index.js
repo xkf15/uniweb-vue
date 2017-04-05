@@ -15,6 +15,7 @@ export default {
     return Vue.axios.get(`/uniadmin/room/${id}/user_xls`)
   },
   uploadCover: data => {
+    console.log(data.file)
     return Vue.axios.post(`/uniadmin/room/${data.id}/upload_cover`, data.file)
   },
   localLogin: data => {

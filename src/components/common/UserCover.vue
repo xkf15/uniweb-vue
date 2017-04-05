@@ -1,6 +1,6 @@
 <template lang="pug">
 .cover
-  //- .avatar.flex_box
+  .avatar.flex_box
     img(:src="userInfo.avatar")
   .intro.flex_box
     .title.item
@@ -12,11 +12,11 @@
     .college.item
       span
         img(src="../../assets/thu.png")
-      //- span {{ colleges[userInfo.university - 1].name_ch }} ({{ userInfo.department }})
-      span {{ userInfo.advertising.name_ch }} ({{ userInfo.department }})
+      span {{ colleges[userInfo.university - 1].name_ch }} ({{ userInfo.department }})
+      //- span {{ userInfo.advertising.name_ch }} ({{ userInfo.department }})
     .info.item
-      //- span 房间总数 {{ userInfo.room_count }}
-      span 房间总数 {{ userInfo.rooms.length }}
+      span 房间总数 {{ userInfo.room_count }}
+      //- span 房间总数 {{ userInfo.rooms.length }}
       span 点赞 {{ userInfo.thumb_ups }}
       span 差评 {{ userInfo.thumb_downs }}
 </template>
