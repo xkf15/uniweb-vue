@@ -15,7 +15,7 @@
           .searchInput
             .searchBarLabel 名称
             el-select.el-select(v-model="searchTitle", filterable, remote, placeholder="请输入关键词")
-              el-option(v-for="(item, index) in roomList", :label="item.title", :value="item.title")
+              el-option(v-for="(item, index) in roomList", :label="item.title", :value="item.id")
           button.btn(type="danger", @click="search()") 搜索
 </template>
 
@@ -87,14 +87,14 @@ export default {
             data.roomList.push(room)
           } else {
             for (let label of room.labels) {
-              if (this.searchLabel === label.name_ch) {
+              if (this.searchLabel === label.id) {
                 data.roomList.push(room)
                 break
               }
             }
           }
         } else {
-          if (room.title === this.searchTitle) {
+          if (room.id === this.searchTitle) {
             data.roomList.push(room)
           }
         }
