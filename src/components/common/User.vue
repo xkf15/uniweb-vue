@@ -1,8 +1,8 @@
 <template lang="pug">
 #user
-  layout(:tag="menus[0].title", :user-info="userInfo", :colleges="colleges")
+  layout(:tag="breadcrumb[routeLength].title", :user-info="userInfo", :breadcrumb="breadcrumb.slice(0, routeLength)",:colleges="colleges")
     .sidebar(slot="sidebar")
-      dropdown-menu(v-for="(menu, index) in menus", :key="index", :menu="menu.items", :menu-title="menu.title", :idx="index")
+      dropdown-menu(v-for="(menu, index) in menus", v-if="menu.active", :key="index", :menu="menu.items", :menu-title="menu.title", :idx="index")
       .searchBox(v-if="$route.path === '/user/room/admin'")
         .searchTitle
           strong 搜索
@@ -10,11 +10,13 @@
           .searchBarLabel 标签
           //- el-select.el-select(v-model="labels", filterable, remote, placeholder="请输入关键词", :remote-method="remoteMethod", :loading="loading")
           el-select.el-select(v-model="searchLabel", filterable, remote, placeholder="请输入关键词")
+            el-option(:key="-1", label="", value="")
             el-option(v-for="(item, index) in labels", :key="index", :label="item.name_ch", :value="item.id")
         //- input.searchInput(v-model="search.searchLabel", placeholder="请输入房间标签")
         .searchInput
           .searchBarLabel 名称
           el-select.el-select(v-model="searchTitle", filterable, remote, placeholder="请输入关键词")
+            el-option(:key="-1", label="", value="")
             el-option(v-for="(item, index) in roomList", :key="index", :label="item.title", :value="item.id")
         button.btn(type="danger", @click="search()") 搜索
     .router-view(slot="container")
@@ -47,18 +49,16 @@ export default {
     }),
     ifShowSearchTable () {
       const route = this.$route.path.split('/')
-      if (route.indexOf('admin')) {
-        return true
-      } else {
-        return false
-      }
-    }
-  },
-  data () {
-    return {
-      menus: [
+      return route.indexOf('admin')
+    },
+    routeLength () {
+      return this.$route.path.split('/').length - 4
+    },
+    menus () {
+      return [
         {
           title: '房间',
+          active: !this.$route.params.id,
           items: [
             {
               title: '所有房间',
@@ -76,6 +76,7 @@ export default {
         },
         {
           title: '活动管理',
+          active: this.$route.params.id,
           items: [
             {
               title: '房间信息',
@@ -94,6 +95,20 @@ export default {
               path: '/user/activity/' + this.$route.params.id + '/settings'
             }
           ]
+        }
+      ]
+    }
+  },
+  data () {
+    return {
+      breadcrumb: [
+        {
+          title: '房间',
+          path: '/user/room'
+        },
+        {
+          title: '最新消息',
+          path: '/user/activity'
         }
       ],
       // userInfo: {},
