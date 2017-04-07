@@ -7,9 +7,11 @@ import Login from '@/components/pages/Login'
 import Signup from '@/components/pages/Signup'
 
 import Room from '@/components/pages/user/Room'
-import RoomAdmin from '@/components/pages/user/room/Admin'
 
+import RoomAdmin from '@/components/pages/user/room/Admin'
+import RoomList from '@/components/pages/user/room/RoomList'
 import NewRoom from '@/components/pages/user/room/NewRoom'
+
 import BasicInfo from '@/components/pages/user/room/new/BasicInfo'
 import MemberInfo from '@/components/pages/user/room/new/MemberInfo'
 import Confirm from '@/components/pages/user/room/new/Confirm'
@@ -46,6 +48,7 @@ const router = new Router({
       children: [
         { path: '', redirect: 'admin' },
         { path: 'admin', component: RoomAdmin },
+        { path: 'list', component: RoomList },
         {
           path: 'new',
           component: NewRoom,
@@ -85,8 +88,8 @@ router.beforeEach((to, from, next) => {
     next() // 否则跳转回登录页
   } else {
     if (token !== 'null' && token !== null) {
-      Vue.axios.create().defaults.headers.common['Authorization'] = 'Token ' + token // 此为Django项目的token
-      // Vue.axios.create().defaults.headers.common['Authorization'] = 'Bearer ' + token // 此为jwt的token
+      // Vue.axios.create().defaults.headers.common['Authorization'] = 'Token ' + token // 此为Django项目的token
+      Vue.axios.create().defaults.headers.common['Authorization'] = 'Bearer ' + token // 此为jwt的token
       next() // 如果有token就正常转向
     } else next('/') // 否则跳转回登录页
   }

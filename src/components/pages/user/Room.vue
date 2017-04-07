@@ -58,6 +58,10 @@ export default {
       // colleges: [],
       menu: [
         {
+          title: '所有房间',
+          path: '/user/room/list'
+        },
+        {
           title: '房间管理',
           path: '/user/room/admin'
         },

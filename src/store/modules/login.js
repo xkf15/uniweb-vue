@@ -26,6 +26,9 @@ const mutations = {
   [types.GET_INITIAL_DATA] (state, data) {
     state.initialData = data
   },
+  [types.ADD_ROOM_COUNT] (state) {
+    state.userInfo.room_count++
+  },
   [types.CHANGE_USER_INFO] (state, data) {
     // state.userInfo = []
   },

@@ -215,6 +215,22 @@ export const GetRooms = ({commit}) => {
   })
 }
 
+export const GetRoomList = ({commit}) => {
+  commit(types.SET_LOADING_TRUE)
+  return api.getRoomList().then(res => {
+    if (res.status === 200) {
+      commit(types.GET_ROOM_LIST, res.data)
+      commit(types.SET_LOADING_FALSE)
+    } else {
+      Vue.prototype.$message.error('')
+    }
+  }, err => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+    commit(types.SET_LOADING_FALSE)
+  })
+}
+
 export const ChangeDisplayedRooms = ({commit}, data) => {
   commit(types.CHANGE_DISPLAYED_ROOMS, data)
 }
@@ -262,6 +278,7 @@ export const CreateRoom = ({commit}, data) => {
   api.createRoom(data).then(res => {
     if (res.status === 201) { // 如果成功
       commit(types.CLEAR_NEW_ROOM)
+      commit(types.ADD_ROOM_COUNT)
       Vue.prototype.$message('创建房间成功')
     } else {
       if (res.data.success) {
@@ -277,7 +294,8 @@ export const CreateRoom = ({commit}, data) => {
 
 export const GetUserInfo = ({commit}) => { // 得到我的信息
   return api.getUserInfo().then(res => {
-    if (res.status) {
+    console.log(res.data)
+    if (res.status === 200) {
       commit(types.GET_USER_INFO, res.data)
     } else {
       Vue.prototype.$message.error('状态码错误')

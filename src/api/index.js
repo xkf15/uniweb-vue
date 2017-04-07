@@ -69,6 +69,9 @@ export default {
   getRooms: () => {
     return Vue.axios.get(`/uniadmin/`)
   },
+  getRoomList: () => {
+    return Vue.axios.get(`/uniadmin/roomList`)
+  },
   getApplications: roomId => {
     return Vue.axios.get(`/uniadmin/room/${roomId}/application`)
   },

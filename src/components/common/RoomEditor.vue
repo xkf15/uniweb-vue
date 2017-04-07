@@ -120,9 +120,9 @@ export default {
           }
           let allData = this.ruleForm
           const collegesId = []
-          this.myColleges.map(item => {
-            item.toggle ? collegesId.push(Number(item.id)) : ''
-          })
+          for (let item of this.myColleges) {
+            if (item.toggle) collegesId.push(Number(item.id))
+          }
           if (!collegesId.length) {
             alert('准入学校至少填写1所')
             return false
@@ -174,7 +174,6 @@ export default {
   },
   data () {
     return {
-      action: `/uniadmin/room/${this.roomInfo.id}/upload_cover`,
       // action: "//jsonplaceholder.typicode.com/posts/",
       fileList: [],
       rules: {
