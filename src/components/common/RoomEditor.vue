@@ -174,8 +174,6 @@ export default {
   },
   data () {
     return {
-      action: `/uniadmin/room/${this.roomInfo.id}/upload_cover`,
-      // action: "//jsonplaceholder.typicode.com/posts/",
       fileList: [],
       rules: {
         name: [

@@ -29,7 +29,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/uniadmin': {
-        target: 'http://47.92.73.52:81',
+        target: 'https://api.univord.com',
+        // target: 'http://47.92.73.52:81',
         // target: 'http://localhost:7001',
         changeOrigin: true,
         pathRewrite: {
@@ -37,7 +38,8 @@ module.exports = {
         }
       },
       '/auth': {
-        target: 'http://47.92.73.52:81',
+        target: 'https://api.univord.com',
+        // target: 'http://47.92.73.52:81',
         // target: 'http://localhost:7001',
         changeOrigin: true,
         pathRewrite: {
