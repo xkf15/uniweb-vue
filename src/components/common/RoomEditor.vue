@@ -8,15 +8,12 @@
     el-form-item(label="活动时间", prop="timeRange")
       date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
     el-form-item(label="上传图片", prop="upload")
-      el-upload.upload(drag, :action="action", :headers="headers", name="cover", :before-upload="beforeUpload", :on-progress="onProgress")
+      //- image-upload(text="点击选择图片",crop-ratio="1:1", :cropBtn="{ok: '确定', cancel: '取消'}", :crop="true", :maxFileSize="1048576", :isXhr="false", extensions="png,jpg,jpeg,gif,bmp", @imageuploading="imageuploading", inputOfFile="cover")
+      el-upload.upload(drag, :action="action", :headers="headers", name="cover", :before-upload="beforeUpload")
         .upload_box(:style="{background: `url(${cover}) no-repeat center center`}")
           i.el-icon-upload
           .el-upload__text 将文件P拖到此处，或<em>点击上传</em>
           .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
-    //- el-form-item(label="上传图片")
-    //-   //- file-upload(title="Add upload files", :files="fileList")
-    //-   input(type="file", ref="file")
-    //-   el-button(@click="test") 测试
     el-form-item(label="活动人数", prop="people")
       el-input(v-model.number="ruleForm.people")
     el-form-item(label="详细内容", prop="desc")
@@ -43,11 +40,13 @@
 <script>
 import OptionMenu from '@/components/common/OptionMenu'
 import DatePicker from 'iview/src/components/date-picker'
+import ImageUpload from 'vue-core-image-upload'
 
 export default {
   components: {
     DatePicker,
-    OptionMenu
+    OptionMenu,
+    ImageUpload
   },
   props: {
     token: {
@@ -99,17 +98,23 @@ export default {
     }
   },
   methods: {
-    beforeUpload (file) {
-      // const upload = JSON.parse(JSON.stringify(file))
-      // console.log(upload)
-      // this.$store.dispatch('UploadCover', {
-      //   id: this.roomInfo.id,
-      //   file: file
-      // })
+    imageuploading (res) {
+      let data = new FormData()
+      data.append('cover', res)
+      console.log(data.get('cover'))
+      this.$store.dispatch('UploadCover', {
+        id: this.roomInfo.id,
+        file: data
+      })
     },
-    onProgress (e, file, fileList) {
-      console.log(file)
-      console.log(fileList)
+    beforeUpload (file) {
+      let data = new FormData()
+      data.append('cover', file)
+      console.log(data.get('cover'))
+      this.$store.dispatch('UploadCover', {
+        id: this.roomInfo.id,
+        file: data
+      })
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -159,7 +164,8 @@ export default {
       return this.initialData.colleges
     },
     action () {
-      return this.roomInfo ? `/uniadmin/room/${this.roomInfo.id}/upload_cover` : ''
+      // return this.roomInfo ? `/uniadmin/room/${this.roomInfo.id}/upload_cover` : ''
+      return 'https://jsonplaceholder.typicode.com/posts/'
     },
     cover () {
       return this.roomInfo ? this.roomInfo.cover : ''

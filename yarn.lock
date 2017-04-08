@@ -6555,6 +6555,12 @@ vue-axios@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-2.0.1.tgz#fc7f5f06d1f9190f24feca232c4c11dffba54024"
 
+vue-core-image-upload@^2.0.13:
+  version "2.0.13"
+  resolved "http://registry.npm.taobao.org/vue-core-image-upload/download/vue-core-image-upload-2.0.13.tgz#c3c50e2849c1551a111e224c558c1ac57301a4c2"
+  dependencies:
+    vue "^2.0.5"
+
 vue-hot-reload-api@^2.0.11:
   version "2.0.11"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.0.11.tgz#bf26374fb73366ce03f799e65ef5dfd0e28a1568"
@@ -6602,7 +6608,7 @@ vue-upload-component@^2.3.0-beta.2:
   version "2.3.0-beta.2"
   resolved "https://registry.yarnpkg.com/vue-upload-component/-/vue-upload-component-2.3.0-beta.2.tgz#29120c3eec72e29e388b2818cb188561d5144059"
 
-vue@^2.2.6:
+vue@^2.0.5, vue@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.6.tgz#451714b394dd6d4eae7b773c40c2034a59621aed"
 
