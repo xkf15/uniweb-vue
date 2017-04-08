@@ -6,7 +6,7 @@
       //- el-button(type="text", @click="modify(index)") 修改
   el-row.box
     el-col(:span="leftSpan").box-item.title 房间海报
-    el-col(:span="24-leftSpan").box-item.content
+    el-col(:span="24-leftSpan").box-item.cover
       img(:src="roomInfo.cover")
   el-row.box
     el-col(:span="leftSpan").box-item.title 房间标签
@@ -76,6 +76,10 @@ export default {
   .box
     margin 10px
     border-bottom 1px solid #ddd
+    .cover
+      width 50%
+      img
+        width 100%
     .title, .content
       padding 10px 0
       font-size 14px
