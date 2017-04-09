@@ -72,6 +72,7 @@ export default {
           wechat: '',     // 微信推送链接 (非必须)
           condition: '',  // 准入条件 (非必须) // welcome
           timeRange: '',
+          cover: '',
           options: [
             {
               name: '微信链接',
@@ -98,23 +99,24 @@ export default {
     }
   },
   methods: {
-    imageuploading (res) {
-      let data = new FormData()
-      data.append('cover', res)
-      console.log(data.get('cover'))
-      this.$store.dispatch('UploadCover', {
-        id: this.roomInfo.id,
-        file: data
-      })
-    },
+    // imageuploading (res) {
+    //   let data = new FormData()
+    //   data.append('cover', res)
+    //   console.log(data.get('cover'))
+    //   this.$store.dispatch('UploadCover', {
+    //     id: this.roomInfo.id,
+    //     file: data
+    //   })
+    // },
     beforeUpload (file) {
       let data = new FormData()
       data.append('cover', file)
-      console.log(data.get('cover'))
-      this.$store.dispatch('UploadCover', {
-        id: this.roomInfo.id,
-        file: data
-      })
+      this.newCover = data
+      // console.log(data.get('cover'))
+      // this.$store.dispatch('UploadCover', {
+      //   id: this.roomInfo.id,
+      //   file: data
+      // })
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -148,7 +150,7 @@ export default {
             apply: allData.apply,
             show: allData.show
           }
-          this.$store.dispatch(this.dispatch, allData)
+          this.$store.dispatch(this.dispatch, {...allData, cover: this.newCover})
         } else {
           console.log('error submit!!')
           return false
@@ -182,6 +184,7 @@ export default {
     return {
       // action: "//jsonplaceholder.typicode.com/posts/",
       fileList: [],
+      newCover: {},
       rules: {
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },

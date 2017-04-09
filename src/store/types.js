@@ -1,6 +1,7 @@
 export const SET_BASIC_INFO = 'SET_BASIC_INFO'
 export const SET_MEMBER_INFO = 'SET_MEMBER_INFO'
 export const GET_INITIAL_DATA = 'GET_INITIAL_DATA'
+export const SAVE_ROOM_COVER = 'SAVE_ROOM_COVER'
 
 export const USER_SIGNIN = 'USER_SIGNIN'
 export const USER_SIGNOUT = 'USER_SIGNOUT'

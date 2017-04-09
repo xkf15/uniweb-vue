@@ -7,7 +7,8 @@
   el-row.box
     el-col(:span="leftSpan").box-item.title 房间海报
     el-col(:span="24-leftSpan").box-item.cover
-      img(:src="roomInfo.cover")
+      img(v-if="roomInfo.cover", :src="roomInfo.cover")
+      el-button(v-else, type="text", @click="$router.push('basic')") 没有上传照片，点此回到初始页面重新上传
   el-row.box
     el-col(:span="leftSpan").box-item.title 房间标签
     el-col(:span="24-leftSpan").box-item.content.colleges

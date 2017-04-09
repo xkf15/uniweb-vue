@@ -55,6 +55,10 @@ export const UserExcel = ({commit}, roomId) => {
 export const UploadCover = ({commit}, data) => {
   return api.uploadCover(data).then(res => {
     console.log(res)
+    Vue.prototype.$message({
+      type: 'success',
+      message: '请求成功！'
+    })
   }, () => {
     Vue.prototype.$message.error('请求错误！')
   })
@@ -62,6 +66,7 @@ export const UploadCover = ({commit}, data) => {
 
 export const BasicInfo = ({commit}, data) => {
   commit(types.SET_BASIC_INFO, data)
+  commit(types.SAVE_ROOM_COVER, data.cover)
   router.push('member')
 }
 
@@ -78,15 +83,25 @@ export const GetInitialData = ({commit}) => {
 }
 
 export const ModifyRoomInfo = ({commit}, data) => {
-  return api.modifyRoomInfo(data).then(res => {
+  return api.uploadCover({ id: data.id, file: data.cover }).then(res => {
     if (res.status === 200) {
-      commit(types.MODIFY_ROOM_INFO, data)
-      Vue.prototype.$message('修改房间信息成功')
-      router.push('info')
+      delete data.cover
+      api.modifyRoomInfo(data).then(res => {
+        if (res.status === 200) {
+          commit(types.MODIFY_ROOM_INFO, data)
+          Vue.prototype.$message('修改房间信息成功')
+          router.push('info')
+        } else {
+          Vue.prototype.$message.error('状态吗错误！')
+        }
+      }, () => {
+        Vue.prototype.$message.error('请求错误！')
+      })
     } else {
       Vue.prototype.$message.error('状态吗错误！')
     }
-  }, () => {
+  }, err => {
+    console.log(err)
     Vue.prototype.$message.error('请求错误！')
   })
 }
@@ -277,9 +292,14 @@ export const GetApplications = ({commit}, roomId) => {
 export const CreateRoom = ({commit}, data) => {
   api.createRoom(data).then(res => {
     if (res.status === 201) { // 如果成功
-      commit(types.CLEAR_NEW_ROOM)
-      commit(types.ADD_ROOM_COUNT)
-      Vue.prototype.$message('创建房间成功')
+      api.uploadCover({id: res.data.id, file: data.cover}).then(res => {
+        // commit(types.CLEAR_NEW_ROOM)
+        commit(types.ADD_ROOM_COUNT)
+        Vue.prototype.$message('创建房间成功')
+      }, err => {
+        console.log(err)
+        Vue.prototype.$message.error('上传图片失败')
+      })
     } else {
       if (res.data.success) {
         Vue.prototype.$message('创建房间成功')
