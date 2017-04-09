@@ -59,7 +59,7 @@ export default {
     roomInfo.advertising = advertising
     roomInfo.cover = ''
 
-    if (!cover) {
+    if (!(cover && ('get' in cover))) {
       next(vm => {
         vm.roomInfo = roomInfo
       })

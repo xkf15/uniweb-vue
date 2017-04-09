@@ -82,28 +82,32 @@ export const GetInitialData = ({commit}) => {
   })
 }
 
-export const ModifyRoomInfo = ({commit}, data) => {
-  return api.uploadCover({ id: data.id, file: data.cover }).then(res => {
+export const ModifyRoomInfo = async ({commit}, data) => {
+  try {
+    const res = await api.modifyRoomInfo(data)
     if (res.status === 200) {
-      delete data.cover
-      api.modifyRoomInfo(data).then(res => {
+      console.log('get' in data.cover)
+      if ('get' in data.cover) {
+        const res = await api.uploadCover({ id: data.id, file: data.cover })
         if (res.status === 200) {
           commit(types.MODIFY_ROOM_INFO, data)
           Vue.prototype.$message('修改房间信息成功')
           router.push('info')
         } else {
-          Vue.prototype.$message.error('状态吗错误！')
+          Vue.prototype.$message.error('上传文件状态吗错误！')
         }
-      }, () => {
-        Vue.prototype.$message.error('请求错误！')
-      })
+      } else {
+        commit(types.MODIFY_ROOM_INFO, data)
+        Vue.prototype.$message('修改房间信息成功')
+        router.push('info')
+      }
     } else {
-      Vue.prototype.$message.error('状态吗错误！')
+      Vue.prototype.$message.error('房间数据状态吗错误！')
     }
-  }, err => {
+  } catch (err) {
     console.log(err)
     Vue.prototype.$message.error('请求错误！')
-  })
+  }
 }
 
 export const MemberInfo = ({commit}, data) => {
@@ -289,27 +293,31 @@ export const GetApplications = ({commit}, roomId) => {
   })
 }
 
-export const CreateRoom = ({commit}, data) => {
-  api.createRoom(data).then(res => {
-    if (res.status === 201) { // 如果成功
-      api.uploadCover({id: res.data.id, file: data.cover}).then(res => {
+export const CreateRoom = async ({commit}, data) => {
+  try {
+    const res = await api.createRoom(data)
+    if (res.status === 201) {
+      if (data.cover && ('get' in data.cover)) {
+        const res2 = await api.uploadCover({ id: res.data.id, file: data.cover })
+        if (res2.status === 200) {
+          // commit(types.CLEAR_NEW_ROOM)
+          commit(types.ADD_ROOM_COUNT)
+          Vue.prototype.$message('创建房间成功')
+        } else {
+          Vue.prototype.$message.error('上传图片状态码错误')
+        }
+      } else {
         // commit(types.CLEAR_NEW_ROOM)
         commit(types.ADD_ROOM_COUNT)
         Vue.prototype.$message('创建房间成功')
-      }, err => {
-        console.log(err)
-        Vue.prototype.$message.error('上传图片失败')
-      })
-    } else {
-      if (res.data.success) {
-        Vue.prototype.$message('创建房间成功')
-      } else {
-        Vue.prototype.$message.error('Status code is not matched')
       }
+    } else {
+      Vue.prototype.$message.error('创建房间返回数据状态码错误')
     }
-  }, () => {
-    Vue.prototype.$message.error('请求错误！')
-  })
+  } catch (err) {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误')
+  }
 }
 
 export const GetUserInfo = ({commit}) => { // 得到我的信息
