@@ -9,7 +9,7 @@
       date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
     el-form-item(label="上传图片", prop="upload")
       //- image-upload(text="点击选择图片",crop-ratio="1:1", :cropBtn="{ok: '确定', cancel: '取消'}", :crop="true", :maxFileSize="1048576", :isXhr="false", extensions="png,jpg,jpeg,gif,bmp", @imageuploading="imageuploading", inputOfFile="cover")
-      el-upload.upload(drag, :action="action", :headers="headers", name="cover", list-type="picture", :before-upload="beforeUpload", :file-list="fileList", :on-change="handleChange")
+      el-upload.upload(drag, :action="action", :headers="headers", name="cover", list-type="picture", :file-list="fileList", :on-change="handleChange")
         .upload_box(:style="{background: `url(${cover}) no-repeat center center`}")
           i.el-icon-upload
           .el-upload__text 将文件P拖到此处，或<em>点击上传</em>
@@ -145,7 +145,7 @@ export default {
             show: allData.show
           }
           let formData = new FormData()
-          formData.append('cover', this.fileList[0].raw)
+          if (this.fileList.length) formData.append('cover', this.fileList[0].raw)
           this.$store.dispatch(this.dispatch, {...allData, cover: formData})
         } else {
           console.log('error submit!!')

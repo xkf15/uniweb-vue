@@ -86,9 +86,10 @@ export const ModifyRoomInfo = async ({commit}, data) => {
   try {
     const file = data.cover
     delete data.cover
+    console.log(data)
     const res = await api.modifyRoomInfo(data)
     if (res.status === 200) {
-      if ('get' in file) {
+      if ('get' in file && file.get('cover')) {
         const res = await api.uploadCover({ id: data.id, file: file })
         if (res.status === 200) {
           commit(types.MODIFY_ROOM_INFO, data)
@@ -297,11 +298,11 @@ export const GetApplications = ({commit}, roomId) => {
 export const CreateRoom = async ({commit}, data) => {
   try {
     const file = data.cover
-    delete data.cover
+    if (data.cover) delete data.cover
     const res = await api.createRoom(data)
     console.log(res.data)
     if (res.status === 201) {
-      if (file && ('get' in file)) {
+      if (file && ('get' in file) && file.get('cover')) {
         const res2 = await api.uploadCover({ id: res.data, file: file })
         if (res2.status === 200) {
           commit(types.CLEAR_NEW_ROOM)
