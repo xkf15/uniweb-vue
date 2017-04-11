@@ -40,13 +40,13 @@
 <script>
 import OptionMenu from '@/components/common/OptionMenu'
 import DatePicker from 'iview/src/components/date-picker'
-import ImageUpload from 'vue-core-image-upload'
+// import ImageUpload from 'vue-core-image-upload'
 
 export default {
   components: {
     DatePicker,
-    OptionMenu,
-    ImageUpload
+    OptionMenu
+    // ImageUpload
   },
   props: {
     token: {

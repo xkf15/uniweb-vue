@@ -60,10 +60,10 @@ export default {
           title: '房间',
           active: !this.$route.params.id,
           items: [
-            {
-              title: '所有房间',
-              path: '/user/room/list'
-            },
+            // {
+            //   title: '所有房间',
+            //   path: '/user/room/list'
+            // },
             {
               title: '房间管理',
               path: '/user/room/admin'

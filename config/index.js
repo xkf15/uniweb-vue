@@ -29,16 +29,16 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/uniadmin': {
-        // target: 'https://api.univord.com',
-        target: 'http://101.6.161.211:7001',
+        target: 'https://api.univord.com',
+        // target: 'http://101.6.161.211:7001',
         changeOrigin: true,
         pathRewrite: {
           '^/uniadmin': '/uniadmin'
         }
       },
       '/auth': {
-        // target: 'https://api.univord.com',
-        target: 'http://101.6.161.211:7001',
+        target: 'https://api.univord.com',
+        // target: 'http://101.6.161.211:7001',
         changeOrigin: true,
         pathRewrite: {
           '^/auth': '/auth'

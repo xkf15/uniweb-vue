@@ -84,11 +84,12 @@ export const GetInitialData = ({commit}) => {
 
 export const ModifyRoomInfo = async ({commit}, data) => {
   try {
+    const file = data.cover
+    delete data.cover
     const res = await api.modifyRoomInfo(data)
     if (res.status === 200) {
-      console.log('get' in data.cover)
-      if ('get' in data.cover) {
-        const res = await api.uploadCover({ id: data.id, file: data.cover })
+      if ('get' in file) {
+        const res = await api.uploadCover({ id: data.id, file: file })
         if (res.status === 200) {
           commit(types.MODIFY_ROOM_INFO, data)
           Vue.prototype.$message('修改房间信息成功')
@@ -295,10 +296,13 @@ export const GetApplications = ({commit}, roomId) => {
 
 export const CreateRoom = async ({commit}, data) => {
   try {
+    const file = data.cover
+    delete data.cover
     const res = await api.createRoom(data)
+    console.log(res.data)
     if (res.status === 201) {
-      if (data.cover && ('get' in data.cover)) {
-        const res2 = await api.uploadCover({ id: res.data.id, file: data.cover })
+      if (file && ('get' in file)) {
+        const res2 = await api.uploadCover({ id: res.data, file: file })
         if (res2.status === 200) {
           // commit(types.CLEAR_NEW_ROOM)
           commit(types.ADD_ROOM_COUNT)
