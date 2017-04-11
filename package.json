@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "axios": "^0.16.0",
-    "element-ui": "^1.2.7",
+    "element-ui": "^1.2.8",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-node": "^4.2.2",
     "font-awesome": "^4.7.0",

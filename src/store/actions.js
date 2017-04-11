@@ -304,14 +304,14 @@ export const CreateRoom = async ({commit}, data) => {
       if (file && ('get' in file)) {
         const res2 = await api.uploadCover({ id: res.data, file: file })
         if (res2.status === 200) {
-          // commit(types.CLEAR_NEW_ROOM)
+          commit(types.CLEAR_NEW_ROOM)
           commit(types.ADD_ROOM_COUNT)
           Vue.prototype.$message('创建房间成功')
         } else {
           Vue.prototype.$message.error('上传图片状态码错误')
         }
       } else {
-        // commit(types.CLEAR_NEW_ROOM)
+        commit(types.CLEAR_NEW_ROOM)
         commit(types.ADD_ROOM_COUNT)
         Vue.prototype.$message('创建房间成功')
       }
