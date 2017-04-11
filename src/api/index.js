@@ -2,6 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+// axios.defaults.maxContentLength = 2000000
 Vue.use(VueAxios, axios)
 
 export default {
@@ -15,7 +16,6 @@ export default {
     return Vue.axios.get(`/uniadmin/room/${id}/user_xls`)
   },
   uploadCover: data => {
-    console.log(data.file)
     return Vue.axios.post(`/uniadmin/room/${data.id}/upload_cover`, data.file)
   },
   localLogin: data => {
@@ -68,6 +68,9 @@ export default {
   },
   getRooms: () => {
     return Vue.axios.get(`/uniadmin/`)
+  },
+  getRoomList: () => {
+    return Vue.axios.get(`/uniadmin/roomList`)
   },
   getApplications: roomId => {
     return Vue.axios.get(`/uniadmin/room/${roomId}/application`)

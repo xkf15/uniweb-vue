@@ -18,10 +18,15 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
-  data () {
-    return {
-      dynamicValidateForm: {
+  beforeRouteEnter: (to, from, next) => {
+    let memberInfo = JSON.parse(JSON.stringify(store.state.newroom.memberInfo))
+    if (memberInfo) {
+      memberInfo = { domains: memberInfo }
+    } else {
+      memberInfo = {
         domains: [{
           question: '',
           tips: '',
@@ -29,6 +34,14 @@ export default {
           key: Date.now()
         }]
       }
+    }
+    next(vm => {
+      vm.dynamicValidateForm = memberInfo
+    })
+  },
+  data () {
+    return {
+      dynamicValidateForm: {}
     }
   },
   methods: {

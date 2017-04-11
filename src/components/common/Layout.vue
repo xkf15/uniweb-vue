@@ -1,20 +1,20 @@
 <template lang="pug">
-  .layout
-    navbar(:login="true", :avatar="userInfo.avatar_thumbnail")
-    .white
-      user-cover(:userInfo="userInfo", :colleges="colleges")
-    .wrap
-      .sidebar
-        slot(name="sidebar")
-      .content
-        .decorator
-          el-breadcrumb(separator="/")
-            el-breadcrumb-item(v-if="breadcrumb", v-for="(item, index) of breadcrumb", :to="{ path: item.path }", :key="item.id")
-              span.br {{ item.title }}
-            el-breadcrumb-item
-              span.last {{ tag }}
-          hr
-        router-view
+.layout
+  navbar(:login="true", :avatar="userInfo.avatar_thumbnail")
+  .white
+    user-cover(:userInfo="userInfo", :colleges="colleges")
+  .wrap
+    .sidebar
+      slot(name="sidebar")
+    .content
+      .decorator
+        el-breadcrumb(separator="/")
+          el-breadcrumb-item(v-if="breadcrumb", v-for="(item, index) of breadcrumb", :to="{ path: item.path }", :key="item.id")
+            span.br {{ item.title }}
+          el-breadcrumb-item
+            span.last {{ tag }}
+        hr
+      slot(name="container")
 </template>
 
 
@@ -28,20 +28,6 @@ export default {
     DropdownMenu,
     Navbar,
     UserCover
-  },
-  data () {
-    return {
-      userData: {
-        title: '我是你失散多年的爸爸',
-        subtitle: '一句话介绍你自己',
-        college: '清华大学',
-        friends: 233,
-        activities: 233,
-        zan: 233,
-        student_id: 2015233233,
-        avatar: require('../../assets/avatar.png')
-      }
-    }
   },
   props: ['tag', 'breadcrumb', 'userInfo', 'colleges']
 }

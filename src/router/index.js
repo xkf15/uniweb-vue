@@ -6,16 +6,17 @@ import HomeLayout from '@/components/common/HomeLayout'
 import Login from '@/components/pages/Login'
 import Signup from '@/components/pages/Signup'
 
-import Room from '@/components/pages/user/Room'
-import RoomAdmin from '@/components/pages/user/room/Admin'
+import User from '@/components/common/User'
 
+import RoomAdmin from '@/components/pages/user/room/Admin'
+import RoomList from '@/components/pages/user/room/RoomList'
 import NewRoom from '@/components/pages/user/room/NewRoom'
+
 import BasicInfo from '@/components/pages/user/room/new/BasicInfo'
 import MemberInfo from '@/components/pages/user/room/new/MemberInfo'
 import Confirm from '@/components/pages/user/room/new/Confirm'
 import Publish from '@/components/pages/user/room/new/Publish'
 
-import Activity from '@/components/pages/user/Activity'
 import Info from '@/components/pages/user/activity/Info'
 import Member from '@/components/pages/user/activity/Member'
 import Message from '@/components/pages/user/activity/Message'
@@ -39,38 +40,45 @@ const router = new Router({
         { path: 'signup', component: Signup }
       ]
     },
-    { path: '/user', redirect: '/user/room' },
     {
-      path: '/user/room',
-      component: Room,
+      path: '/user',
+      component: User,
       children: [
-        { path: '', redirect: 'admin' },
-        { path: 'admin', component: RoomAdmin },
+        { path: '', redirect: 'room' },
         {
-          path: 'new',
-          component: NewRoom,
+          path: 'room',
+          component: { template: `<router-view></router-view>` },
           children: [
-            { path: '', redirect: 'basic' },
-            { path: 'basic', component: BasicInfo },
-            { path: 'member', component: MemberInfo },
-            { path: 'confirm', component: Confirm },
-            { path: 'publish', component: Publish }
+            { path: '', redirect: 'admin' },
+            { path: 'admin', component: RoomAdmin },
+            { path: 'list', component: RoomList },
+            {
+              path: 'new',
+              component: NewRoom,
+              children: [
+                { path: '', redirect: 'basic' },
+                { path: 'basic', component: BasicInfo },
+                { path: 'member', component: MemberInfo },
+                { path: 'confirm', component: Confirm },
+                { path: 'publish', component: Publish }
+              ]
+            }
+          ]
+        },
+        {
+          path: 'activity/:id',
+          component: { template: `<router-view></router-view>` },
+          children: [
+            { path: '', redirect: 'info' },
+            { path: 'info', component: Info },
+            { path: 'member', component: Member },
+            { path: 'message', component: Message },
+            { path: 'message/result', component: Result },
+            { path: 'settings', component: Settings },
+            { path: 'message/notice', component: Notice },
+            { path: 'message/questionnaire', component: Questionnaire }
           ]
         }
-      ]
-    },
-    { path: '/user/activity', redirect: '/user' },
-    { path: '/user/activity/:id',
-      component: Activity,
-      children: [
-        { path: '', redirect: 'info' },
-        { path: 'info', component: Info },
-        { path: 'member', component: Member },
-        { path: 'message', component: Message },
-        { path: 'message/result', component: Result },
-        { path: 'settings', component: Settings },
-        { path: 'message/notice', component: Notice },
-        { path: 'message/questionnaire', component: Questionnaire }
       ]
     }
   ]

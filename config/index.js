@@ -23,7 +23,7 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 8088,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -32,6 +32,7 @@ module.exports = {
         target: 'https://api.univord.com',
         // target: 'http://47.92.73.52:81',
         // target: 'http://localhost:7001',
+        // target: 'http://101.6.161.211:7001',
         changeOrigin: true,
         pathRewrite: {
           '^/uniadmin': '/uniadmin'
@@ -41,6 +42,7 @@ module.exports = {
         target: 'https://api.univord.com',
         // target: 'http://47.92.73.52:81',
         // target: 'http://localhost:7001',
+        // target: 'http://101.6.161.211:7001',
         changeOrigin: true,
         pathRewrite: {
           '^/auth': '/auth'

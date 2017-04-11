@@ -24,35 +24,65 @@
 <script>
 import { mapState } from 'vuex'
 import RoomInfo from '@/components/common/RoomInfo'
+import store from '@/store'
 import _ from 'lodash'
+
+const readImg = (file) => new Promise((resolve, reject) => {
+  var reader = new FileReader()
+  reader.readAsDataURL(file)
+  reader.onload = resolve
+  reader.onerror = reject
+})
 
 export default {
   components: {
     RoomInfo
   },
+  beforeRouteEnter: async (to, from, next) => {
+    const cover = store.state.newroom.cover
+    let labels = []
+    let advertising = []
+    // let userInfo = JSON.parse(JSON.stringify(state.newroom.basicInfo))
+    let roomInfo = _.clone(store.state.newroom.basicInfo, true)
+    const initialData = store.state.login.initialData
+    for (let i of roomInfo.labels) {
+      for (let item of initialData[0]) {
+        if (i === item.id) {
+          labels.push(item)
+        }
+      }
+    }
+    for (let i of roomInfo.advertising) {
+      advertising.push(initialData[1][i - 1])
+    }
+    roomInfo.labels = labels
+    roomInfo.advertising = advertising
+    roomInfo.cover = ''
+
+    if (!(cover && ('get' in cover))) {
+      next(vm => {
+        vm.roomInfo = roomInfo
+      })
+    } else {
+      const e = await readImg(cover.get('cover'))
+      roomInfo.cover = e.target.result
+      next(vm => {
+        vm.roomInfo = roomInfo
+      })
+    }
+  },
+  data () {
+    return {
+      roomInfo: {}
+    }
+  },
   computed: {
     ...mapState({
-      roomInfo: state => {
-        let labels = []
-        let advertising = []
-        // let userInfo = JSON.parse(JSON.stringify(state.newroom.basicInfo))
-        let userInfo = _.clone(state.newroom.basicInfo, true)
-        const initialData = state.login.initialData
-        for (let i of userInfo.labels) {
-          labels.push(initialData[0][i - 1])
-        }
-        for (let i of userInfo.advertising) {
-          advertising.push(initialData[1][i - 1])
-        }
-        userInfo.labels = labels
-        userInfo.advertising = advertising
-        console.log(userInfo)
-        return userInfo
-      },
       basicInfo: state => state.newroom.basicInfo,
       memberInfo: state => state.newroom.memberInfo,
       labels: state => state.login.initialData[0],
-      colleges: state => state.login.initialData[1]
+      colleges: state => state.login.initialData[1],
+      cover: state => state.newroom.cover
     })
   },
   methods: {
@@ -70,7 +100,10 @@ export default {
       }
       const all = _.clone(this.basicInfo, true)
       all.questionnaires = questionaires
+      console.log(this.cover)
+      all.cover = this.cover
       console.log(all)
+      // console.log(all.cover.get('cover'))
       this.$store.dispatch('CreateRoom', all)
       this.$router.push('publish')
     }

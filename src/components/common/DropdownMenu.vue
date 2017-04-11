@@ -1,7 +1,7 @@
 <template lang="pug">
 .drop-menu
-  input(type="checkbox", id="room", checked)
-  label(for="room")
+  input(type="checkbox", :id="`room${idx}`", checked)
+  label(:for="`room${idx}`")
     .drop-title
       .title
         strong {{ menuTitle }}
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  props: ['menu', 'menuTitle'],
+  props: ['menu', 'menuTitle', 'idx'],
   computed: {
     activeIndex () {
       for (let i = 0; i < this.menu.length; ++i) {
@@ -32,19 +32,19 @@ export default {
 $menu-hover-color = #ffc2d5
 $menu-active-color = #ffc2d5
 $transition-time = 0.3s
-$border-style = #ddd solid 2px
+$border-style-2 = #ddd solid 2px
+$border-style-1 = #ddd solid 1px
 .drop-menu
   background white
   color #6c64db
   font-size 15px
-  border-bottom $border-style
+  border-bottom $border-style-2
   input
     display none
     padding 10px
   .drop-title
     padding 15px 10px 15px 10px
     cursor pointer
-    border-bottom $border-style
     display flex
     justify-content center
     line-height 100%
@@ -60,7 +60,6 @@ $border-style = #ddd solid 2px
     padding 10px
     color #6c64db
     font-size 12px
-    border-bottom #ddd solid 1px
     &.active
       background $menu-active-color
       color white
@@ -73,9 +72,14 @@ $border-style = #ddd solid 2px
     overflow hidden
   input:checked ~ .drop-content .drop-item
     max-height 100px
+    border-bottom $border-style-1
+  input:checked ~ label 
+    .drop-title
+      border-bottom $border-style-2
+    i
+      transform rotate(180deg)
+      transform-origin 50% 50%
+
   label i
     transition $transition-time
-  input:checked ~ label i
-    transform rotate(180deg)
-    transform-origin 50% 50%
 </style>

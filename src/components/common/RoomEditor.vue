@@ -8,15 +8,12 @@
     el-form-item(label="活动时间", prop="timeRange")
       date-picker(type="datetimerange", v-model="ruleForm.timeRange", placeholder="选择日期和时间")
     el-form-item(label="上传图片", prop="upload")
-      el-upload.upload(drag, :action="action", :headers="headers", name="cover", :before-upload="beforeUpload", :on-progress="onProgress")
+      //- image-upload(text="点击选择图片",crop-ratio="1:1", :cropBtn="{ok: '确定', cancel: '取消'}", :crop="true", :maxFileSize="1048576", :isXhr="false", extensions="png,jpg,jpeg,gif,bmp", @imageuploading="imageuploading", inputOfFile="cover")
+      el-upload.upload(drag, :action="action", :headers="headers", name="cover", :before-upload="beforeUpload")
         .upload_box(:style="{background: `url(${cover}) no-repeat center center`}")
           i.el-icon-upload
           .el-upload__text 将文件P拖到此处，或<em>点击上传</em>
           .el-upload__tip(slot="tip") 注：图片小于2M（jpg, gif, png, bmp），尺寸不可小于1080*640
-    //- el-form-item(label="上传图片")
-    //-   //- file-upload(title="Add upload files", :files="fileList")
-    //-   input(type="file", ref="file")
-    //-   el-button(@click="test") 测试
     el-form-item(label="活动人数", prop="people")
       el-input(v-model.number="ruleForm.people")
     el-form-item(label="详细内容", prop="desc")
@@ -43,11 +40,13 @@
 <script>
 import OptionMenu from '@/components/common/OptionMenu'
 import DatePicker from 'iview/src/components/date-picker'
+// import ImageUpload from 'vue-core-image-upload'
 
 export default {
   components: {
     DatePicker,
     OptionMenu
+    // ImageUpload
   },
   props: {
     token: {
@@ -73,6 +72,7 @@ export default {
           wechat: '',     // 微信推送链接 (非必须)
           condition: '',  // 准入条件 (非必须) // welcome
           timeRange: '',
+          cover: '',
           options: [
             {
               name: '微信链接',
@@ -99,17 +99,24 @@ export default {
     }
   },
   methods: {
+    // imageuploading (res) {
+    //   let data = new FormData()
+    //   data.append('cover', res)
+    //   console.log(data.get('cover'))
+    //   this.$store.dispatch('UploadCover', {
+    //     id: this.roomInfo.id,
+    //     file: data
+    //   })
+    // },
     beforeUpload (file) {
-      // const upload = JSON.parse(JSON.stringify(file))
-      // console.log(upload)
+      let data = new FormData()
+      data.append('cover', file)
+      this.newCover = data
+      // console.log(data.get('cover'))
       // this.$store.dispatch('UploadCover', {
       //   id: this.roomInfo.id,
-      //   file: file
+      //   file: data
       // })
-    },
-    onProgress (e, file, fileList) {
-      console.log(file)
-      console.log(fileList)
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -120,9 +127,9 @@ export default {
           }
           let allData = this.ruleForm
           const collegesId = []
-          this.myColleges.map(item => {
-            item.toggle ? collegesId.push(Number(item.id)) : ''
-          })
+          for (let item of this.myColleges) {
+            if (item.toggle) collegesId.push(Number(item.id))
+          }
           if (!collegesId.length) {
             alert('准入学校至少填写1所')
             return false
@@ -143,7 +150,7 @@ export default {
             apply: allData.apply,
             show: allData.show
           }
-          this.$store.dispatch(this.dispatch, allData)
+          this.$store.dispatch(this.dispatch, {...allData, cover: this.newCover})
         } else {
           console.log('error submit!!')
           return false
@@ -158,9 +165,10 @@ export default {
     myColleges () {
       return this.initialData.colleges
     },
-    action () {
-      return this.roomInfo ? `/uniadmin/room/${this.roomInfo.id}/upload_cover` : ''
-    },
+    // action () {
+    //   // return this.roomInfo ? `/uniadmin/room/${this.roomInfo.id}/upload_cover` : ''
+    //   return 'https://jsonplaceholder.typicode.com/posts/'
+    // },
     cover () {
       return this.roomInfo ? this.roomInfo.cover : ''
     },
@@ -174,7 +182,9 @@ export default {
   },
   data () {
     return {
+      action: '//jsonplaceholder.typicode.com/posts/',
       fileList: [],
+      newCover: {},
       rules: {
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },

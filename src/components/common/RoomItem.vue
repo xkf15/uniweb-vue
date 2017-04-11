@@ -12,11 +12,13 @@
       .tags
         .tag(v-for="(tag, item) in roomInfo.labels") {{ tag.name_ch }}
       .icons
+        span.icon-item(v-if="host")
+          i.fa.fa-user-circle(aria-hidden="true")
         span.icon-item
-          i.fa.fa-comment-o(aria-hidden="true")
+          i.fa.fa-comments(aria-hidden="true")
           span 233
         span.icon-item
-          i.fa.fa-user-o(aria-hidden="true")
+          i.fa.fa-users(aria-hidden="true")
           span 233
 </template>
 
@@ -26,6 +28,10 @@ export default {
     roomInfo: {
       type: Object,
       default: []
+    },
+    host: {
+      type: Boolean,
+      default: false
     }
   },
   data () {

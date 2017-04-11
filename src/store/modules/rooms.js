@@ -6,12 +6,16 @@ const state = {
   searchRoomList: {
     showType: 'on',
     roomList: []
-  }
+  },
+  rooms: []
 }
 
 const mutations = {
   [types.GET_ROOMS] (state, data) {
     state.roomList = data
+  },
+  [types.GET_ROOM_LIST] (state, data) {
+    state.rooms = data
   },
   [types.CHANGE_DISPLAYED_ROOMS] (state, data) {
     state.searchRoomList = data

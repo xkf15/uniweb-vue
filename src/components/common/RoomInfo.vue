@@ -6,8 +6,9 @@
       //- el-button(type="text", @click="modify(index)") 修改
   el-row.box
     el-col(:span="leftSpan").box-item.title 房间海报
-    el-col(:span="24-leftSpan").box-item.content
-      img(:src="roomInfo.cover")
+    el-col(:span="24-leftSpan").box-item.cover
+      img(v-if="roomInfo.cover", :src="roomInfo.cover")
+      el-button(v-else, type="text", @click="$router.push('basic')") 没有上传照片，点此回到初始页面重新上传
   el-row.box
     el-col(:span="leftSpan").box-item.title 房间标签
     el-col(:span="24-leftSpan").box-item.content.colleges
@@ -76,6 +77,10 @@ export default {
   .box
     margin 10px
     border-bottom 1px solid #ddd
+    .cover
+      width 50%
+      img
+        width 100%
     .title, .content
       padding 10px 0
       font-size 14px

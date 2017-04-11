@@ -25,7 +25,6 @@ export default {
       options: JSON.parse(JSON.stringify(roomInfo.options ? roomInfo.options : '')),     // 微信推送链接 (非必须)
       colleges: [],    // 准入学校 // advertising
       timeRange: [roomInfo.date_time_start, roomInfo.date_time_end],
-      cover: {},
       show: roomInfo.show,
       apply: roomInfo.apply,
       tags: roomInfo.labels.map(item => Number(item.id))

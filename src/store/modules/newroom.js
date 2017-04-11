@@ -8,7 +8,8 @@ const getInfo = str => {
 
 const state = {
   basicInfo: getInfo('basic_info'),
-  memberInfo: getInfo('member_info')
+  memberInfo: getInfo('member_info'),
+  cover: ''
 }
 
 const mutations = {
@@ -19,6 +20,9 @@ const mutations = {
   [types.SET_MEMBER_INFO] (state, data) {
     sessionStorage.setItem('member_info', JSON.stringify(data))
     state.memberInfo = data
+  },
+  [types.SAVE_ROOM_COVER] (state, data) {
+    state.cover = data
   },
   [types.CLEAR_NEW_ROOM] (state) {
     sessionStorage.setItem('basic_info', null)

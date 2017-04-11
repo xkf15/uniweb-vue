@@ -55,6 +55,10 @@ export const UserExcel = ({commit}, roomId) => {
 export const UploadCover = ({commit}, data) => {
   return api.uploadCover(data).then(res => {
     console.log(res)
+    Vue.prototype.$message({
+      type: 'success',
+      message: '请求成功！'
+    })
   }, () => {
     Vue.prototype.$message.error('请求错误！')
   })
@@ -62,6 +66,7 @@ export const UploadCover = ({commit}, data) => {
 
 export const BasicInfo = ({commit}, data) => {
   commit(types.SET_BASIC_INFO, data)
+  commit(types.SAVE_ROOM_COVER, data.cover)
   router.push('member')
 }
 
@@ -77,18 +82,33 @@ export const GetInitialData = ({commit}) => {
   })
 }
 
-export const ModifyRoomInfo = ({commit}, data) => {
-  return api.modifyRoomInfo(data).then(res => {
+export const ModifyRoomInfo = async ({commit}, data) => {
+  try {
+    const file = data.cover
+    delete data.cover
+    const res = await api.modifyRoomInfo(data)
     if (res.status === 200) {
-      commit(types.MODIFY_ROOM_INFO, data)
-      Vue.prototype.$message('修改房间信息成功')
-      router.push('info')
+      if ('get' in file) {
+        const res = await api.uploadCover({ id: data.id, file: file })
+        if (res.status === 200) {
+          commit(types.MODIFY_ROOM_INFO, data)
+          Vue.prototype.$message('修改房间信息成功')
+          router.push('info')
+        } else {
+          Vue.prototype.$message.error('上传文件状态吗错误！')
+        }
+      } else {
+        commit(types.MODIFY_ROOM_INFO, data)
+        Vue.prototype.$message('修改房间信息成功')
+        router.push('info')
+      }
     } else {
-      Vue.prototype.$message.error('状态吗错误！')
+      Vue.prototype.$message.error('房间数据状态吗错误！')
     }
-  }, () => {
+  } catch (err) {
+    console.log(err)
     Vue.prototype.$message.error('请求错误！')
-  })
+  }
 }
 
 export const MemberInfo = ({commit}, data) => {
@@ -215,6 +235,22 @@ export const GetRooms = ({commit}) => {
   })
 }
 
+export const GetRoomList = ({commit}) => {
+  commit(types.SET_LOADING_TRUE)
+  return api.getRoomList().then(res => {
+    if (res.status === 200) {
+      commit(types.GET_ROOM_LIST, res.data)
+      commit(types.SET_LOADING_FALSE)
+    } else {
+      Vue.prototype.$message.error('')
+    }
+  }, err => {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误！')
+    commit(types.SET_LOADING_FALSE)
+  })
+}
+
 export const ChangeDisplayedRooms = ({commit}, data) => {
   commit(types.CHANGE_DISPLAYED_ROOMS, data)
 }
@@ -258,26 +294,40 @@ export const GetApplications = ({commit}, roomId) => {
   })
 }
 
-export const CreateRoom = ({commit}, data) => {
-  api.createRoom(data).then(res => {
-    if (res.status === 201) { // 如果成功
-      commit(types.CLEAR_NEW_ROOM)
-      Vue.prototype.$message('创建房间成功')
-    } else {
-      if (res.data.success) {
-        Vue.prototype.$message('创建房间成功')
+export const CreateRoom = async ({commit}, data) => {
+  try {
+    const file = data.cover
+    delete data.cover
+    const res = await api.createRoom(data)
+    console.log(res.data)
+    if (res.status === 201) {
+      if (file && ('get' in file)) {
+        const res2 = await api.uploadCover({ id: res.data, file: file })
+        if (res2.status === 200) {
+          // commit(types.CLEAR_NEW_ROOM)
+          commit(types.ADD_ROOM_COUNT)
+          Vue.prototype.$message('创建房间成功')
+        } else {
+          Vue.prototype.$message.error('上传图片状态码错误')
+        }
       } else {
-        Vue.prototype.$message.error('Status code is not matched')
+        // commit(types.CLEAR_NEW_ROOM)
+        commit(types.ADD_ROOM_COUNT)
+        Vue.prototype.$message('创建房间成功')
       }
+    } else {
+      Vue.prototype.$message.error('创建房间返回数据状态码错误')
     }
-  }, () => {
-    Vue.prototype.$message.error('请求错误！')
-  })
+  } catch (err) {
+    console.log(err)
+    Vue.prototype.$message.error('请求错误')
+  }
 }
 
 export const GetUserInfo = ({commit}) => { // 得到我的信息
   return api.getUserInfo().then(res => {
-    if (res.status) {
+    console.log(res.data)
+    if (res.status === 200) {
       commit(types.GET_USER_INFO, res.data)
     } else {
       Vue.prototype.$message.error('状态码错误')
